@@ -1,33 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Sockets;
+using FishingLine;
 using UnityEngine;
-
-public class FishingRod : MonoBehaviour
+namespace FishingRod
 {
-    private LineRenderer lineRenderer;
-
-    [SerializeField] private Vector2 downPos;
-    [SerializeField] private Vector2 upPos;
-    private Vector2 originPos;
-    private void Start()
+    public class FishingRod : MonoBehaviour
     {
-        originPos = transform.GetChild(0).transform.position;
+        public static FishingState state;
 
-        lineRenderer = GetComponentInChildren<LineRenderer>();
-        lineRenderer.SetPosition(0, originPos);
-        lineRenderer.SetPosition(1, lineRenderer.GetPosition(0) + new Vector3(0, downPos.y, 0));
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButton(0))
+        private void Update()
         {
-            lineRenderer.SetPosition(1, Vector2.Lerp(originPos + downPos, originPos + upPos, 0.00001f * Time.deltaTime));
-        }
-        if (Input.GetMouseButton(1))
-        {
-            lineRenderer.SetPosition(1, Vector2.Lerp(originPos + upPos, originPos + downPos, 1 * Time.deltaTime));
+            if (Input.GetMouseButtonDown(0))
+            {
+                switch (state)
+                {
+                    case FishingState.Idle:
+                        FishLine.instance.CastLine();
+                        break;
+                    case FishingState.Fishing:
+                        FishLine.instance.ResetPos();
+                        break;
+                }
+            }
         }
     }
 }
