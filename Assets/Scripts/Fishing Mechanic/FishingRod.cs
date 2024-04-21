@@ -1,25 +1,67 @@
 using FishingLine;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-namespace FishingRod
+namespace Fishing
 {
     public class FishingRod : MonoBehaviour
     {
-        public static FishingState state;
+        public static FishingRod instance;
+        public FishingRodStats currentStats;
+        public FishingState state;
+        [SerializeField] private GameObject fishSpotParticle;
 
+        private Coroutine fishingCoroutine;
+        private void Awake()
+        {
+            instance = this;
+        }
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            switch (state)
             {
-                switch (state)
-                {
-                    case FishingState.Idle:
-                        FishLine.instance.CastLine();
-                        break;
-                    case FishingState.Fishing:
-                        FishLine.instance.ResetPos();
-                        break;
-                }
+                case FishingState.Idle:
+                    Idle();
+                    break;
+                case FishingState.Fishing:
+                    Fishing();
+                    break;
             }
+        }
+        private void Fishing()
+        {
+            if (Clicked())
+            {
+                FishLine.instance.ResetPos();
+            }
+
+            if (fishingCoroutine == null)fishingCoroutine = StartCoroutine(GoFishing(currentStats));
+        }
+        private void Idle()
+        {
+            if (fishingCoroutine != null)
+            {
+                StopCoroutine(fishingCoroutine);
+                fishingCoroutine = null;
+            }
+            if (Clicked())
+            {
+                int rng = Random.Range(1, 6);
+                FishLine.instance.CastLine(rng);
+            }
+        }
+        private bool Clicked()
+        {
+            if (Input.GetMouseButtonDown(0)) return true;
+            return false;
+        }
+        private IEnumerator GoFishing(FishingRodStats stats)
+        {
+            yield return new WaitForSeconds(Random.Range(stats.minFishTime, stats.maxFishTime));
+            Instantiate(fishSpotParticle, FishLine.instance.transform.position, Quaternion.identity);
+
+            fishingCoroutine = null;
+            yield break;
         }
     }
 }

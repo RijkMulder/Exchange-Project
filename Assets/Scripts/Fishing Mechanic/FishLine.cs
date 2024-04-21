@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fishing;
+using Unity.VisualScripting;
 namespace FishingLine
 {
     [RequireComponent(typeof(LineRenderer), typeof(Animator))]
@@ -11,15 +13,15 @@ namespace FishingLine
         public LineRenderer line;
         public Animator animator;
 
-        [SerializeField] private List<AnimationClip> clips = new List<AnimationClip>();
         [SerializeField] private Transform fishingRodTop;
-        [SerializeField] private Transform hook;
         [SerializeField] private float moveBackTime;
 
+        private Vector3 startPos;
         private Coroutine moveCoroutine;
         private void Awake()
         {
             instance = this;
+            startPos = transform.position;
         }
         private void OnValidate()
         {
@@ -33,32 +35,35 @@ namespace FishingLine
         public void UpdatePos()
         {
             line.SetPosition(0, fishingRodTop.position);
-            line.SetPosition(1, hook.position);
+            line.SetPosition(1, transform.position);
         }
         public void ResetPos()
         {
             if (moveCoroutine != null) StopCoroutine(moveCoroutine);
-            moveCoroutine = StartCoroutine(MoveLineAsync(hook.position));
+            moveCoroutine = StartCoroutine(MoveLineAsync(startPos));
         }
-        public void CastLine()
+        public void CastLine(int type)
         {
-            int rng = Random.Range(1, 6);
-            animator.SetInteger("Random", rng);
-            //animator.SetInteger("Random", 0);
+            FishingRod.instance.state = FishingState.Fishing;
+            animator.SetInteger("Random", type);
         }
         private IEnumerator MoveLineAsync(Vector3 targetPos)
         {
+            animator.enabled = false;
             float t = 0;
             Vector3 startPos = line.GetPosition(1);
             while(t < moveBackTime)
             {
                 t += Time.deltaTime;
                 float prc = t / moveBackTime;
-                line.SetPosition(1, Vector3.Slerp(startPos, targetPos, prc));
+                Vector3 newPos = Vector3.Slerp(startPos, targetPos, prc);
+                transform.position = newPos;
                 yield return null;
             }
+            moveCoroutine = null;
+            FishingRod.instance.state = FishingState.Idle;
+            animator.enabled = true;
         }
-
     }
 }
 
