@@ -32,7 +32,7 @@ namespace Fishing
         {
             if (Clicked())
             {
-                FishLine.instance.ResetPos();
+                FishHook.instance.ResetPos();
             }
 
             if (fishingCoroutine == null)fishingCoroutine = StartCoroutine(GoFishing(currentStats));
@@ -46,8 +46,7 @@ namespace Fishing
             }
             if (Clicked())
             {
-                int rng = Random.Range(1, 6);
-                FishLine.instance.CastLine(rng);
+                FishHook.instance.CastLine();
             }
         }
         private bool Clicked()
@@ -58,7 +57,7 @@ namespace Fishing
         private IEnumerator GoFishing(FishingRodStats stats)
         {
             yield return new WaitForSeconds(Random.Range(stats.minFishTime, stats.maxFishTime));
-            Instantiate(fishSpotParticle, FishLine.instance.transform.position, Quaternion.identity);
+            Instantiate(fishSpotParticle, FishHook.instance.transform.position, Quaternion.identity);
 
             fishingCoroutine = null;
             yield break;

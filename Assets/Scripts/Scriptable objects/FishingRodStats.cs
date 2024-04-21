@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Fish/New rod", fileName = "FishingRodData")]
 public class FishingRodStats : ScriptableObject
 {
     [Header("Base levels")]
