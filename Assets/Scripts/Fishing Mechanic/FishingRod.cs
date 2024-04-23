@@ -7,14 +7,32 @@ namespace Fishing
     public class FishingRod : MonoBehaviour
     {
         public static FishingRod instance;
-        public FishingRodStats currentStats;
         public FishingState state;
+
         [SerializeField] private GameObject fishSpotParticle;
+
+        [Header("Probabilities")]
+        public Dictionary<EFishType, float> Probabilities = new Dictionary<EFishType, float>
+{
+    { EFishType.Common, 80f },
+    { EFishType.Uncommon, 15f },
+    { EFishType.Salmonific, 10f },
+    { EFishType.Fintastic, 5f },
+    { EFishType.Marlinificent, 1f }
+};
+
+        [Header("setttings")]
+        public float minFishTime;
+        public float maxFishTime;
 
         private Coroutine fishingCoroutine;
         private void Awake()
         {
             instance = this;
+        }
+        private void Start()
+        {
+            FishingMiniGameManager.instance.OnFishCaught += () => ChangeState(FishingState.Caught);
         }
         private void Update()
         {
@@ -35,7 +53,7 @@ namespace Fishing
                 FishHook.instance.ResetPos();
             }
 
-            if (fishingCoroutine == null)fishingCoroutine = StartCoroutine(GoFishing(currentStats));
+            if (fishingCoroutine == null)fishingCoroutine = StartCoroutine(GoFishing());
         }
         private void Idle()
         {
@@ -54,13 +72,17 @@ namespace Fishing
             if (Input.GetMouseButtonDown(0)) return true;
             return false;
         }
-        private IEnumerator GoFishing(FishingRodStats stats)
+        private IEnumerator GoFishing()
         {
-            yield return new WaitForSeconds(Random.Range(stats.minFishTime, stats.maxFishTime));
+            yield return new WaitForSeconds(Random.Range(minFishTime, maxFishTime));
             Instantiate(fishSpotParticle, FishHook.instance.transform.position, Quaternion.identity);
-
+            FishingMiniGameManager.instance.FishCaught();
             fishingCoroutine = null;
             yield break;
+        }
+        public void ChangeState(FishingState newState)
+        {
+            state = newState;
         }
     }
 }

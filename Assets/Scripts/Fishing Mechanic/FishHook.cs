@@ -42,11 +42,11 @@ namespace FishingLine
         {
             if (moveCoroutine != null) StopCoroutine(moveCoroutine);
             moveCoroutine = StartCoroutine(MoveLineAsync(startPos));
-            FishingRod.instance.state = FishingState.Idle;
+            FishingRod.instance.ChangeState(FishingState.Idle);
         }
         public void CastLine()
         {
-            FishingRod.instance.state = FishingState.Fishing;
+            FishingRod.instance.ChangeState(FishingState.Fishing);
 
             Vector2 mousePos = Input.mousePosition;
             Vector3 mouseWolrdPos = Camera.main.ScreenToWorldPoint(mousePos);

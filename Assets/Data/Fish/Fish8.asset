@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9dc0e82e8c2d9846a03f01c16c93b0f, type: 3}
-  m_Name: BaseFIshingRod
+  m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
+  m_Name: Fish8
   m_EditorClassIdentifier: 
-  baseLuck: 1
-  baseFishLevel: 1
-  maxLuckLevel: 10
-  maxFishLevel: 10
-  minFishTime: 3
-  maxFishTime: 5
+  fishName: Salmonific1
+  type: 3
+  chipCount: 10
+  chance: 90
+  spinAmnt: 0
+  fishSprite: {fileID: 0}
+  fishUnknownSprite: {fileID: 0}
