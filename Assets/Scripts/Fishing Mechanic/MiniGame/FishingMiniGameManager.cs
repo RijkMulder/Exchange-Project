@@ -1,10 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Fishing
 {
@@ -14,15 +9,16 @@ namespace Fishing
         public static FishingMiniGameManager instance;
 
         // fish
-        [SerializeField] private List<FishType> fish = new List<FishType>();
         [SerializeField] private List<List<FishType>> FishLists = new List<List<FishType>>();
 
         // objs
         [SerializeField] private GameObject miniGameInstanceObj;
 
         // events
-        public delegate void FishingMiniGameDelegate();
+        public delegate void FishingMiniGameDelegate(FishType fish);
+        public event FishingMiniGameDelegate OnFishMinigame;
         public event FishingMiniGameDelegate OnFishCaught;
+        public event FishingMiniGameDelegate OnContinueFishing;
 
         // fish rarities lists
         private List<FishType> common = new List<FishType>();
@@ -31,14 +27,19 @@ namespace Fishing
         private List<FishType> fintastic = new List<FishType>();
         private List<FishType> marlinificent = new List<FishType>();
 
+        private FishType newFish;
+
         private void Awake()
         {
             instance = this;
         }
         private void Start()
         {
-            foreach (var f in fish) 
+            FishType[] allFish = Resources.LoadAll<FishType>("Data/Fish");
+
+            foreach (var f in allFish) 
             {
+                Debug.Log(f);
                 switch (f.type)
                 {
                     case EFishType.Common:
@@ -66,15 +67,27 @@ namespace Fishing
         }
         public void FishCaught()
         {
-            OnFishCaught?.Invoke();
+            // get fish
             List<FishType> fish = FishLists[GetFishType()];
-            MiniGameInstance.instance.Initialize(fish[Random.Range(0, fish.Count)]);
+            newFish = fish[Random.Range(0, fish.Count)];
+
+            // turn mini game window on
+            transform.GetChild(0).gameObject.SetActive(true);
+
+            // invoke mini game
+            OnFishMinigame?.Invoke(newFish);
+        }
+        public void ContinueFishing(bool succes)
+        {
+            if (!succes)OnContinueFishing?.Invoke(newFish);
+            if (succes)OnFishCaught?.Invoke(newFish);
+            transform.GetChild(0).gameObject.SetActive(false);
         }
         private int GetFishType()
         {
             // get probabilities
             List<float> probabilities = new List<float>();
-            foreach (KeyValuePair<EFishType, float> fish in FishingRod.instance.Probabilities)
+            foreach (KeyValuePair<EFishType, int> fish in FishingRod.instance.fishProbabilities)
             {
                 probabilities.Add(fish.Value);
             }

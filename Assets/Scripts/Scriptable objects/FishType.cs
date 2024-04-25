@@ -12,7 +12,7 @@ public class FishType : ScriptableObject
 
     [Header("Difficulty")]
     [Tooltip("How big is the area you can land in?")][Range(0, 360)] public float chance;
-    [Tooltip("How many spins to catch?")]public int spinAmnt;
+    [Tooltip("How many spins to catch?")][Range(1, 5)]public int spinAmnt;
 
     [Header("Visual")]
     public Sprite fishSprite;

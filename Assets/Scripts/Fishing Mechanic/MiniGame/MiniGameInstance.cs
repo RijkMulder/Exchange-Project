@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,31 +11,82 @@ namespace Fishing
     {
         public static MiniGameInstance instance;
 
+        [Header("Refrences")]
+        [SerializeField] private Radial mainRadial;
+        [SerializeField] private Radial smallRadial;
         [SerializeField] private Radial radialPrefab;
-        [Tooltip("The amount of space the small radial takes up of the big radial.")][Range(1, 50)][SerializeField] private float smallRadialPrc;
+        [SerializeField] private Image spriteHolder;
 
-        private Radial mainRadial;
-        private Radial smallRadial;
+        [Header("Radial Settings")]
+        [Range(1, 50)]
+        [SerializeField] private float smallRadialPrc;
+
+        [Header("Spinner")]
+        [SerializeField] private GameObject spinner;
+        public float spinnerDegrees;
+
+        [Header("State")]
+        [SerializeField] private FishType currentFish;
+        private bool spinning;
+
         private void Awake()
         {
+            FishingMiniGameManager.instance.OnFishMinigame += (FishType fish) => Initialize(fish);
             instance = this;
         }
         public void Initialize(FishType fish)
         {
-            Clear();
+            Debug.Log(" je dikke homo vader");
+            currentFish = fish;
             // main radial
-            mainRadial = Instantiate(radialPrefab, FishingMiniGameManager.instance.transform.position, Quaternion.identity, transform);
             mainRadial.Initialize(fish.chance, new Color(0, 0, 0));
 
             // small radial
-            smallRadial = Instantiate(radialPrefab, FishingMiniGameManager.instance.transform.position, Quaternion.identity, transform);
             smallRadial.Initialize(fish.chance / 100 * smallRadialPrc, new Color(255, 0, 0));
 
+            // sprite
+            spriteHolder.sprite = fish.fishSprite;
+
+            spinning = true;
         }
-        private void Clear()
+        private void Update()
         {
-            Destroy(mainRadial);
-            Destroy(smallRadial);
+            // check hit
+            if (spinning && Input.GetMouseButtonDown(0))
+            {
+                float[] radial = new float[] { currentFish.chance, currentFish.chance / 100 * smallRadialPrc };
+                ESkillCheckType type = SkillCheck(radial, spinner.transform.eulerAngles.z);
+
+                switch (type)
+                {
+                    case ESkillCheckType.Miss:
+                        FishingMiniGameManager.instance.ContinueFishing(false);
+                        break;
+                    case ESkillCheckType.HitMain:
+                        FishingMiniGameManager.instance.ContinueFishing(true);
+                        spinning = false;
+                        break;
+                    case ESkillCheckType.HitSmall:
+                        FishingMiniGameManager.instance.ContinueFishing(true);
+                        spinning = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        private ESkillCheckType SkillCheck(float[] radialDegrees, float degrees)
+        {
+            if (degrees < radialDegrees[0])
+            {
+                if (degrees < radialDegrees[1]) return ESkillCheckType.HitSmall;
+                return ESkillCheckType.HitMain;
+            }
+            return ESkillCheckType.Miss;
+        }
+        private void FixedUpdate()
+        {
+           if (spinning) spinner.transform.Rotate(Vector3.forward * spinnerDegrees * Time.deltaTime);
         }
     }
 }

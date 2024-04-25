@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
-  m_Name: Fish7
+  m_Name: Fish4
   m_EditorClassIdentifier: 
-  fishName: Fishtastic1
+  fishName: DrillShark
   type: 2
   chipCount: 10
   chance: 90
   spinAmnt: 0
-  fishSprite: {fileID: 0}
+  fishSprite: {fileID: 21300000, guid: b69d317742b689e4a855169ca3abe362, type: 3}
   fishUnknownSprite: {fileID: 0}
