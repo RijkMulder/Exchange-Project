@@ -56,6 +56,8 @@ namespace Fishing
                     Fishing();
                     Try();
                     break;
+                case FishingState.Caught:
+                    break;
             }
         }
         private void Fishing()
@@ -108,7 +110,6 @@ namespace Fishing
             // after particle, catch fish
             yield return new WaitForSeconds(waitTime / 2);
             caught = false;
-            ChangeState(FishingState.Fishing);
             fishingCoroutine = null;
             yield break;
         }

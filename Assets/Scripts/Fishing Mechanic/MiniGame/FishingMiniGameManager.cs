@@ -39,7 +39,6 @@ namespace Fishing
 
             foreach (var f in allFish) 
             {
-                Debug.Log(f);
                 switch (f.type)
                 {
                     case EFishType.Common:

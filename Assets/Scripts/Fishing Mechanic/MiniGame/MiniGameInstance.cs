@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Fishing
+namespace Fishing.Minigame
 {
     public class MiniGameInstance : MonoBehaviour
     {
@@ -20,15 +17,24 @@ namespace Fishing
         [Header("Radial Settings")]
         [Range(1, 50)]
         [SerializeField] private float smallRadialPrc;
+        
 
         [Header("Spinner")]
         [SerializeField] private GameObject spinner;
-        public float spinnerDegrees;
+        [SerializeField] private float spinnerDegrees;
+        [SerializeField] private float spinnerResetTime;
 
         [Header("State")]
         [SerializeField] private FishType currentFish;
-        private bool spinning;
 
+        // event
+        public delegate void MiniGameDelegate(int amnt);
+        public event MiniGameDelegate OnInitialize;
+        public event MiniGameDelegate OnSpinnerHit;
+
+        // private
+        private bool spinning;
+        private int hitAmntRemain;
         private void Awake()
         {
             FishingMiniGameManager.instance.OnFishMinigame += (FishType fish) => Initialize(fish);
@@ -36,13 +42,14 @@ namespace Fishing
         }
         public void Initialize(FishType fish)
         {
-            Debug.Log(" je dikke homo vader");
+            OnInitialize?.Invoke(fish.hitAmnt);
             currentFish = fish;
+            hitAmntRemain = fish.hitAmnt;
             // main radial
-            mainRadial.Initialize(fish.chance, new Color(0, 0, 0));
+            mainRadial.Initialize(fish.chance);
 
             // small radial
-            smallRadial.Initialize(fish.chance / 100 * smallRadialPrc, new Color(255, 0, 0));
+            smallRadial.Initialize(fish.chance / 100 * smallRadialPrc);
 
             // sprite
             spriteHolder.sprite = fish.fishSprite;
@@ -60,20 +67,37 @@ namespace Fishing
                 switch (type)
                 {
                     case ESkillCheckType.Miss:
+                        spinning = false;
                         FishingMiniGameManager.instance.ContinueFishing(false);
                         break;
                     case ESkillCheckType.HitMain:
-                        FishingMiniGameManager.instance.ContinueFishing(true);
-                        spinning = false;
+                        Hit(type);
                         break;
                     case ESkillCheckType.HitSmall:
-                        FishingMiniGameManager.instance.ContinueFishing(true);
-                        spinning = false;
-                        break;
-                    default:
+                        Hit(type);
                         break;
                 }
             }
+        }
+        private void Hit(ESkillCheckType type)
+        {
+            hitAmntRemain--;
+            OnSpinnerHit?.Invoke(hitAmntRemain);
+            if (hitAmntRemain == 0 || type == ESkillCheckType.HitSmall) FishingMiniGameManager.instance.ContinueFishing(true);
+            if (gameObject.activeInHierarchy) StartCoroutine(ResetSpinner());
+        }
+        private IEnumerator ResetSpinner()
+        {
+            spinning = false;
+            float t = 0;
+            while (t < spinnerResetTime)
+            {
+                t += Time.deltaTime;
+                float prc = t / spinnerResetTime;
+                spinner.transform.Rotate(Vector3.forward * spinnerDegrees * Time.deltaTime, t);
+                yield return null;
+            }
+            spinning = true;
         }
         private ESkillCheckType SkillCheck(float[] radialDegrees, float degrees)
         {
