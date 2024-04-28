@@ -10,6 +10,7 @@ namespace Fishing.Minigame
         private List<Toggle> toggles = new List<Toggle>();
         private void Awake()
         {
+            Debug.Log("kanker");
             MiniGameInstance miniGame = MiniGameInstance.instance;
             miniGame.OnInitialize += (int amnt) => Initialize(amnt);
             miniGame.OnSpinnerHit += (int amnt) => UpdateVisuals(amnt);

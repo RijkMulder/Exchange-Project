@@ -35,6 +35,7 @@ namespace Fishing
         }
         private void Start()
         {
+            transform.GetChild(0).gameObject.SetActive(false);
             FishType[] allFish = Resources.LoadAll<FishType>("Data/Fish");
 
             foreach (var f in allFish) 
