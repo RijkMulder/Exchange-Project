@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using Events;
 using FishingLine;
 using Player.Inventory;
+using Unity.VisualScripting;
+
 namespace Fishing
 {
     public class FishingRod : MonoBehaviour, IDamageable
@@ -18,6 +20,7 @@ namespace Fishing
 
         [Header("Fish Probabilities")]
         public Dictionary<EFishType, int> fishProbabilities = new Dictionary<EFishType, int>();
+        public Rarity[] rarities;
 
         [Header("Fishing Settings")]
         public float minFishTime;
@@ -28,7 +31,6 @@ namespace Fishing
         [SerializeField] private int health;
 
         private Coroutine fishingCoroutine;
-        [SerializeField] private FishProbabilities fishProbabilitiesdata;
 
         private bool caught = false;
         private FishType currentFish;
@@ -99,7 +101,7 @@ namespace Fishing
         }
         private IEnumerator GoFishing()
         {
-            float waitTime = Random.Range(minFishTime, maxFishTime);
+            float waitTime = UnityEngine.Random.Range(minFishTime, maxFishTime);
             // wait half time for particle
             yield return new WaitForSeconds(waitTime / 2);
             GameObject obj = Instantiate(fishSpotParticle, FishHook.instance.transform.position, Quaternion.identity);
@@ -114,10 +116,11 @@ namespace Fishing
         }
         private void SetProbabilities()
         {
-            int[] probs = new int[] { fishProbabilitiesdata.common, fishProbabilitiesdata.uncommon, 
-                fishProbabilitiesdata.salmonific, fishProbabilitiesdata.fintastic, 
-                fishProbabilitiesdata.marlinificent };
-            for (int i = 0; i < probs.Length; i++) { fishProbabilities[(EFishType)i] = probs[i]; }
+            fishProbabilities.Clear();
+            foreach (Rarity rarity in rarities)
+            {
+                fishProbabilities.Add(rarity.rarity, rarity.probability);
+            }
         }
         public void ChangeState(FishingState newState, FishType fish = null)
         {

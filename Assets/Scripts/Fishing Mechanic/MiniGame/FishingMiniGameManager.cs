@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Events;
+using System.Linq;
 
 namespace Fishing
 {
@@ -9,20 +10,11 @@ namespace Fishing
         // singleton
         public static FishingMiniGameManager instance;
 
-        // fish
-        [SerializeField]private List<List<FishType>> FishLists = new List<List<FishType>>();
-
         // objs
         [SerializeField] private GameObject miniGameInstanceObj;
 
-        // fish rarities lists
-        private List<FishType> common = new List<FishType>();
-        private List<FishType> uncommon = new List<FishType>();
-        private List<FishType> salmonific = new List<FishType>();
-        private List<FishType> fintastic = new List<FishType>();
-        private List<FishType> marlinificent = new List<FishType>();
-
         private FishType newFish;
+        private FishType[] allFish;
 
         private void Awake()
         {
@@ -30,40 +22,24 @@ namespace Fishing
         }
         private void Start()
         {
-            FishType[] allFish = Resources.LoadAll<FishType>("Data/Fish");
-
-            foreach (var f in allFish) 
-            {
-                switch (f.type)
-                {
-                    case EFishType.Common:
-                        common.Add(f);
-                        break;
-                    case EFishType.Uncommon:
-                        uncommon.Add(f);
-                        break;
-                    case EFishType.Fintastic:
-                        fintastic.Add(f);
-                        break;
-                    case EFishType.Salmonific:
-                        salmonific.Add(f);
-                        break;
-                    case EFishType.Marlinificent:
-                        marlinificent.Add(f);
-                        break;
-                }
-            }
-            FishLists.Add(common);
-            FishLists.Add(uncommon);
-            FishLists.Add(salmonific);
-            FishLists.Add(fintastic);
-            FishLists.Add(marlinificent);
+            allFish = Resources.LoadAll<FishType>("Data/Fish");
         }
         public void FishCaught()
         {
             // get fish
-            List<FishType> fish = FishLists[GetFishType()];
-            newFish = fish[Random.Range(0, fish.Count)];
+            EFishType[] keys = FishingRod.instance.fishProbabilities.Keys.ToArray();
+
+            EFishType rarity = keys[GetFishType()];
+            List<FishType> fishFromRarity = new List<FishType>();
+            for (int i = 0; i < allFish.Length; i++)
+            {
+                if (allFish[i].type == rarity) fishFromRarity.Add(allFish[i]);
+            }
+            for (int i = 0; i < fishFromRarity.Count; i++)
+            {
+                Debug.Log(fishFromRarity[i].fishName);
+            }
+            newFish = fishFromRarity[Random.Range(0, fishFromRarity.Count)];
 
             // turn mini game window on
             transform.GetChild(0).gameObject.SetActive(true);

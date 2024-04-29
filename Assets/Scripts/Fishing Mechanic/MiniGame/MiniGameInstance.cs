@@ -89,8 +89,8 @@ namespace Fishing.Minigame
             while (t < spinnerResetTime)
             {
                 t += Time.deltaTime;
-                float prc = t / spinnerResetTime;
-                spinner.transform.Rotate(Vector3.forward * spinnerDegrees * Time.deltaTime, prc);
+                float speed = spinnerDegrees * Time.deltaTime;
+                spinner.transform.Rotate(Vector3.forward * speed * 3);
                 yield return null;
             }
             spinning = true;
