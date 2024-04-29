@@ -1,6 +1,8 @@
+using System;
 using System.Net.Http.Headers;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Fish/New fish type", fileName = "FishType")]
+[Serializable]
 public class FishType : ScriptableObject
 {
     [Header("Name")]

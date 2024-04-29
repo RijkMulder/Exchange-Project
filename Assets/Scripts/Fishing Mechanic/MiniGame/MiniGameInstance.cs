@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Events;
 
 namespace Fishing.Minigame
 {
@@ -27,22 +28,17 @@ namespace Fishing.Minigame
         [Header("State")]
         [SerializeField] private FishType currentFish;
 
-        // event
-        public delegate void MiniGameDelegate(int amnt);
-        public event MiniGameDelegate OnInitialize;
-        public event MiniGameDelegate OnSpinnerHit;
-
         // private
         private bool spinning;
         private int hitAmntRemain;
         private void Awake()
         {
-            FishingMiniGameManager.instance.OnFishMinigame += (FishType fish) => Initialize(fish);
+            EventManager.FishMiniGameStart += (FishType fish) => Initialize(fish);
             instance = this;
         }
         public void Initialize(FishType fish)
         {
-            OnInitialize?.Invoke(fish.hitAmnt);
+            EventManager.OnInitializeMinigame(fish.hitAmnt);
             currentFish = fish;
             hitAmntRemain = fish.hitAmnt;
             // main radial
@@ -82,7 +78,7 @@ namespace Fishing.Minigame
         private void Hit(ESkillCheckType type)
         {
             hitAmntRemain--;
-            OnSpinnerHit?.Invoke(hitAmntRemain);
+            EventManager.OnSpinnerHit(hitAmntRemain);
             if (hitAmntRemain == 0 || type == ESkillCheckType.HitSmall) FishingMiniGameManager.instance.ContinueFishing(true);
             if (gameObject.activeInHierarchy) StartCoroutine(ResetSpinner());
         }
@@ -94,7 +90,7 @@ namespace Fishing.Minigame
             {
                 t += Time.deltaTime;
                 float prc = t / spinnerResetTime;
-                spinner.transform.Rotate(Vector3.forward * spinnerDegrees * Time.deltaTime, t);
+                spinner.transform.Rotate(Vector3.forward * spinnerDegrees * Time.deltaTime, prc);
                 yield return null;
             }
             spinning = true;

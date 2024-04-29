@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// my namespaces
+// my name spaces
+using Events;
 using FishingLine;
 using Player.Inventory;
 namespace Fishing
@@ -25,7 +26,6 @@ namespace Fishing
         [Header("Health")]
         [SerializeField] private int maxHealth;
         [SerializeField] private int health;
-        [SerializeField] private Image healthBar;
 
         private Coroutine fishingCoroutine;
         [SerializeField] private FishProbabilities fishProbabilitiesdata;
@@ -40,9 +40,9 @@ namespace Fishing
         {
             health = maxHealth;
 
-            FishingMiniGameManager.instance.OnFishMinigame += (FishType fish) => ChangeState(FishingState.Caught, fish);
-            FishingMiniGameManager.instance.OnContinueFishing += (FishType fish) => OnTriedCatch(false, fish);
-            FishingMiniGameManager.instance.OnFishCaught += (FishType fish) => OnTriedCatch(true, fish);
+            EventManager.FishMiniGameStart += (FishType fish) => ChangeState(FishingState.Caught, fish);
+            EventManager.ContinueFishing += (FishType fish) => OnTriedCatch(false, fish);
+            EventManager.FishCaught += (FishType fish) => OnTriedCatch(true, fish);
             SetProbabilities();
         }
         private void Update()
@@ -92,7 +92,6 @@ namespace Fishing
             if (!succes) ChangeState(FishingState.Fishing);
             else { FishHook.instance.ResetPos(); Inventory.instance.Add(type); }
         }
-
         private bool Clicked()
         {
             if (Input.GetMouseButtonDown(0)) return true;
@@ -125,12 +124,18 @@ namespace Fishing
             if (state == FishingState.Caught && fish != null) currentFish = fish;
             state = newState;
         }
-
         public void ChangeHealth(int value)
         {
             health += value;
-            healthBar.fillAmount = Mathf.Clamp((float)health / (float)maxHealth, 0, 1);
+            EventManager.OnHealthChanged((float)health, (float)maxHealth);
             if (health <= 0) Destroy(gameObject);
+        }
+        private void OnDisable()
+        {
+            // unsubscribe from events
+            EventManager.FishMiniGameStart -= (FishType fish) => ChangeState(FishingState.Caught, fish);
+            EventManager.ContinueFishing -= (FishType fish) => OnTriedCatch(false, fish);
+            EventManager.FishCaught -= (FishType fish) => OnTriedCatch(true, fish);
         }
     }
 }

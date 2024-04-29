@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Events;
 
 namespace Fishing
 {
@@ -9,16 +10,10 @@ namespace Fishing
         public static FishingMiniGameManager instance;
 
         // fish
-        [SerializeField] private List<List<FishType>> FishLists = new List<List<FishType>>();
+        [SerializeField]private List<List<FishType>> FishLists = new List<List<FishType>>();
 
         // objs
         [SerializeField] private GameObject miniGameInstanceObj;
-
-        // events
-        public delegate void FishingMiniGameDelegate(FishType fish);
-        public event FishingMiniGameDelegate OnFishMinigame;
-        public event FishingMiniGameDelegate OnFishCaught;
-        public event FishingMiniGameDelegate OnContinueFishing;
 
         // fish rarities lists
         private List<FishType> common = new List<FishType>();
@@ -35,7 +30,6 @@ namespace Fishing
         }
         private void Start()
         {
-            transform.GetChild(0).gameObject.SetActive(false);
             FishType[] allFish = Resources.LoadAll<FishType>("Data/Fish");
 
             foreach (var f in allFish) 
@@ -75,12 +69,12 @@ namespace Fishing
             transform.GetChild(0).gameObject.SetActive(true);
 
             // invoke mini game
-            OnFishMinigame?.Invoke(newFish);
+            EventManager.OnFishMiniGameStart(newFish);
         }
         public void ContinueFishing(bool succes)
         {
-            if (!succes)OnContinueFishing?.Invoke(newFish);
-            if (succes)OnFishCaught?.Invoke(newFish);
+            if (!succes) EventManager.OnContinueFishing(newFish);
+            if (succes) EventManager.OnFishCaught(newFish);
             transform.GetChild(0).gameObject.SetActive(false);
         }
         private int GetFishType()

@@ -393,7 +393,6 @@ MonoBehaviour:
   maxFishTime: 5
   maxHealth: 25
   health: 0
-  healthBar: {fileID: 1925800229}
   fishProbabilitiesdata:
     common: 80
     uncommon: 15
@@ -755,7 +754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &371513391
 Transform:
   m_ObjectHideFlags: 0
@@ -1455,7 +1454,7 @@ MonoBehaviour:
   smallRadialPrc: 5
   spinner: {fileID: 1879003318}
   spinnerDegrees: 100
-  spinnerResetTime: 1
+  spinnerResetTime: 0.5
   currentFish: {fileID: 0}
 --- !u!4 &1363146209
 Transform:
@@ -2098,6 +2097,7 @@ GameObject:
   - component: {fileID: 1925800228}
   - component: {fileID: 1925800230}
   - component: {fileID: 1925800229}
+  - component: {fileID: 1925800231}
   m_Layer: 0
   m_Name: HealthBar
   m_TagString: Untagged
@@ -2162,6 +2162,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925800227}
   m_CullTransparentMesh: 1
+--- !u!114 &1925800231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925800227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0fc5f3cee1acf4b9eb0da97b1840f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2115742154
 GameObject:
   m_ObjectHideFlags: 0
