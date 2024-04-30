@@ -13,6 +13,8 @@ namespace Fishing
         // objs
         [SerializeField] private GameObject miniGameInstanceObj;
 
+        // fish
+        private List<List<FishType>> fishLists = new List<List<FishType>>();
         private FishType newFish;
         private FishType[] allFish;
 
@@ -23,23 +25,24 @@ namespace Fishing
         private void Start()
         {
             allFish = Resources.LoadAll<FishType>("Data/Fish");
+
+            // dynamically make a list for every rarity type
+            foreach (KeyValuePair<EFishType, int> fish in FishingRod.instance.fishProbabilities)
+            {
+                EFishType rarity = fish.Key;
+                List<FishType> currentFishRarity = new List<FishType>();
+                for (int i = 0; i < allFish.Length; i++)
+                {
+                    if (allFish[i].type == rarity) currentFishRarity.Add(allFish[i]);
+                }
+                fishLists.Add(currentFishRarity);
+            }
         }
         public void FishCaught()
         {
             // get fish
-            EFishType[] keys = FishingRod.instance.fishProbabilities.Keys.ToArray();
-
-            EFishType rarity = keys[GetFishType()];
-            List<FishType> fishFromRarity = new List<FishType>();
-            for (int i = 0; i < allFish.Length; i++)
-            {
-                if (allFish[i].type == rarity) fishFromRarity.Add(allFish[i]);
-            }
-            for (int i = 0; i < fishFromRarity.Count; i++)
-            {
-                Debug.Log(fishFromRarity[i].fishName);
-            }
-            newFish = fishFromRarity[Random.Range(0, fishFromRarity.Count)];
+            int random = GetFishType();
+            newFish = fishLists[random][Random.Range(0, fishLists[random].Count)];
 
             // turn mini game window on
             transform.GetChild(0).gameObject.SetActive(true);
