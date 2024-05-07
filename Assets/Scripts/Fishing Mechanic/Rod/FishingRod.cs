@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 // my name spaces
 using Events;
 using FishingLine;
 using Player.Inventory;
-using Unity.VisualScripting;
 
 namespace Fishing
 {
@@ -41,12 +39,37 @@ namespace Fishing
         private void Start()
         {
             health = maxHealth;
-
-            EventManager.FishMiniGameStart += (FishType fish) => ChangeState(FishingState.Caught, fish);
-            EventManager.ContinueFishing += (FishType fish) => OnTriedCatch(false, fish);
-            EventManager.FishCaught += (FishType fish) => OnTriedCatch(true, fish);
             SetProbabilities();
         }
+        private void OnEnable()
+        {
+            EventManager.FishMiniGameStart += OnFishMiniGameStart;
+            EventManager.ContinueFishing += OnContinueFishing;
+            EventManager.FishCaught += OnFishCaught;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.FishMiniGameStart -= OnFishMiniGameStart;
+            EventManager.ContinueFishing -= OnContinueFishing;
+            EventManager.FishCaught -= OnFishCaught;
+        }
+
+        private void OnFishMiniGameStart(FishType fish)
+        {
+            ChangeState(FishingState.Caught, fish);
+        }
+
+        private void OnContinueFishing(FishType fish)
+        {
+            OnTriedCatch(false, fish);
+        }
+
+        private void OnFishCaught(FishType fish)
+        {
+            OnTriedCatch(true, fish);
+        }
+
         private void Update()
         {
             switch (state)
@@ -132,13 +155,6 @@ namespace Fishing
             health += value;
             EventManager.OnHealthChanged((float)health, (float)maxHealth);
             if (health <= 0) Destroy(gameObject);
-        }
-        private void OnDisable()
-        {
-            // unsubscribe from events
-            EventManager.FishMiniGameStart -= (FishType fish) => ChangeState(FishingState.Caught, fish);
-            EventManager.ContinueFishing -= (FishType fish) => OnTriedCatch(false, fish);
-            EventManager.FishCaught -= (FishType fish) => OnTriedCatch(true, fish);
         }
     }
 }

@@ -11,11 +11,11 @@ public class RodHealthBar : MonoBehaviour
     }
     private void OnEnable()
     {
-        EventManager.PlayerHealthUpdate += (float v, float m) => UpdateHealthBar(v, m);
+        EventManager.PlayerHealthUpdate += UpdateHealthBar;
     }
     private void OnDisable()
     {
-        EventManager.PlayerHealthUpdate -= (float v, float m) => UpdateHealthBar(v, m); 
+        EventManager.PlayerHealthUpdate -= UpdateHealthBar; 
     }
     private void UpdateHealthBar(float value, float max)
     {
