@@ -366,7 +366,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 519119113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9b206c6cb3914a1d95c6a5707bad8c8, type: 3}
+  m_Script: {fileID: 11500000, guid: f5cea91b20e7e004fb0d1ca653c5919f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   columns: 3
@@ -376,6 +376,7 @@ MonoBehaviour:
   - {fileID: 2180423405857332280, guid: 0a9c20e04d8a745198fc15104a0198fa, type: 3}
   - {fileID: 4668272290638120445, guid: a4ef796ca615643c79b9c71a0df891c5, type: 3}
   - {fileID: 2914606707732997109, guid: 294e9e09e677a48a18a35c13776567c1, type: 3}
+  - {fileID: 6761037865541264340, guid: 2e36893f1c6f34e6ba7f82c29f9a1b81, type: 3}
   spinCountText: {fileID: 1750499869}
   winCountText: {fileID: 2136438411}
   chipCountText: {fileID: 680712185}

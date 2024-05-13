@@ -1,6 +1,8 @@
+using System;
 using System.Net.Http.Headers;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Fish/New fish type", fileName = "FishType")]
+[Serializable]
 public class FishType : ScriptableObject
 {
     [Header("Name")]
@@ -12,7 +14,7 @@ public class FishType : ScriptableObject
 
     [Header("Difficulty")]
     [Tooltip("How big is the area you can land in?")][Range(0, 360)] public float chance;
-    [Tooltip("How many spins to catch?")][Range(1, 5)]public int spinAmnt;
+    [Tooltip("How many spins to catch?")][Range(1, 5)]public int hitAmnt;
 
     [Header("Visual")]
     public Sprite fishSprite;

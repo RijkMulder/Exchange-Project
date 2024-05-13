@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-// my namespaces
+// my name spaces
+using Events;
 using FishingLine;
 using Player.Inventory;
+
 namespace Fishing
 {
     public class FishingRod : MonoBehaviour, IDamageable
@@ -17,6 +18,7 @@ namespace Fishing
 
         [Header("Fish Probabilities")]
         public Dictionary<EFishType, int> fishProbabilities = new Dictionary<EFishType, int>();
+        public Rarity[] rarities;
 
         [Header("Fishing Settings")]
         public float minFishTime;
@@ -25,10 +27,8 @@ namespace Fishing
         [Header("Health")]
         [SerializeField] private int maxHealth;
         [SerializeField] private int health;
-        [SerializeField] private Image healthBar;
 
         private Coroutine fishingCoroutine;
-        [SerializeField] private FishProbabilities fishProbabilitiesdata;
 
         private bool caught = false;
         private FishType currentFish;
@@ -39,12 +39,37 @@ namespace Fishing
         private void Start()
         {
             health = maxHealth;
-
-            FishingMiniGameManager.instance.OnFishMinigame += (FishType fish) => ChangeState(FishingState.Caught, fish);
-            FishingMiniGameManager.instance.OnContinueFishing += (FishType fish) => OnTriedCatch(false, fish);
-            FishingMiniGameManager.instance.OnFishCaught += (FishType fish) => OnTriedCatch(true, fish);
             SetProbabilities();
         }
+        private void OnEnable()
+        {
+            EventManager.FishMiniGameStart += OnFishMiniGameStart;
+            EventManager.ContinueFishing += OnContinueFishing;
+            EventManager.FishCaught += OnFishCaught;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.FishMiniGameStart -= OnFishMiniGameStart;
+            EventManager.ContinueFishing -= OnContinueFishing;
+            EventManager.FishCaught -= OnFishCaught;
+        }
+
+        private void OnFishMiniGameStart(FishType fish)
+        {
+            ChangeState(FishingState.Caught, fish);
+        }
+
+        private void OnContinueFishing(FishType fish)
+        {
+            OnTriedCatch(false, fish);
+        }
+
+        private void OnFishCaught(FishType fish)
+        {
+            OnTriedCatch(true, fish);
+        }
+
         private void Update()
         {
             switch (state)
@@ -55,6 +80,8 @@ namespace Fishing
                 case FishingState.Fishing:
                     Fishing();
                     Try();
+                    break;
+                case FishingState.Caught:
                     break;
             }
         }
@@ -90,7 +117,6 @@ namespace Fishing
             if (!succes) ChangeState(FishingState.Fishing);
             else { FishHook.instance.ResetPos(); Inventory.instance.Add(type); }
         }
-
         private bool Clicked()
         {
             if (Input.GetMouseButtonDown(0)) return true;
@@ -98,7 +124,7 @@ namespace Fishing
         }
         private IEnumerator GoFishing()
         {
-            float waitTime = Random.Range(minFishTime, maxFishTime);
+            float waitTime = UnityEngine.Random.Range(minFishTime, maxFishTime);
             // wait half time for particle
             yield return new WaitForSeconds(waitTime / 2);
             GameObject obj = Instantiate(fishSpotParticle, FishHook.instance.transform.position, Quaternion.identity);
@@ -108,27 +134,26 @@ namespace Fishing
             // after particle, catch fish
             yield return new WaitForSeconds(waitTime / 2);
             caught = false;
-            ChangeState(FishingState.Fishing);
             fishingCoroutine = null;
             yield break;
         }
         private void SetProbabilities()
         {
-            int[] probs = new int[] { fishProbabilitiesdata.common, fishProbabilitiesdata.uncommon, 
-                fishProbabilitiesdata.salmonific, fishProbabilitiesdata.fintastic, 
-                fishProbabilitiesdata.marlinificent };
-            for (int i = 0; i < probs.Length; i++) { fishProbabilities[(EFishType)i] = probs[i]; }
+            fishProbabilities.Clear();
+            foreach (Rarity rarity in rarities)
+            {
+                fishProbabilities.Add(rarity.rarity, rarity.probability);
+            }
         }
         public void ChangeState(FishingState newState, FishType fish = null)
         {
             if (state == FishingState.Caught && fish != null) currentFish = fish;
             state = newState;
         }
-
         public void ChangeHealth(int value)
         {
             health += value;
-            healthBar.fillAmount = Mathf.Clamp((float)health / (float)maxHealth, 0, 1);
+            EventManager.OnHealthChanged((float)health, (float)maxHealth);
             if (health <= 0) Destroy(gameObject);
         }
     }
