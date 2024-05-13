@@ -6,19 +6,14 @@ namespace Gambling
 {
     public class GamblingManager : MonoBehaviour
     {
-        private void OnEnable()
-        {
-            EventManager.DayEnd += StartGamblingDay;
-        }
-        private void OnDisable()
-        {
-            EventManager.DayEnd -= StartGamblingDay;
-        }
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.K)) QuitGambling();
+            if (Input.GetKey(KeyCode.K))
+            {
+                QuitGambling();
+            }
         }
-        private void StartGamblingDay(int day)
+        public void StartGamblingDay()
         {
             LoadScene("SlotMachine");
         }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Events;
-using System.Linq;
 
 namespace Fishing
 {
