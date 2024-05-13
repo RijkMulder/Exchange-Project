@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Player.Inventory;
+using Events;
 
 namespace Gambling
 {
@@ -84,10 +85,11 @@ namespace Gambling
                     CheckRight();
                     CheckAcross();
                 }
-                else
+                else if (chips > inputAmount)
                 {
                     winCountText.text = "NOT ENOUGH CHIPS!";
                 }
+                else if (chips == 0) GamblingManager.Instance.QuitGambling();
             }
             else
             {

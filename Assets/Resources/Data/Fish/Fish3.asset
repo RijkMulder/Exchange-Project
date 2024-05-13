@@ -15,7 +15,7 @@ MonoBehaviour:
   fishName: ClownFish
   type: 1
   chipCount: 20
-  chance: 90
+  chance: 75
   hitAmnt: 2
   fishSprite: {fileID: 21300000, guid: 851765703ca5517428047fd110af2cbd, type: 3}
   fishUnknownSprite: {fileID: 0}

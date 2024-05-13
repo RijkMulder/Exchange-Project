@@ -2,10 +2,12 @@ using Events;
 using TMPro;
 using UnityEngine;
 
-public class DayText : FadeUIText
+public class DayText : MonoBehaviour
 {
+    TMP_Text text;
     private void OnEnable()
     {
+        text = GetComponent<TMP_Text>();
         EventManager.DayEnd += UpdateString;
     }
     private void OnDisable()
@@ -14,7 +16,6 @@ public class DayText : FadeUIText
     }
     private void UpdateString(int day)
     {
-        StartCoroutine(FadeImg());
         text.text = $"Day {day-1} has ended.";
     }
 }

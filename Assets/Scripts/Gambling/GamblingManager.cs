@@ -7,12 +7,10 @@ namespace Gambling
 {
     public class GamblingManager : MonoBehaviour
     {
-        private void Update()
+        public static GamblingManager Instance;
+        private void Awake()
         {
-            if (Input.GetKey(KeyCode.K))
-            {
-                QuitGambling();
-            }
+            Instance = this;
         }
         public void StartGamblingDay()
         {
@@ -24,7 +22,7 @@ namespace Gambling
             yield return new WaitForSeconds(.1f);
             SlotMachineScript.instance.GetChips();
         }
-        private void QuitGambling()
+        public void QuitGambling()
         {
             EventManager.OnDayStart(8);
             LoadScene("RijkFishingMechanic");
