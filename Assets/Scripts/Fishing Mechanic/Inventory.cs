@@ -7,7 +7,7 @@ namespace Player.Inventory
     public class Inventory : MonoBehaviour
     {
         public static Inventory instance;
-        [SerializeField] private List<FishType> inventoryList = new List<FishType>();
+        public List<FishType> inventoryList = new List<FishType>();
         private void OnEnable()
         {
             if (instance == null)instance = this;
