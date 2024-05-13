@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: DrillShark
   type: 2
-  chipCount: 10
+  chipCount: 50
   chance: 90
   hitAmnt: 2
   fishSprite: {fileID: 21300000, guid: b69d317742b689e4a855169ca3abe362, type: 3}

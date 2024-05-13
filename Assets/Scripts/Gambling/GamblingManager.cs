@@ -1,4 +1,5 @@
 using Events;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,7 +21,13 @@ namespace Gambling
         }
         private void StartGamblingDay(int day)
         {
+            StartCoroutine(StartDay());
+        }
+        private IEnumerator StartDay()
+        {
             LoadScene("SlotMachine");
+            yield return new WaitForSeconds(.1f);
+            SlotMachineScript.instance.GetChips();
         }
         private void QuitGambling()
         {

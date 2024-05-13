@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: StroopWafelFish
   type: 3
-  chipCount: 10
+  chipCount: 100
   chance: 90
   hitAmnt: 2
   fishSprite: {fileID: 21300000, guid: b5baa0628a2d54c429a9aff496d57553, type: 3}
