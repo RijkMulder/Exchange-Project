@@ -58,6 +58,9 @@ namespace Fishing.Minigame
             // sprite
             spriteHolder.sprite = fish.fishSprite;
 
+            // misses
+            misses = 0;
+
             spinning = true;
         }
         private void Update()

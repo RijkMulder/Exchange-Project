@@ -10,7 +10,8 @@ namespace Gambling
         public static GamblingManager Instance;
         private void Awake()
         {
-            Instance = this;
+            if (Instance == null) Instance = this;
+            else Destroy(gameObject);
         }
         public void StartGamblingDay()
         {
@@ -30,6 +31,7 @@ namespace Gambling
         private void LoadScene(string scene)
         {
             SceneManager.LoadScene(scene);
+            Instance = this;
         }
     }
 }
