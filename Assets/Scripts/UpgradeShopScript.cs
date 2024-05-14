@@ -44,7 +44,10 @@ public class UpgradeShopScript : MonoBehaviour
                 assistText.text = "";
                 prices[currentArrayItem].price += 50;
                 buttonTexts[currentArrayItem].text = "+ " + prices[currentArrayItem].type.ToString() + " (" + prices[currentArrayItem].price.ToString() + " Coins)";
-                Debug.Log("bought: " + prices[currentArrayItem].type.ToString() + " for: " + cost);
+                // add functions below (this is a quicly made)
+                if (type == "speed") { };
+                if (type == "speed") { };
+                if (type == "speed") { };
             }
             else assistText.text = "Not enough money!";
         }
