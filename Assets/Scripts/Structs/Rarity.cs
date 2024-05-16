@@ -1,6 +1,7 @@
 ﻿
 // my name spaces
 using System;
+using UnityEngine;
 
 namespace Fishing
 {
@@ -9,5 +10,6 @@ namespace Fishing
     {
         public EFishType rarity;
         public int probability;
+        public Color color;
     }
 }

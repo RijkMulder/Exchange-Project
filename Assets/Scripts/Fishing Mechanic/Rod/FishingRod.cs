@@ -9,7 +9,7 @@ using Player.Inventory;
 
 namespace Fishing
 {
-    public class FishingRod : MonoBehaviour, IDamageable
+    public class FishingRod : MonoBehaviour
     {
         public static FishingRod instance;
         public FishingState state;
@@ -24,10 +24,6 @@ namespace Fishing
         public float minFishTime;
         public float maxFishTime;
 
-        [Header("Health")]
-        [SerializeField] private int maxHealth;
-        [SerializeField] private int health;
-
         private Coroutine fishingCoroutine;
 
         private bool caught = false;
@@ -38,7 +34,6 @@ namespace Fishing
         }
         private void Start()
         {
-            health = maxHealth;
             SetProbabilities();
         }
         private void OnEnable()
@@ -103,7 +98,6 @@ namespace Fishing
             }
             if (Clicked())
             {
-                ChangeHealth(-1);
                 FishHook.instance.CastLine();
             }
         }
@@ -149,12 +143,6 @@ namespace Fishing
         {
             if (state == FishingState.Caught && fish != null) currentFish = fish;
             state = newState;
-        }
-        public void ChangeHealth(int value)
-        {
-            health += value;
-            EventManager.OnHealthChanged((float)health, (float)maxHealth);
-            if (health <= 0) Destroy(gameObject);
         }
     }
 }

@@ -1,5 +1,6 @@
 using Fishing;
 using Player.Inventory;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -15,29 +16,28 @@ namespace UI
         }
         public void Initialize()
         {
-            var fishTypes = Inventory.instance.inventoryList.ToArray();
-            var rarities = FishingRod.instance.rarities.Select(r => r.rarity).ToArray();
+            FishType[] inv = Inventory.instance.inventoryList.ToArray();
+            Rarity[] rarities = FishingRod.instance.rarities;
+            EFishType[] types = rarities.Select(r => r.rarity).ToArray();
 
-            foreach (var rarity in rarities)
+            for (int i = 0; i < types.Length; i++)
             {
-                var fishByType = fishTypes
-                    .Where(f => f.type == rarity)
-                    .GroupBy(f => f.name)
+                Dictionary<string, int> fishByType = inv
+                    .Where(f => f.type == types[i])
+                    .GroupBy(f => f.fishName)
                     .ToDictionary(g => g.Key, g => g.Count());
 
                 foreach (var (name, count) in fishByType)
                 {
-                    var fishType = fishTypes.First(f => f.name == name);
-                    GenerateItem(fishType, count);
+                    FishType fishType = inv.First(f => f.fishName == name);
+                    GenerateItem(fishType, count, rarities[i]);
                 }
             }
         }
-        private void GenerateItem(FishType fish, int count)
+        private void GenerateItem(FishType fish, int count, Rarity rarity)
         {
             InventoryItem item = Instantiate(itemPrefab, transform.position, Quaternion.identity, transform);
-            item.img.sprite = fish.fishSprite;
-            item.text.text = $"{count}";
-            item.CalculateChips(fish, count);
+            item.Initialize(fish, count, rarity);
         }
     }
 }
