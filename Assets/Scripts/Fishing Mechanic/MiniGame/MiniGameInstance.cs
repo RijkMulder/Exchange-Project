@@ -115,8 +115,8 @@ namespace Fishing.Minigame
             float t = 0;
             while (t < spinnerResetTime)
             {
-                t += UnityEngine.Time.deltaTime;
-                float speed = spinnerDegrees * UnityEngine.Time.deltaTime;
+                t += Time.deltaTime;
+                float speed = spinnerDegrees * Time.deltaTime;
                 spinner.transform.Rotate(Vector3.forward * speed * 3);
                 yield return null;
             }
@@ -134,7 +134,7 @@ namespace Fishing.Minigame
         }
         private void FixedUpdate()
         {
-           if (spinning) spinner.transform.Rotate(Vector3.forward * spinnerDegrees * UnityEngine.Time.deltaTime);
+           if (spinning) spinner.transform.Rotate(Vector3.forward * spinnerDegrees * Time.deltaTime);
         }
     }
 }

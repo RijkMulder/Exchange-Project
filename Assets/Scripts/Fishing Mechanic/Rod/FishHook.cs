@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Fishing;
+using Unity.Burst.CompilerServices;
 namespace FishingLine
 {
     /// <summary>
@@ -12,7 +13,7 @@ namespace FishingLine
         public static FishHook instance;
         public LineRenderer line;
 
-        [SerializeField] private Vector2 bounds;
+        [SerializeField] private float maxHookDistance;
         [SerializeField] private Transform fishingRodTop;
         [SerializeField] private float moveBackTime;
 
@@ -44,19 +45,24 @@ namespace FishingLine
         }
         public void CastLine()
         {
+            // check if hitting water
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+            if (!hit.transform.GetComponent<WaterTag>()) return;
+
+            // go fishing state
             FishingRod.instance.ChangeState(FishingState.Fishing);
 
-            Vector2 mousePos = Input.mousePosition;
-            Vector3 mouseWolrdPos = Camera.main.ScreenToWorldPoint(mousePos);
+            // move to position
+            Vector3 targetPos = hit.point;
+            Vector3 direction = targetPos - transform.position;
+            float distance = direction.magnitude;
 
-            Vector3 origin = transform.position;
-            Vector3 targetPos = new Vector3
+            if (distance > maxHookDistance)
             {
-                x = Mathf.Clamp(mouseWolrdPos.x, origin.x - bounds.x, origin.x + bounds.x),
-                y = Mathf.Clamp(mouseWolrdPos.y, origin.y, origin.y + bounds.y),
-                z = transform.position.z
-            };
-
+                direction.Normalize();
+                targetPos = transform.position + direction * maxHookDistance;
+            }
             if (moveCoroutine != null) StopCoroutine(moveCoroutine);
             moveCoroutine = StartCoroutine(MoveLineAsync(targetPos));
         }

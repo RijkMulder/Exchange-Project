@@ -33,7 +33,7 @@ public class TimeManager : MonoBehaviour
     private void Update()
     {
         if (!doTime) return; 
-        currentTime += UnityEngine.Time.deltaTime * timeScale;
+        currentTime += Time.deltaTime * timeScale;
         currentTime %= dayLength * 60f;
 
         int hour = (int)(currentTime / 60f) % 24;
