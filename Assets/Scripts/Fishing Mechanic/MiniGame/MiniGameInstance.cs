@@ -18,15 +18,12 @@ namespace Fishing.Minigame
         [Header("Radial Settings")]
         [Range(1, 50)]
         [SerializeField] private float smallRadialPrc;
-        [Range(1, 10)]
-        [SerializeField] private float margin;
         
 
         [Header("Spinner")]
         [SerializeField] private GameObject spinner;
         [SerializeField] private float spinnerDegrees;
         [SerializeField] private float spinnerResetTime;
-        [SerializeField] private ContactFilter2D contactFilter;
 
         [Header("State")]
         [SerializeField] private FishType currentFish;
@@ -87,8 +84,6 @@ namespace Fishing.Minigame
                         break;
                 }
             }
-            RaycastHit2D hit = Physics2D.Raycast(spinner.transform.GetChild(0).transform.position, spinner.transform.position);
-            if (hit.transform != null) Debug.Log(hit.transform);
         }
         private void Hit(ESkillCheckType type)
         {
@@ -120,7 +115,7 @@ namespace Fishing.Minigame
             float t = 0;
             while (t < spinnerResetTime)
             {
-                t += UnityEngine.Time.deltaTime;
+                t += Time.deltaTime;
                 float speed = spinnerDegrees * Time.deltaTime;
                 spinner.transform.Rotate(Vector3.forward * speed * 3);
                 yield return null;
