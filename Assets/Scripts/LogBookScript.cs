@@ -29,13 +29,18 @@ public class LogBookScript : MonoBehaviour
                 {
                     fish.unlocked = true;
                     fish.fishOBJ.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
-                    if (size > fish.highSize)
-                    {
-                        fish.highSize = size;
-                        fish.sizeText.text = "Size: " + fish.highSize.ToString();
-                    }
                 }
+                CheckSize(fish, size);
             }
+        }
+    }
+
+    void CheckSize(collection fish, float size)
+    {
+        if (size > fish.highSize)
+        {
+            fish.highSize = size;
+            fish.sizeText.text = "PB: " + fish.highSize.ToString() + "kg";
         }
     }
 }
