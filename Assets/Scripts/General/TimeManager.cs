@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 //--
 using Events;
+using System;
 public class TimeManager : MonoBehaviour
 {
     [SerializeField] private float timeScale;
@@ -35,7 +36,6 @@ public class TimeManager : MonoBehaviour
         if (!doTime) return; 
         currentTime += Time.deltaTime * timeScale;
         currentTime %= dayLength * 60f;
-
         int hour = (int)(currentTime / 60f) % 24;
         int minute = (int)(currentTime % 60f);
         if (minute % 5 == 0)

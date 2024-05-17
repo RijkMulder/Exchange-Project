@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
-  m_Name: Fish1
+  m_Name: FinnishFish
   m_EditorClassIdentifier: 
-  fishName: BubbleFish
-  type: 0
-  chipCount: 10
-  chance: 90
+  fishName: FinnishFish
+  type: 3
+  chipCount: 50
+  chance: 57
   hitAmnt: 2
-  fishSprite: {fileID: 21300000, guid: 933c4f7b56d54db43a3e79bebcea344f, type: 3}
+  fishSprite: {fileID: 21300000, guid: 8cc1d6379addc41e68cb7cb308cf5360, type: 3}
   fishUnknownSprite: {fileID: 0}

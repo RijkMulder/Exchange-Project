@@ -1142,7 +1142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9960a729230364bb83961e499dfbd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCheckType: 0
+  skillCheckType: 2
 --- !u!1 &494003601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1623,7 +1623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9960a729230364bb83961e499dfbd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCheckType: 0
+  skillCheckType: 1
 --- !u!1 &780542973
 GameObject:
   m_ObjectHideFlags: 0
