@@ -21,7 +21,8 @@ namespace Fishing.Minigame
         
 
         [Header("Spinner")]
-        [SerializeField] private GameObject spinner;
+        [SerializeField] private GameObject spinnerTransform;
+        [SerializeField] private MiniGameSpinner spinner;
         [SerializeField] private float spinnerDegrees;
         [SerializeField] private float spinnerResetTime;
 
@@ -68,8 +69,7 @@ namespace Fishing.Minigame
             // check hit
             if (spinning && Input.GetMouseButtonDown(0))
             {
-                float[] radial = new float[] { currentFish.chance, currentFish.chance / 100 * smallRadialPrc };
-                ESkillCheckType type = SkillCheck(radial, spinner.transform.eulerAngles.z);
+                ESkillCheckType type = spinner.type;
 
                 switch (type)
                 {
@@ -117,24 +117,15 @@ namespace Fishing.Minigame
             {
                 t += Time.deltaTime;
                 float speed = spinnerDegrees * Time.deltaTime;
-                spinner.transform.Rotate(Vector3.forward * speed * 3);
+                spinnerTransform.transform.Rotate(Vector3.forward * speed * 3);
                 yield return null;
             }
             if (lastHit) FishingMiniGameManager.instance.ContinueFishing(true);
             spinning = true;
         }
-        private ESkillCheckType SkillCheck(float[] radialDegrees, float degrees)
-        {
-            if (degrees < radialDegrees[0])
-            {
-                if (degrees < radialDegrees[1]) return ESkillCheckType.HitSmall;
-                return ESkillCheckType.HitMain;
-            }
-            return ESkillCheckType.Miss;
-        }
         private void FixedUpdate()
         {
-           if (spinning) spinner.transform.Rotate(Vector3.forward * spinnerDegrees * Time.deltaTime);
+           if (spinning) spinnerTransform.transform.Rotate(Vector3.forward * spinnerDegrees * Time.deltaTime);
         }
     }
 }

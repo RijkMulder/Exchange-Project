@@ -1,18 +1,20 @@
+using Fishing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiniGameSpinner : MonoBehaviour
+namespace Fishing.Minigame
 {
-    // Start is called before the first frame update
-    void Start()
+    public class MiniGameSpinner : MonoBehaviour
     {
-        
-    }
+        public ESkillCheckType type;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Update()
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up * 100000, 100f);
+            if (hit.transform && hit.transform.TryGetComponent(out HitArea area)) type = area.skillCheckType;
+            else type = ESkillCheckType.Miss;
+        }
     }
 }
+
