@@ -4,6 +4,9 @@ using Events;
 
 namespace Fishing
 {
+    /// <summary>
+    /// Minigame manager gets random fish to catch and initializes mini game instance.
+    /// </summary>
     public class FishingMiniGameManager : MonoBehaviour
     {
         // singleton
