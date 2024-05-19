@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Events;
-using System;
 
 namespace Fishing.Minigame
 {
@@ -14,25 +13,22 @@ namespace Fishing.Minigame
         [SerializeField] private Radial mainRadial;
         [SerializeField] private Radial smallRadial;
         [SerializeField] private Image spriteHolder;
-
-        [Header("Radial Settings")]
-        [Range(1, 50)]
-        [SerializeField] private float smallRadialPrc;
-        
-
-        [Header("Spinner")]
         [SerializeField] private GameObject spinnerTransform;
         [SerializeField] private MiniGameSpinner spinner;
-        [SerializeField] private float spinnerDegrees;
-        [SerializeField] private float spinnerResetTime;
 
-        [Header("State")]
-        [SerializeField] private FishType currentFish;
-
+        [Header("Settings")]
+        [Range(1, 50)]
+        [SerializeField] private float smallRadialPrc;
+        [SerializeField] private float spinnerSpeed;
+        [SerializeField] private float maxSpeedMultiplier;
+        [SerializeField] private KeyCode hitKey;
+        
         // private
-        private bool spinning;
+        private FishType currentFish;
         private int hitAmntRemain;
         private int misses;
+        private float speed;
+
         private void Awake()
         {
             instance = this;
@@ -50,24 +46,36 @@ namespace Fishing.Minigame
             EventManager.OnInitializeMinigame(fish.hitAmnt);
             currentFish = fish;
             hitAmntRemain = fish.hitAmnt;
-            // main radial
-            mainRadial.Initialize(fish.chance);
 
-            // small radial
+            // radials
+            mainRadial.Initialize(fish.chance);
             smallRadial.Initialize(fish.chance / 100 * smallRadialPrc);
 
             // sprite
             spriteHolder.sprite = fish.fishSprite;
 
-            // misses
+            // setup
             misses = 0;
+            SetupAreas(fish);
+        }
+        private void SetupAreas(FishType fish)
+        {
+            // random rotation
+            float amnt = Random.Range(90, 360 - fish.chance);
 
-            spinning = true;
+            // apply rotation
+            mainRadial.transform.Rotate(transform.forward * amnt);
+            smallRadial.transform.Rotate(transform.forward * amnt);
+
+            // random direction and speed for spinner
+            int dir = Random.value < 0.5 ? -1 : 1;
+            speed = spinnerSpeed * Random.Range(1, maxSpeedMultiplier) * dir;
+
         }
         private void Update()
         {
             // check hit
-            if (spinning && Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(hitKey))
             {
                 ESkillCheckType type = spinner.type;
 
@@ -89,43 +97,24 @@ namespace Fishing.Minigame
         {
             hitAmntRemain--;
             EventManager.OnSpinnerHit(hitAmntRemain);
-            if (hitAmntRemain == 0 || type == ESkillCheckType.HitSmall) 
-            { 
-                StartCoroutine(ResetSpinner(true));
-                misses = 0;
-            }
-            else if (gameObject.activeInHierarchy) StartCoroutine(ResetSpinner(false));
+
+            if (hitAmntRemain == 0 || type == ESkillCheckType.HitSmall) FishingMiniGameManager.instance.ContinueFishing(true);
+            else SetupAreas(currentFish);
         }
         private void Miss()
         {
             if (misses == 0)
             {
                 Initialize(currentFish);
-                StartCoroutine(ResetSpinner(false));
                 EventManager.OnMiniGameMiss();
                 misses++;
                 return;
             }
-            spinning = false;
             FishingMiniGameManager.instance.ContinueFishing(false);
-        }
-        private IEnumerator ResetSpinner(bool lastHit)
-        {
-            spinning = false;
-            float t = 0;
-            while (t < spinnerResetTime)
-            {
-                t += Time.deltaTime;
-                float speed = spinnerDegrees * Time.deltaTime;
-                spinnerTransform.transform.Rotate(Vector3.forward * speed * 3);
-                yield return null;
-            }
-            if (lastHit) FishingMiniGameManager.instance.ContinueFishing(true);
-            spinning = true;
         }
         private void FixedUpdate()
         {
-           if (spinning) spinnerTransform.transform.Rotate(Vector3.forward * spinnerDegrees * Time.deltaTime);
+           spinnerTransform.transform.Rotate(-Vector3.forward * speed * Time.deltaTime);
         }
     }
 }
