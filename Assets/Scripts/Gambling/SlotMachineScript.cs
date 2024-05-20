@@ -16,11 +16,9 @@ namespace Gambling
         [SerializeField] TextMeshProUGUI spinCountText;
         [SerializeField] TextMeshProUGUI winCountText;
         [SerializeField] TextMeshProUGUI chipCountText;
-        [SerializeField] TextMeshProUGUI coinCountText;
         [SerializeField] TMP_InputField inputField;
         [SerializeField] List<GameObject> fishList = new List<GameObject>();
         [SerializeField] int inputAmount;
-        [SerializeField] int coins;
         [SerializeField] int chips;
         List<GameObject> row0 = new List<GameObject>();
         List<GameObject> row1 = new List<GameObject>();
@@ -29,10 +27,12 @@ namespace Gambling
         int spinCount = 0;
         int winCount = 0;
         int outputAmount;
+        GameManager gameManager;
 
         private void Awake()
         {
             instance = this;
+            gameManager = FindFirstObjectByType<GameManager>();
         }
         private void Start()
         {
@@ -72,6 +72,7 @@ namespace Gambling
                         {
                             int randomFishIndex = Random.Range(0, fishPrefabs.Length);
                             GameObject newFish = Instantiate(fishPrefabs[randomFishIndex], new Vector2(transform.position.x + (j * 4 / 2), posY), Quaternion.identity);
+                            newFish.transform.parent = this.gameObject.transform;
                             fishList.Add(newFish);
                             if (i == 0) row0.Add(newFish);
                             else if (i == 1) row1.Add(newFish);
@@ -85,11 +86,10 @@ namespace Gambling
                     CheckRight();
                     CheckAcross();
                 }
-                else if (chips > inputAmount)
+                else
                 {
                     winCountText.text = "NOT ENOUGH CHIPS!";
                 }
-                else if (chips == 0) GamblingManager.Instance.QuitGambling();
             }
             else
             {
@@ -99,7 +99,6 @@ namespace Gambling
         private void UpdateText()
         {
             chipCountText.text = "CHIPS: " + chips.ToString();
-            coinCountText.text = "COINS: " + coins.ToString();
         }
         private void CheckRight()
         {
@@ -144,9 +143,8 @@ namespace Gambling
         void givePrize(int multiplier)
         {
             outputAmount = inputAmount * (multiplier * 2);
-            coins += outputAmount;
+            gameManager.addCoins(outputAmount);
             winCountText.text = "YOU WON " + outputAmount.ToString() + " COINS";
-            coinCountText.text = "COINS: " + coins.ToString();
         }
         public void GetChips()
         {

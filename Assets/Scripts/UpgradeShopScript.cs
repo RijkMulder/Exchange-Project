@@ -17,7 +17,6 @@ public class UpgradeShopScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI assistText;
     [SerializeField] Prices[] prices;
     [SerializeField] TextMeshProUGUI[] buttonTexts;
-    
 
     void Update()
     {
