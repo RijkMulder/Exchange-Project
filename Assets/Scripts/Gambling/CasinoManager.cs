@@ -1,3 +1,4 @@
+using Gambling;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,5 +23,9 @@ public class CasinoManager : MonoBehaviour
     {
         if (!upgradeShop.active) upgradeShop.active = true;
         else upgradeShop.active = false;
+    }
+    public void EndNight()
+    {
+        GamblingManager.Instance.QuitGambling();
     }
 }

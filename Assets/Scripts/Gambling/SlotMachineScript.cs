@@ -15,11 +15,9 @@ namespace Gambling
         [SerializeField] GameObject[] fishPrefabs;
         [SerializeField] TextMeshProUGUI spinCountText;
         [SerializeField] TextMeshProUGUI winCountText;
-        [SerializeField] TextMeshProUGUI chipCountText;
         [SerializeField] TMP_InputField inputField;
         [SerializeField] List<GameObject> fishList = new List<GameObject>();
         [SerializeField] int inputAmount;
-        [SerializeField] int chips;
         List<GameObject> row0 = new List<GameObject>();
         List<GameObject> row1 = new List<GameObject>();
         List<GameObject> row2 = new List<GameObject>();
@@ -34,10 +32,6 @@ namespace Gambling
             instance = this;
             gameManager = FindFirstObjectByType<GameManager>();
         }
-        private void Start()
-        {
-            UpdateText();
-        }
 
         public void Spin()
         {
@@ -48,13 +42,12 @@ namespace Gambling
             else inputAmount = int.Parse(inputField.text);
             if (inputAmount > 0)
             {
-                if (chips > 0 && chips >= inputAmount)
+                if (gameManager.chips > 0 && gameManager.chips >= inputAmount)
                 {
                     spinCount++;
                     spinCountText.text = "SPINS: " + spinCount.ToString();
                     winCountText.text = "";
-                    chips -= inputAmount;
-                    chipCountText.text = "CHIPS: " + chips.ToString();
+                    gameManager.addChips(-inputAmount);
                     for (int i = 0; i < fishList.Count; i++)
                     {
                         Destroy(fishList[i]);
@@ -95,10 +88,6 @@ namespace Gambling
             {
                 winCountText.text = "YOU NEED TO INPUT CHIPS FIRST!";
             }
-        }
-        private void UpdateText()
-        {
-            chipCountText.text = "CHIPS: " + chips.ToString();
         }
         private void CheckRight()
         {
@@ -154,8 +143,7 @@ namespace Gambling
             {
                 amnt += fish[i].chipCount;
             }
-            chips = amnt;
-            UpdateText();
+            gameManager.addChips(amnt);
             Inventory.instance.inventoryList.Clear();
         }
     }

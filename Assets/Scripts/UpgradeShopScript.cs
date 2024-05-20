@@ -12,15 +12,14 @@ public class Prices
 
 public class UpgradeShopScript : MonoBehaviour
 {
-    [SerializeField] int coins;
-    [SerializeField] TextMeshProUGUI coinCountText;
     [SerializeField] TextMeshProUGUI assistText;
     [SerializeField] Prices[] prices;
     [SerializeField] TextMeshProUGUI[] buttonTexts;
+    GameManager gameManager;
 
-    void Update()
+    private void Awake()
     {
-        coinCountText.text = "COINS: " + coins.ToString();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     public void Buy(string type)
@@ -37,9 +36,9 @@ public class UpgradeShopScript : MonoBehaviour
         }
         if (cost > 0)
         {
-            if (coins > 0 && coins >= cost)
+            if (gameManager.coins > 0 && gameManager.coins >= cost)
             {
-                coins -= cost;
+                gameManager.addCoins(-cost);
                 assistText.text = "";
                 prices[currentArrayItem].price += 50;
                 buttonTexts[currentArrayItem].text = "+ " + prices[currentArrayItem].type.ToString() + " (" + prices[currentArrayItem].price.ToString() + " Coins)";
