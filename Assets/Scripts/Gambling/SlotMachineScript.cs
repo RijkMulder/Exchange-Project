@@ -121,32 +121,23 @@ namespace Gambling
 
         private void CheckAcross()
         {
-            for (int i = 0; i < 3; i++)
+            if (rowsList[0][0].GetComponent<SlotFishData>().rarity ==
+                rowsList[1][1].GetComponent<SlotFishData>().rarity &&
+                rowsList[1][1].GetComponent<SlotFishData>().rarity ==
+                rowsList[2][2].GetComponent<SlotFishData>().rarity)
             {
-                if (i == 0)
-                {
-                    if (rowsList[0][0].GetComponent<SlotFishData>().rarity ==
-                        rowsList[1][1].GetComponent<SlotFishData>().rarity &&
-                        rowsList[1][1].GetComponent<SlotFishData>().rarity ==
-                        rowsList[2][2].GetComponent<SlotFishData>().rarity)
-                    {
-                        winCount++;
-                        winCountText.text = "WINS: " + winCount.ToString();
-                        givePrize(rowsList[0][0].GetComponent<SlotFishData>().rarity);
-                    }
-                }
-                if (i == 2)
-                {
-                    if (rowsList[2][0].GetComponent<SlotFishData>().rarity ==
-                        rowsList[1][1].GetComponent<SlotFishData>().rarity &&
-                        rowsList[1][1].GetComponent<SlotFishData>().rarity ==
-                        rowsList[0][2].GetComponent<SlotFishData>().rarity)
-                    {
-                        winCount++;
-                        winCountText.text = "WINS: " + winCount.ToString();
-                        givePrize(rowsList[2][0].GetComponent<SlotFishData>().rarity);
-                    }
-                }
+                winCount++;
+                winCountText.text = "WINS: " + winCount.ToString();
+                givePrize(rowsList[0][0].GetComponent<SlotFishData>().rarity);
+            }
+            if (rowsList[2][0].GetComponent<SlotFishData>().rarity ==
+                rowsList[1][1].GetComponent<SlotFishData>().rarity &&
+                rowsList[1][1].GetComponent<SlotFishData>().rarity ==
+                rowsList[0][2].GetComponent<SlotFishData>().rarity)
+            {
+                winCount++;
+                winCountText.text = "WINS: " + winCount.ToString();
+                givePrize(rowsList[2][0].GetComponent<SlotFishData>().rarity);
             }
         }
 
