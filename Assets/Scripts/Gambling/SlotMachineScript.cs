@@ -15,11 +15,15 @@ namespace Gambling
         [SerializeField][Range(1,3)] int columns = 3;
         [SerializeField][Range(1, 3)] int rows = 3;
 
+        [Header("Bets")]
+        [SerializeField]
+        List<int> bets = new List<int>();
+
         [Header("Setup")]
         [SerializeField] GameObject[] fishPrefabs;
         [SerializeField] TextMeshProUGUI spinCountText;
         [SerializeField] TextMeshProUGUI output;
-        [SerializeField] TMP_InputField inputField;
+        [SerializeField] TextMeshProUGUI betText;
         [SerializeField] GameObject winParticle;
         [SerializeField] GameObject lineCross1;
         [SerializeField] GameObject lineCross2;
@@ -36,20 +40,22 @@ namespace Gambling
         List<List<GameObject>> rowsList = new List<List<GameObject>>();
         int spinCount = 0;
         int outputAmount;
+        int currentBet = 0;
 
         private void Awake()
         {
             instance = this;
-            gameManager = FindFirstObjectByType<GameManager>().GetComponent<GameManager>();
         }
 
+        private void Start()
+        {
+            gameManager = GameManager.Instance;
+            betText.text = inputAmount.ToString();
+        }
+
+        // Spin function
         public void Spin()
         {
-            if (inputField.text == "")
-            {
-                inputAmount = 0;
-            }
-            else inputAmount = int.Parse(inputField.text);
             if (inputAmount > 0)
             {
                 if (gameManager.chips > 0 && gameManager.chips >= inputAmount)
@@ -99,6 +105,8 @@ namespace Gambling
                 output.text = "YOU NEED TO INPUT CHIPS FIRST!";
             }
         }
+
+        // Chech straight for wins
         private void CheckRight()
         {
             for (int i = 0; i < 3; i++)
@@ -118,6 +126,7 @@ namespace Gambling
             }
         }
 
+        // Check across for wins
         private void CheckAcross()
         {
             if (rowsList[0][0].GetComponent<SlotFishData>().rarity ==
@@ -138,6 +147,7 @@ namespace Gambling
             }
         }
 
+        // Calculate the win amount
         void givePrize(int multiplier)
         {
             outputAmount = inputAmount * (multiplier * 2);
@@ -145,6 +155,8 @@ namespace Gambling
             output.text = "YOU WON " + outputAmount.ToString() + " COINS";
             winEffect(outputAmount);
         }
+
+        // Calculate the amount of chips you get
         public void GetChips()
         {
             int amnt = 0;
@@ -156,19 +168,30 @@ namespace Gambling
             gameManager.addChips(amnt);
             Inventory.instance.inventoryList.Clear();
         }
+
+        // Instantiate a particle effect on win
         private void winEffect(int amount)
         {
             GameObject particle = Instantiate(winParticle, new Vector3(5.5f, -1f, 0), Quaternion.identity);
+            particle.GetComponent<ParticleSystem>().maxParticles = amount / 2;
             Destroy(particle, 5f);
         }
+
+        // Instantiate a line on top of the winning line
         private void showWin(GameObject line)
         {
             GameObject newLine = Instantiate(line);
             Destroy(newLine, 2f);
         }
+
+        // Change the bet amount fractually
         public void changeBetAmount(int amount)
         {
-
+            currentBet += amount;
+            if (currentBet < 0) currentBet = 0;
+            if (currentBet > bets.Count) currentBet = bets.Count;
+            inputAmount = bets[currentBet];
+            betText.text = inputAmount.ToString();
         }
     }
 }
