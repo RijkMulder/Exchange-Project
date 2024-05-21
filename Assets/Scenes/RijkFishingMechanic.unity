@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  fishSpotParticle: {fileID: 5083085990778401190, guid: 4a79ed0ab1325264ba41a2418b6d41b3,
+  fishSpotParticle: {fileID: 8717660745032474186, guid: 324eac26348bd104cbf502d050e28564,
     type: 3}
   rarities:
   - rarity: 0
@@ -541,6 +541,7 @@ MonoBehaviour:
     color: {r: 0.9810126, g: 1, b: 0, a: 1}
   minFishTime: 3
   maxFishTime: 5
+  caught: 0
 --- !u!1 &124885335
 GameObject:
   m_ObjectHideFlags: 0
@@ -3403,7 +3404,6 @@ GameObject:
   - component: {fileID: 1837840389}
   - component: {fileID: 1837840388}
   - component: {fileID: 1837840390}
-  - component: {fileID: 1837840391}
   m_Layer: 0
   m_Name: Dock
   m_TagString: Untagged
@@ -3523,23 +3523,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 0.5965402}
   m_EdgeRadius: 0
---- !u!114 &1837840391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837840387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15724b6caafc6614ca5d606d07a8b994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reflectionAxis: 2
-  reflectionOffset: 10
-  reflectionLayer: 4
-  reflectionSprite: {fileID: 0}
-  updatePerFrame: 0
 --- !u!1 &1842467035
 GameObject:
   m_ObjectHideFlags: 0

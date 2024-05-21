@@ -14,7 +14,7 @@ namespace Fishing
         public static FishingRod instance;
         public FishingState state;
 
-        [SerializeField] private GameObject fishSpotParticle;
+        [SerializeField] private FishBaitVisual fishSpotParticle;
 
         [Header("Fish Probabilities")]
         public Dictionary<EFishType, int> fishProbabilities = new Dictionary<EFishType, int>();
@@ -25,9 +25,11 @@ namespace Fishing
         public float maxFishTime;
 
         private Coroutine fishingCoroutine;
-
-        private bool caught = false;
         private FishType currentFish;
+
+        //hide
+        [HideInInspector]public bool caught = false;
+
         private void Awake()
         {
             instance = this;
@@ -77,6 +79,7 @@ namespace Fishing
                     Try();
                     break;
                 case FishingState.Caught:
+                    Caught();
                     break;
             }
         }
@@ -86,7 +89,7 @@ namespace Fishing
             {
                 FishHook.instance.ResetPos();
             }
-
+            Debug.Log(" hmm");
             if (fishingCoroutine == null)fishingCoroutine = StartCoroutine(GoFishing());
         }
         private void Idle()
@@ -100,6 +103,10 @@ namespace Fishing
             {
                 FishHook.instance.CastLine();
             }
+        }
+        private void Caught()
+        {
+            if (fishingCoroutine != null) StopCoroutine(fishingCoroutine);
         }
         private void Try()
         {
@@ -118,18 +125,14 @@ namespace Fishing
         }
         private IEnumerator GoFishing()
         {
+            // wait
             float waitTime = Random.Range(minFishTime, maxFishTime);
-            // wait half time for particle
-            yield return new WaitForSeconds(waitTime / 2);
-            GameObject obj = Instantiate(fishSpotParticle, FishHook.instance.transform.position, Quaternion.identity);
-            Destroy(obj, waitTime / 2);
-            caught = true;
+            yield return new WaitForSeconds(waitTime);
 
-            // after particle, catch fish
-            yield return new WaitForSeconds(waitTime / 2);
-            caught = false;
+            // spawn bait
+            FishBaitVisual obj = Instantiate(fishSpotParticle, FishHook.instance.transform.position, new Quaternion(0, 0, 0, 1));
+            obj.Initialize();
             fishingCoroutine = null;
-            yield break;
         }
         private void SetProbabilities()
         {
