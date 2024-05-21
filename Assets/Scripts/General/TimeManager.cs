@@ -2,7 +2,8 @@ using TMPro;
 using UnityEngine;
 //--
 using Events;
-using System;
+using Fishing;
+
 public class TimeManager : MonoBehaviour
 {
     [SerializeField] private float timeScale;
@@ -25,6 +26,7 @@ public class TimeManager : MonoBehaviour
     private void StopClock(int day)
     {
         doTime = false;
+        FishingRod.instance.enabled = false;
     }
     private void StartClock(int time)
     {

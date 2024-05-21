@@ -118,7 +118,7 @@ namespace Fishing
         }
         private IEnumerator GoFishing()
         {
-            float waitTime = UnityEngine.Random.Range(minFishTime, maxFishTime);
+            float waitTime = Random.Range(minFishTime, maxFishTime);
             // wait half time for particle
             yield return new WaitForSeconds(waitTime / 2);
             GameObject obj = Instantiate(fishSpotParticle, FishHook.instance.transform.position, Quaternion.identity);
