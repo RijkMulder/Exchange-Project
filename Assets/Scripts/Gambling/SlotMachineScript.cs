@@ -8,29 +8,39 @@ namespace Gambling
 {
     public class SlotMachineScript : MonoBehaviour
     {
+
         public static SlotMachineScript instance;
 
-        [SerializeField] int columns = 3;
-        [SerializeField] int rows = 3;
+        [Header("Size")]
+        [SerializeField][Range(1,3)] int columns = 3;
+        [SerializeField][Range(1, 3)] int rows = 3;
+
+        [Header("Setup")]
         [SerializeField] GameObject[] fishPrefabs;
         [SerializeField] TextMeshProUGUI spinCountText;
-        [SerializeField] TextMeshProUGUI winCountText;
+        [SerializeField] TextMeshProUGUI output;
         [SerializeField] TMP_InputField inputField;
-        [SerializeField] List<GameObject> fishList = new List<GameObject>();
-        [SerializeField] int inputAmount;
+        [SerializeField] GameObject winParticle;
+        [SerializeField] GameObject lineCross1;
+        [SerializeField] GameObject lineCross2;
+        [SerializeField] GameObject lineStraight1;
+        [SerializeField] GameObject lineStraight2;
+        [SerializeField] GameObject lineStraight3;
+
+        List<GameObject> fishList = new List<GameObject>();
+        int inputAmount;
+        GameManager gameManager;
         List<GameObject> row0 = new List<GameObject>();
         List<GameObject> row1 = new List<GameObject>();
         List<GameObject> row2 = new List<GameObject>();
         List<List<GameObject>> rowsList = new List<List<GameObject>>();
         int spinCount = 0;
-        int winCount = 0;
         int outputAmount;
-        GameManager gameManager;
 
         private void Awake()
         {
             instance = this;
-            gameManager = FindFirstObjectByType<GameManager>();
+            gameManager = FindFirstObjectByType<GameManager>().GetComponent<GameManager>();
         }
 
         public void Spin()
@@ -46,7 +56,7 @@ namespace Gambling
                 {
                     spinCount++;
                     spinCountText.text = "SPINS: " + spinCount.ToString();
-                    winCountText.text = "";
+                    output.text = "";
                     gameManager.addChips(-inputAmount);
                     for (int i = 0; i < fishList.Count; i++)
                     {
@@ -64,7 +74,7 @@ namespace Gambling
                         for (int j = 0; j < rows; j++)
                         {
                             int randomFishIndex = Random.Range(0, fishPrefabs.Length);
-                            GameObject newFish = Instantiate(fishPrefabs[randomFishIndex], new Vector2(transform.position.x + (j * 4 / 2), posY), Quaternion.identity);
+                            GameObject newFish = Instantiate(fishPrefabs[randomFishIndex], new Vector2(transform.position.x + (j * 4 / 2) - 2, posY - 1), Quaternion.identity);
                             newFish.transform.parent = this.gameObject.transform;
                             fishList.Add(newFish);
                             if (i == 0) row0.Add(newFish);
@@ -81,12 +91,12 @@ namespace Gambling
                 }
                 else
                 {
-                    winCountText.text = "NOT ENOUGH CHIPS!";
+                    output.text = "NOT ENOUGH CHIPS!";
                 }
             }
             else
             {
-                winCountText.text = "YOU NEED TO INPUT CHIPS FIRST!";
+                output.text = "YOU NEED TO INPUT CHIPS FIRST!";
             }
         }
         private void CheckRight()
@@ -99,9 +109,10 @@ namespace Gambling
                     list[1].GetComponent<SlotFishData>().rarity ==
                     list[2].GetComponent<SlotFishData>().rarity)
                 {
-                    winCount++;
-                    winCountText.text = "WINS: " + winCount.ToString();
                     givePrize(list[0].GetComponent<SlotFishData>().rarity);
+                    if (i == 0) showWin(lineStraight3);
+                    else if (i == 1) showWin(lineStraight2);
+                    else if (i == 2) showWin(lineStraight1);
                 }
 
             }
@@ -114,18 +125,16 @@ namespace Gambling
                 rowsList[1][1].GetComponent<SlotFishData>().rarity ==
                 rowsList[2][2].GetComponent<SlotFishData>().rarity)
             {
-                winCount++;
-                winCountText.text = "WINS: " + winCount.ToString();
                 givePrize(rowsList[0][0].GetComponent<SlotFishData>().rarity);
+                showWin(lineCross2);
             }
             if (rowsList[2][0].GetComponent<SlotFishData>().rarity ==
                 rowsList[1][1].GetComponent<SlotFishData>().rarity &&
                 rowsList[1][1].GetComponent<SlotFishData>().rarity ==
                 rowsList[0][2].GetComponent<SlotFishData>().rarity)
             {
-                winCount++;
-                winCountText.text = "WINS: " + winCount.ToString();
                 givePrize(rowsList[2][0].GetComponent<SlotFishData>().rarity);
+                showWin(lineCross1);
             }
         }
 
@@ -133,7 +142,8 @@ namespace Gambling
         {
             outputAmount = inputAmount * (multiplier * 2);
             gameManager.addCoins(outputAmount);
-            winCountText.text = "YOU WON " + outputAmount.ToString() + " COINS";
+            output.text = "YOU WON " + outputAmount.ToString() + " COINS";
+            winEffect(outputAmount);
         }
         public void GetChips()
         {
@@ -145,6 +155,20 @@ namespace Gambling
             }
             gameManager.addChips(amnt);
             Inventory.instance.inventoryList.Clear();
+        }
+        private void winEffect(int amount)
+        {
+            GameObject particle = Instantiate(winParticle, new Vector3(5.5f, -1f, 0), Quaternion.identity);
+            Destroy(particle, 5f);
+        }
+        private void showWin(GameObject line)
+        {
+            GameObject newLine = Instantiate(line);
+            Destroy(newLine, 2f);
+        }
+        public void changeBetAmount(int amount)
+        {
+
         }
     }
 }
