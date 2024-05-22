@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using Player.Inventory;
 using Events;
+using System.Collections;
 
 namespace Gambling
 {
@@ -30,6 +31,7 @@ namespace Gambling
         [SerializeField] GameObject lineStraight1;
         [SerializeField] GameObject lineStraight2;
         [SerializeField] GameObject lineStraight3;
+        [SerializeField] Animator anim;
 
         List<GameObject> fishList = new List<GameObject>();
         int inputAmount;
@@ -41,6 +43,7 @@ namespace Gambling
         int spinCount = 0;
         int outputAmount;
         int currentBet = 0;
+        bool canSpin;
 
         private void Awake()
         {
@@ -51,59 +54,14 @@ namespace Gambling
         {
             gameManager = GameManager.Instance;
             betText.text = inputAmount.ToString();
+            canSpin = true;
         }
 
         // Spin function
         public void Spin()
         {
-            if (inputAmount > 0)
-            {
-                if (gameManager.chips > 0 && gameManager.chips >= inputAmount)
-                {
-                    spinCount++;
-                    spinCountText.text = "SPINS: " + spinCount.ToString();
-                    output.text = "";
-                    gameManager.addChips(-inputAmount);
-                    for (int i = 0; i < fishList.Count; i++)
-                    {
-                        Destroy(fishList[i]);
-                    }
-                    fishList.Clear();
-                    float[] spawnWeights = new float[fishPrefabs.Length];
-                    row0.Clear();
-                    row1.Clear();
-                    row2.Clear();
-                    rowsList.Clear();
-                    for (int i = 0; i < columns; i++)
-                    {
-                        float posY = (i * 4 / 2);
-                        for (int j = 0; j < rows; j++)
-                        {
-                            int randomFishIndex = Random.Range(0, fishPrefabs.Length);
-                            GameObject newFish = Instantiate(fishPrefabs[randomFishIndex], new Vector2(transform.position.x + (j * 4 / 2) - 2, posY - 1), Quaternion.identity);
-                            newFish.transform.parent = this.gameObject.transform;
-                            fishList.Add(newFish);
-                            if (i == 0) row0.Add(newFish);
-                            else if (i == 1) row1.Add(newFish);
-                            else if (i == 2) row2.Add(newFish);
-                        }
-                    }
-                    rowsList.Add(row0);
-                    rowsList.Add(row1);
-                    rowsList.Add(row2);
-
-                    CheckRight();
-                    CheckAcross();
-                }
-                else
-                {
-                    output.text = "NOT ENOUGH CHIPS!";
-                }
-            }
-            else
-            {
-                output.text = "YOU NEED TO INPUT CHIPS FIRST!";
-            }
+            if (canSpin) StartCoroutine(startSpin());
+            else return;
         }
 
         // Chech straight for wins
@@ -173,7 +131,7 @@ namespace Gambling
         private void winEffect(int amount)
         {
             GameObject particle = Instantiate(winParticle, new Vector3(5.5f, -1f, 0), Quaternion.identity);
-            particle.GetComponent<ParticleSystem>().maxParticles = amount / 2;
+            particle.GetComponent<ParticleSystem>().maxParticles = amount / 100 + 5;
             Destroy(particle, 5f);
         }
 
@@ -192,6 +150,71 @@ namespace Gambling
             if (currentBet > bets.Count) currentBet = bets.Count;
             inputAmount = bets[currentBet];
             betText.text = inputAmount.ToString();
+        }
+
+        private IEnumerator startSpin()
+        {
+            canSpin = false;
+            if (inputAmount > 0)
+            {
+                if (gameManager.chips > 0 && gameManager.chips >= inputAmount)
+                {
+                    spinCount++;
+                    spinCountText.text = "SPINS: " + spinCount.ToString();
+                    output.text = "";
+                    gameManager.addChips(-inputAmount);
+                    for (int i = 0; i < fishList.Count; i++)
+                    {
+                        Destroy(fishList[i]);
+                    }
+                    fishList.Clear();
+                    float[] spawnWeights = new float[fishPrefabs.Length];
+                    row0.Clear();
+                    row1.Clear();
+                    row2.Clear();
+                    rowsList.Clear();
+                    anim.gameObject.SetActive(true);
+                    toggleAnimation();
+                    yield return new WaitForSeconds(2);
+                    toggleAnimation();
+                    anim.gameObject.SetActive(false);
+                    for (int i = 0; i < columns; i++)
+                    {
+                        float posY = (i * 4 / 2);
+                        for (int j = 0; j < rows; j++)
+                        {
+                            int randomFishIndex = Random.Range(0, fishPrefabs.Length);
+                            GameObject newFish = Instantiate(fishPrefabs[randomFishIndex], new Vector2(transform.position.x + (j * 4 / 2) - 2, posY - 1), Quaternion.identity);
+                            newFish.transform.parent = this.gameObject.transform;
+                            fishList.Add(newFish);
+                            if (i == 0) row0.Add(newFish);
+                            else if (i == 1) row1.Add(newFish);
+                            else if (i == 2) row2.Add(newFish);
+                        }
+                    }
+                    rowsList.Add(row0);
+                    rowsList.Add(row1);
+                    rowsList.Add(row2);
+
+                    CheckRight();
+                    CheckAcross();
+                }
+                else
+                {
+                    output.text = "NOT ENOUGH CHIPS!";
+                }
+            }
+            else
+            {
+                output.text = "YOU NEED TO INPUT CHIPS FIRST!";
+            }
+            canSpin = true;
+        }
+
+        private void toggleAnimation()
+        {
+            if (!anim.GetBool("spin")) anim.SetBool("spin", true);
+            else anim.SetBool("spin", false);
         }
     }
 }
