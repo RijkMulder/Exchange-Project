@@ -34,9 +34,6 @@ namespace Fishing
         private void Awake()
         {
             instance = this;
-        }
-        private void Start()
-        {
             SetProbabilities();
         }
         private void OnEnable()
@@ -90,7 +87,6 @@ namespace Fishing
             {
                 FishHook.instance.ResetPos();
             }
-            Debug.Log(" hmm");
             if (fishingCoroutine == null)fishingCoroutine = StartCoroutine(GoFishing());
         }
         private void Idle()
@@ -107,7 +103,11 @@ namespace Fishing
         }
         private void Caught()
         {
-            if (fishingCoroutine != null) StopCoroutine(fishingCoroutine);
+            if (fishingCoroutine != null)
+            {
+                StopCoroutine(fishingCoroutine);
+                fishingCoroutine = null;
+            }
         }
         private void Try()
         {

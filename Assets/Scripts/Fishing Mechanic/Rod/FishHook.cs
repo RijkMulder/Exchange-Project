@@ -48,7 +48,7 @@ namespace FishingLine
             // check if hitting water
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-            if (!hit.transform.GetComponent<WaterTag>()) return;
+            if ( hit.transform && !hit.transform.GetComponent<WaterTag>()) return;
 
             // go fishing state
             FishingRod.instance.ChangeState(FishingState.Fishing);

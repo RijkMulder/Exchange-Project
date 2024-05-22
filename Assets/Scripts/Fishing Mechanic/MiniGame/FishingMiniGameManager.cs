@@ -30,7 +30,6 @@ namespace Fishing.Minigame
         private void Start()
         {
             allFish = Resources.LoadAll<FishType>("Data/Fish");
-
             // dynamically make a list for every rarity type
             foreach (KeyValuePair<EFishType, int> fish in FishingRod.instance.fishProbabilities)
             {

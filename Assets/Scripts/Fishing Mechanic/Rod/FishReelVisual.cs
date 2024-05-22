@@ -14,7 +14,7 @@ public class FishReelVisual : MonoBehaviour
     }
     private void Update()
     {
-        if (hook.transform.position == hook.startPos)
+        if (hook.transform.position == hook.startPos || FishingRod.instance.state == FishingState.Fishing)
         {
             Destroy(gameObject);
         }
