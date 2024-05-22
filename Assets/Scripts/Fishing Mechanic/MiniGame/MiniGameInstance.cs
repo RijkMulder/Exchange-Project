@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Events;
+using Player.Inventory;
 
 namespace Fishing.Minigame
 {
@@ -21,6 +22,8 @@ namespace Fishing.Minigame
         [SerializeField] private float smallRadialPrc;
         [SerializeField] private float spinnerSpeed;
         [SerializeField] private float maxSpeedMultiplier;
+        [SerializeField] private float revealTime;
+        [SerializeField] private float holdTime;
         [SerializeField] private KeyCode hitKey;
         
         // private
@@ -52,7 +55,7 @@ namespace Fishing.Minigame
             smallRadial.Initialize(fish.chance / 100 * smallRadialPrc);
 
             // sprite
-            spriteHolder.sprite = fish.fishSprite;
+            SetSprite(fish);
 
             // setup
             misses = 0;
@@ -71,6 +74,13 @@ namespace Fishing.Minigame
             int dir = Random.value < 0.5 ? -1 : 1;
             speed = spinnerSpeed * Random.Range(1, maxSpeedMultiplier) * dir;
 
+        }
+        private void SetSprite(FishType fish)
+        {
+            spriteHolder.sprite = fish.fishSprite;
+            bool includes = Inventory.instance.inventoryList.Contains(fish);
+
+            spriteHolder.color = includes ? Color.white : Color.black;
         }
         private void Update()
         {
@@ -98,8 +108,38 @@ namespace Fishing.Minigame
             hitAmntRemain--;
             EventManager.OnSpinnerHit(hitAmntRemain);
 
-            if (hitAmntRemain == 0 || type == ESkillCheckType.HitSmall) FishingMiniGameManager.instance.ContinueFishing(true);
+            if (hitAmntRemain == 0 || type == ESkillCheckType.HitSmall) 
+            {
+                StartCoroutine(EndCoroutine());
+            }
             else SetupAreas(currentFish);
+        }
+        private IEnumerator EndCoroutine()
+        {
+            // disable everyting but sprite
+            spriteHolder.transform.position = transform.position;
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+
+            // color
+            if (spriteHolder.color == Color.black)
+            {
+                float t = 0f;
+                while (t < revealTime)
+                {
+                    t += Time.deltaTime;
+                    float prc = t / revealTime;
+                    float amnt = Mathf.Lerp(0, 255, prc);
+                    spriteHolder.color = new Color(amnt, amnt, amnt, amnt / 255);
+                    yield return null;
+                }
+            }
+
+            // hold
+            yield return new WaitForSeconds(holdTime);
+            FishingMiniGameManager.instance.ContinueFishing(true);
         }
         private void Miss()
         {

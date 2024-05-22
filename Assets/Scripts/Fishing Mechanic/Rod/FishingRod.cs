@@ -6,6 +6,7 @@ using UnityEngine;
 using Events;
 using FishingLine;
 using Player.Inventory;
+using Fishing.Minigame;
 
 namespace Fishing
 {

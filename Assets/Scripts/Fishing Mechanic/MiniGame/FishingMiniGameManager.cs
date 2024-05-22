@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Events;
+using FishingLine;
 
-namespace Fishing
+namespace Fishing.Minigame
 {
     /// <summary>
     /// Minigame manager gets random fish to catch and initializes mini game instance.
@@ -14,12 +15,14 @@ namespace Fishing
 
         // objs
         [SerializeField] private GameObject miniGameInstanceObj;
+        [SerializeField] private FishReelVisual reelVisual;
 
         // fish
         private List<List<FishType>> fishLists = new List<List<FishType>>();
         private FishType newFish;
         private FishType[] allFish;
 
+        private GameObject minigame;
         private void Awake()
         {
             instance = this;
@@ -47,7 +50,7 @@ namespace Fishing
             newFish = fishLists[random][Random.Range(0, fishLists[random].Count)];
 
             // turn mini game window on
-            transform.GetChild(0).gameObject.SetActive(true);
+            minigame = Instantiate(miniGameInstanceObj, transform);
 
             // invoke mini game
             EventManager.OnFishMiniGameStart(newFish);
@@ -55,8 +58,12 @@ namespace Fishing
         public void ContinueFishing(bool succes)
         {
             if (!succes) EventManager.OnContinueFishing(newFish);
-            if (succes) EventManager.OnFishCaught(newFish);
-            transform.GetChild(0).gameObject.SetActive(false);
+            if (succes)
+            {
+                Instantiate(reelVisual, FishHook.instance.transform);
+                EventManager.OnFishCaught(newFish);
+            }
+            Destroy(minigame);
         }
         private int GetFishType()
         {

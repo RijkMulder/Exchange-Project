@@ -17,7 +17,7 @@ namespace FishingLine
         [SerializeField] private Transform fishingRodTop;
         [SerializeField] private float moveBackTime;
 
-        private Vector3 startPos;
+        public Vector3 startPos;
         private Coroutine moveCoroutine;
         private void Awake()
         {

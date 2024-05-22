@@ -4847,6 +4847,6 @@ MonoBehaviour:
   minOffset: {x: -5, y: -5}
   maxOffset: {x: 5, y: 5}
   moveSpeed: 5
-  hitTime: 1
+  hitTime: 0.5
   minDistance: 0.5
   fakeChance: 15
