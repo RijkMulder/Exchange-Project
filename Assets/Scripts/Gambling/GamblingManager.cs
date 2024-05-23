@@ -8,6 +8,8 @@ namespace Gambling
     public class GamblingManager : MonoBehaviour
     {
         public static GamblingManager Instance;
+        public int coins;
+        public int chips;
         private void Awake()
         {
             if (Instance == null) Instance = this;

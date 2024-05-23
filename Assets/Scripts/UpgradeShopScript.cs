@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Gambling;
 
 [System.Serializable]
 public class Prices
@@ -36,7 +37,7 @@ public class UpgradeShopScript : MonoBehaviour
         }
         if (cost > 0)
         {
-            if (gameManager.coins > 0 && gameManager.coins >= cost)
+            if (GamblingManager.Instance.coins >= cost)
             {
                 gameManager.addCoins(-cost);
                 assistText.text = "";
