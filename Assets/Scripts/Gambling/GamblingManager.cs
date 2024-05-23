@@ -26,7 +26,7 @@ namespace Gambling
         public void QuitGambling()
         {
             EventManager.OnDayStart(8);
-            LoadScene("RijkFishingMechanic");
+            LoadScene("AlphaMap");
         }
         private void LoadScene(string scene)
         {
