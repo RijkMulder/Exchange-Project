@@ -10,6 +10,9 @@ namespace Gambling
         public static GamblingManager Instance;
         public int coins;
         public int chips;
+
+        public int speedUpgradeIndex;
+        public int luckUpgradeIndex;
         private void Awake()
         {
             if (Instance == null) Instance = this;
