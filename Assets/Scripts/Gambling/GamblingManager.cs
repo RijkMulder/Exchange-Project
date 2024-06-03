@@ -25,7 +25,7 @@ namespace Gambling
         }
         public void QuitGambling()
         {
-            EventManager.OnDayStart(8);
+            EventManager.OnDayStart(TimeManager.instance.dayStartTime);
             LoadScene("AlphaMap");
         }
         private void LoadScene(string scene)

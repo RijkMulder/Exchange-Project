@@ -3,52 +3,62 @@ using UnityEngine;
 //--
 using Events;
 using Fishing;
+using System;
 
 public class TimeManager : MonoBehaviour
 {
-    [SerializeField] private float timeScale;
-    [SerializeField] private float currentTime;
-    [SerializeField] private int dayEndTime;
+    public static TimeManager instance;
 
-    private float dayLength = 24f;
-    private int dayCount = 1;
+    [SerializeField] private float minutesPerDay;
 
-    bool doTime = true;
+    public int dayEndTime;
+    public int dayStartTime;
+
+    // private
+    private float currentTime;
+    private TimeSpan span;
+    private TimeSpan baseSpan;
+    private bool doTime = true;
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
-        currentTime *= 60;
+        baseSpan = new TimeSpan(1, dayStartTime, 0, 0);
     }
     private void OnEnable()
     {
-        EventManager.DayEnd += StopClock;
-        EventManager.DayStart += StartClock;
+        // stop clock
+        EventManager.DayEnd += (param) => DayEnd();
+
+        // pause
+        EventManager.PauseTime += PauseTime;
+
+        // start clock
+        EventManager.DayStart += (param) => PauseTime(false);
     }
-    private void StopClock(int day)
+    private void DayEnd()
     {
-        doTime = false;
+        PauseTime(true);
         FishingRod.instance.enabled = false;
+
     }
-    private void StartClock(int time)
+    private void PauseTime(bool pause)
     {
-        doTime = true;
-        currentTime = time * 60;
+        doTime = !pause;
     }
     private void Update()
     {
         if (!doTime) return; 
-        currentTime += Time.deltaTime * timeScale;
-        currentTime %= dayLength * 60f;
-        int hour = (int)(currentTime / 60f) % 24;
-        int minute = (int)(currentTime % 60f);
-        if (minute % 5 == 0)
+        currentTime += Time.deltaTime * (60 / minutesPerDay * (dayEndTime - dayStartTime));
+        span = baseSpan + TimeSpan.FromSeconds(currentTime);
+        if (span.Minutes % 5 == 0) EventManager.OnTimeChanged(span);
+        if (span.Hours == dayEndTime)
         {
-            EventManager.OnTimeChanged($"Day {dayCount} - {hour:00}:{minute:00}");
-        }
-        if (hour == dayEndTime - 1 && minute > 58f)
-        {
-            currentTime = 0f;
-            dayCount++;
-            EventManager.OnDayEnd(dayCount);
+            EventManager.OnDayEnd(span.Days);
+            baseSpan += new TimeSpan(1, 0, 0, 0);
+            currentTime = 0;
         }
     }
 }

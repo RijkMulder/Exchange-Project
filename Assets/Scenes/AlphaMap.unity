@@ -3964,9 +3964,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f398dac71d57dd479c414a9caeb1628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 5
-  currentTime: 12
+  minutesPerDay: 1
   dayEndTime: 20
+  dayStartTime: 8
 --- !u!1 &354899255
 GameObject:
   m_ObjectHideFlags: 0

@@ -112,12 +112,16 @@ namespace Fishing
         private void Try()
         {
             if (Clicked() && caught)
-            { FishingMiniGameManager.instance.FishCaught(); caught = false; }
+            { 
+                FishingMiniGameManager.instance.FishCaught(); caught = false;
+                EventManager.OnTimePause(true);
+            }
         }
         private void OnTriedCatch(bool succes, FishType type)
         {
             if (!succes) ChangeState(FishingState.Fishing);
             else { FishHook.instance.ResetPos(); Inventory.instance.Add(type); }
+            EventManager.OnTimePause(false);
         }
         private bool Clicked()
         {

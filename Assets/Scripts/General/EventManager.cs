@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.Events;
 
 namespace Events
@@ -12,8 +13,9 @@ namespace Events
         public static event UnityAction<int> SpinnerHit;
         public static event UnityAction<int> DayEnd;
         public static event UnityAction<int> DayStart;
-        public static event UnityAction<string> TimeChanged;
+        public static event UnityAction<TimeSpan> TimeChanged;
         public static event UnityAction MiniGameMiss;
+        public static event UnityAction<bool> PauseTime;
 
         public static void OnHealthChanged(float value, float max) => PlayerHealthUpdate?.Invoke(value, max);
         public static void OnFishMiniGameStart(FishType value) => FishMiniGameStart?.Invoke(value);
@@ -23,8 +25,9 @@ namespace Events
         public static void OnSpinnerHit(int value) => SpinnerHit?.Invoke(value);
         public static void OnDayEnd(int value) => DayEnd?.Invoke(value);
         public static void OnDayStart(int value) => DayStart?.Invoke(value);
-        public static void OnTimeChanged(string value) => TimeChanged?.Invoke(value);
+        public static void OnTimeChanged(TimeSpan value) => TimeChanged?.Invoke(value);
         public static void OnMiniGameMiss() => MiniGameMiss?.Invoke();
+        public static void OnTimePause(bool value) => PauseTime?.Invoke(value);
     }
 }
 
