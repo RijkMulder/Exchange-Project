@@ -10,28 +10,15 @@ namespace Gambling
         public static GamblingManager Instance;
         private void Awake()
         {
-            if (Instance == null) Instance = this;
-            else Destroy(gameObject);
+            Instance = this;
         }
         public void StartGamblingDay()
         {
-            StartCoroutine(StartDay());
-        }
-        private IEnumerator StartDay()
-        {
-            LoadScene("SlotMachine");
-            yield return new WaitForSeconds(.1f);
             SlotMachineScript.instance.GetChips();
         }
         public void QuitGambling()
         {
             EventManager.OnDayStart(TimeManager.instance.dayStartTime);
-            LoadScene("AlphaMap");
-        }
-        private void LoadScene(string scene)
-        {
-            SceneManager.LoadScene(scene);
-            Instance = this;
         }
     }
 }

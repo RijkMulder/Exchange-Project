@@ -24,9 +24,9 @@ namespace Fishing
         [Header("Fishing Settings")]
         public float minFishTime;
         public float maxFishTime;
+        public FishType currentFish;
 
         private Coroutine fishingCoroutine;
-        private FishType currentFish;
 
         //hide
         [HideInInspector]public bool caught = false;
