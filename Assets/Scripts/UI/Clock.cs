@@ -1,6 +1,7 @@
 using UnityEngine;
 using Events;
 using TMPro;
+using System;
 
 public class Clock : MonoBehaviour
 {
@@ -17,8 +18,8 @@ public class Clock : MonoBehaviour
     {
         EventManager.TimeChanged -= UpdateTime;
     }
-    private void UpdateTime(string newTime)
+    private void UpdateTime(TimeSpan span)
     {
-        text.text = newTime;
+        text.text = $"Day {span.Days} - {span.Hours}:{span.Minutes}";
     }
 }

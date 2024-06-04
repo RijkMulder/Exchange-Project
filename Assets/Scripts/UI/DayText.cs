@@ -16,6 +16,6 @@ public class DayText : MonoBehaviour
     }
     private void UpdateString(int day)
     {
-        text.text = $"Day {day-1} has ended.";
+        text.text = $"Day {day} has ended.";
     }
 }

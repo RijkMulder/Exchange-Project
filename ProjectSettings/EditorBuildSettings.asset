@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/RijkFishingMechanic.unity
+    path: Assets/Scenes/Alpha/RijkFishingMechanic.unity
     guid: c23d361552b0cf445b25e54e44e07190
   - enabled: 1
-    path: Assets/Scenes/SlotMachine.unity
+    path: Assets/Scenes/Alpha/SlotMachine.unity
     guid: f3220ccc472911140a9c1d0e502ffc16
   m_configObjects: {}
