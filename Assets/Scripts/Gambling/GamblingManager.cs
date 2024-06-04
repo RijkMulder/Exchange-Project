@@ -1,7 +1,6 @@
 using Events;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Gambling
 {
@@ -19,10 +18,17 @@ namespace Gambling
         }
         public void StartGamblingDay()
         {
-            SlotMachineScript.instance.GetChips();
+            StartCoroutine(StartGambling());
+        }
+        private IEnumerator StartGambling()
+        {
+            yield return new WaitForSeconds(0.1f);
+            WindowManager.Instance.ChangeWindow();
+            EventManager.OnEndOverview();
         }
         public void QuitGambling()
         {
+            WindowManager.Instance.ChangeWindow();
             EventManager.OnDayStart(TimeManager.instance.dayStartTime);
         }
     }

@@ -1,7 +1,7 @@
 {
     "state": 0,
     "fishSpotParticle": {
-        "instanceID": 29086
+        "instanceID": 31186
     },
     "rarities": [
         {
@@ -57,5 +57,8 @@
     ],
     "minFishTime": 5.0,
     "maxFishTime": 10.0,
+    "currentFish": {
+        "instanceID": 28384
+    },
     "caught": false
 }

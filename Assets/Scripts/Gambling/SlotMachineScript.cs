@@ -49,7 +49,6 @@ namespace Gambling
         {
             instance = this;
         }
-
         private void Start()
         {
             gameManager = GameManager.Instance;

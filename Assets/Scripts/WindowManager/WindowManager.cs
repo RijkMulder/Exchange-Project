@@ -6,18 +6,20 @@ using UnityEngine;
 
 public class WindowManager : MonoBehaviour
 {
+    public static WindowManager Instance;
+
     [SerializeField] private Window[] windows;
     private Window currentWindow;
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         if (currentWindow == null) currentWindow = windows[0];
         DeactivateWindows();
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K)) ChangeWindow();
-    }
-    private void ChangeWindow()
+    public void ChangeWindow()
     {
         currentWindow = currentWindow.ChangeWindow();
         currentWindow.Activate();
