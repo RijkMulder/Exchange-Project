@@ -13,10 +13,10 @@ public class TimeManager : MonoBehaviour
 
     public int dayEndTime;
     public int dayStartTime;
+    public TimeSpan span;
 
     // private
     private float currentTime;
-    private TimeSpan span;
     private TimeSpan baseSpan;
     private bool doTime = true;
     private void Awake()
