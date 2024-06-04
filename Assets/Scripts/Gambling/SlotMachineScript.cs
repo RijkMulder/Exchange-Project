@@ -109,7 +109,7 @@ namespace Gambling
         void givePrize(int multiplier)
         {
             outputAmount = inputAmount * (multiplier * 2);
-            gameManager.addCoins(outputAmount);
+            GamblingManager.Instance.coins += outputAmount;
             output.text = "YOU WON " + outputAmount.ToString() + " COINS";
             winEffect(outputAmount);
         }
@@ -123,7 +123,7 @@ namespace Gambling
             {
                 amnt += fish[i].chipCount;
             }
-            gameManager.addChips(amnt);
+            GamblingManager.Instance.chips += amnt;
             Inventory.instance.inventoryList.Clear();
         }
 
@@ -157,12 +157,12 @@ namespace Gambling
             canSpin = false;
             if (inputAmount > 0)
             {
-                if (gameManager.chips > 0 && gameManager.chips >= inputAmount)
+                if (GamblingManager.Instance.chips >= inputAmount)
                 {
                     spinCount++;
                     spinCountText.text = "SPINS: " + spinCount.ToString();
                     output.text = "";
-                    gameManager.addChips(-inputAmount);
+                    GamblingManager.Instance.chips -= inputAmount;
                     for (int i = 0; i < fishList.Count; i++)
                     {
                         Destroy(fishList[i]);

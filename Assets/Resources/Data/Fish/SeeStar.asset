@@ -16,6 +16,6 @@ MonoBehaviour:
   type: 4
   chipCount: 200
   chance: 25
-  hitAmnt: 3
+  hitAmnt: 5
   fishSprite: {fileID: 21300000, guid: 29567a1c5c56b49d98ed1a02d93ea5b3, type: 3}
   fishUnknownSprite: {fileID: 0}
