@@ -10,8 +10,7 @@ namespace Player.Inventory
         public List<FishType> inventoryList = new List<FishType>();
         private void OnEnable()
         {
-            if (instance == null)instance = this;
-            else Destroy(gameObject);
+            instance = this;
         }
         public void Add(FishType type)
         {

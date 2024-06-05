@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 // my name spaces
 using Events;
@@ -24,9 +25,9 @@ namespace Fishing
         [Header("Fishing Settings")]
         public float minFishTime;
         public float maxFishTime;
+        public FishType currentFish;
 
         private Coroutine fishingCoroutine;
-        private FishType currentFish;
 
         //hide
         [HideInInspector]public bool caught = false;
@@ -35,12 +36,15 @@ namespace Fishing
         {
             instance = this;
             SetProbabilities();
+            EventManager.DayStart += ToggleActive;
         }
         private void OnEnable()
         {
             EventManager.FishMiniGameStart += OnFishMiniGameStart;
             EventManager.ContinueFishing += OnContinueFishing;
             EventManager.FishCaught += OnFishCaught;
+            EventManager.DayEnd += ToggleActive;
+            Load();
         }
 
         private void OnDisable()
@@ -48,6 +52,8 @@ namespace Fishing
             EventManager.FishMiniGameStart -= OnFishMiniGameStart;
             EventManager.ContinueFishing -= OnContinueFishing;
             EventManager.FishCaught -= OnFishCaught;
+            EventManager.DayEnd += ToggleActive;
+            Save();
         }
 
         private void OnFishMiniGameStart(FishType fish)
@@ -67,6 +73,7 @@ namespace Fishing
 
         private void Update()
         {
+            if (transform.childCount == 0) return;
             switch (state)
             {
                 case FishingState.Idle:
@@ -139,7 +146,7 @@ namespace Fishing
             obj.Initialize();
             fishingCoroutine = null;
         }
-        private void SetProbabilities()
+        public void SetProbabilities()
         {
             fishProbabilities.Clear();
             foreach (Rarity rarity in rarities)
@@ -151,6 +158,37 @@ namespace Fishing
         {
             if (state == FishingState.Caught && fish != null) currentFish = fish;
             state = newState;
+        }
+        private void ToggleActive(int day)
+        {
+            enabled = !enabled;
+        }
+        private string path = "FishingRod";
+        public void Load()
+        {
+            // try to find file
+            string filePath = "Assets/Resources" + "/" + path + "/" + this.GetType().Name + ".json";
+            if (File.Exists(filePath))
+            {
+                string json = File.ReadAllText(filePath);
+                JsonUtility.FromJsonOverwrite(json, this);
+            }
+
+            // Save instead if no files are found
+            Save();
+        }
+
+        public void Save()
+        {
+            state = FishingState.Idle;
+            // delete old file and make new
+            string json = JsonUtility.ToJson(this, true);
+            string filePath = "Assets/Resources" + "/" + path + "/" + this.GetType().Name + ".json";
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            File.WriteAllText(filePath, json);
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Gambling
         [SerializeField] GameObject lineStraight1;
         [SerializeField] GameObject lineStraight2;
         [SerializeField] GameObject lineStraight3;
+        [SerializeField] private Transform fishHolder;
         [SerializeField] Animator anim;
 
         List<GameObject> fishList = new List<GameObject>();
@@ -49,7 +50,6 @@ namespace Gambling
         {
             instance = this;
         }
-
         private void Start()
         {
             gameManager = GameManager.Instance;
@@ -109,23 +109,12 @@ namespace Gambling
         void givePrize(int multiplier)
         {
             outputAmount = inputAmount * (multiplier * 2);
-            gameManager.addCoins(outputAmount);
+            GamblingManager.Instance.coins += outputAmount;
             output.text = "YOU WON " + outputAmount.ToString() + " COINS";
             winEffect(outputAmount);
         }
 
-        // Calculate the amount of chips you get
-        public void GetChips()
-        {
-            int amnt = 0;
-            FishType[] fish = Inventory.instance.inventoryList.ToArray();
-            for (int i = 0; i < fish.Length; i++)
-            {
-                amnt += fish[i].chipCount;
-            }
-            gameManager.addChips(amnt);
-            Inventory.instance.inventoryList.Clear();
-        }
+        
 
         // Instantiate a particle effect on win
         private void winEffect(int amount)
@@ -157,12 +146,12 @@ namespace Gambling
             canSpin = false;
             if (inputAmount > 0)
             {
-                if (gameManager.chips > 0 && gameManager.chips >= inputAmount)
+                if (GamblingManager.Instance.chips >= inputAmount)
                 {
                     spinCount++;
                     spinCountText.text = "SPINS: " + spinCount.ToString();
                     output.text = "";
-                    gameManager.addChips(-inputAmount);
+                    GamblingManager.Instance.chips -= inputAmount;
                     for (int i = 0; i < fishList.Count; i++)
                     {
                         Destroy(fishList[i]);
@@ -180,12 +169,12 @@ namespace Gambling
                     anim.gameObject.SetActive(false);
                     for (int i = 0; i < columns; i++)
                     {
-                        float posY = (i * 4 / 2);
+                        float posY = (i * 4 / 2) + transform.position.y;
                         for (int j = 0; j < rows; j++)
                         {
                             int randomFishIndex = Random.Range(0, fishPrefabs.Length);
-                            GameObject newFish = Instantiate(fishPrefabs[randomFishIndex], new Vector2(transform.position.x + (j * 4 / 2) - 2, posY - 1), Quaternion.identity);
-                            newFish.transform.parent = this.gameObject.transform;
+                            GameObject newFish = Instantiate(fishPrefabs[randomFishIndex], new Vector2(transform.position.x + (j * 4 / 2) - 2, posY - 1), Quaternion.identity, fishHolder);
+                            //newFish.GetComponent<RectTransform>().localScale = Vector3.one;
                             fishList.Add(newFish);
                             if (i == 0) row0.Add(newFish);
                             else if (i == 1) row1.Add(newFish);

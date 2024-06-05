@@ -1,0 +1,64 @@
+{
+    "state": 0,
+    "fishSpotParticle": {
+        "instanceID": 31188
+    },
+    "rarities": [
+        {
+            "rarity": 0,
+            "probability": 80,
+            "color": {
+                "r": 0.6226415038108826,
+                "g": 0.6226415038108826,
+                "b": 0.6226415038108826,
+                "a": 1.0
+            }
+        },
+        {
+            "rarity": 1,
+            "probability": 15,
+            "color": {
+                "r": 0.14978641271591187,
+                "g": 0.3612481653690338,
+                "b": 0.9622641801834106,
+                "a": 1.0
+            }
+        },
+        {
+            "rarity": 2,
+            "probability": 10,
+            "color": {
+                "r": 0.2915951907634735,
+                "g": 0.6132075786590576,
+                "b": 0.0,
+                "a": 1.0
+            }
+        },
+        {
+            "rarity": 3,
+            "probability": 5,
+            "color": {
+                "r": 1.0,
+                "g": 0.01032155379652977,
+                "b": 0.0,
+                "a": 1.0
+            }
+        },
+        {
+            "rarity": 4,
+            "probability": 1,
+            "color": {
+                "r": 0.9810125827789307,
+                "g": 1.0,
+                "b": 0.0,
+                "a": 1.0
+            }
+        }
+    ],
+    "minFishTime": 5.0,
+    "maxFishTime": 10.0,
+    "currentFish": {
+        "instanceID": 28390
+    },
+    "caught": false
+}

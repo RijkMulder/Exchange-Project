@@ -41,7 +41,6 @@ public class TimeManager : MonoBehaviour
     private void DayEnd()
     {
         PauseTime(true);
-        FishingRod.instance.enabled = false;
 
     }
     private void PauseTime(bool pause)

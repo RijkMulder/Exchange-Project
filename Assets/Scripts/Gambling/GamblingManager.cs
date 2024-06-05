@@ -1,37 +1,45 @@
 using Events;
+using Player.Inventory;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Gambling
 {
     public class GamblingManager : MonoBehaviour
     {
         public static GamblingManager Instance;
+        public int coins;
+        public int chips;
+
+        public int speedUpgradeIndex;
+        public int luckUpgradeIndex;
         private void Awake()
         {
-            if (Instance == null) Instance = this;
-            else Destroy(gameObject);
+            Instance = this;
         }
         public void StartGamblingDay()
         {
-            StartCoroutine(StartDay());
-        }
-        private IEnumerator StartDay()
-        {
-            LoadScene("SlotMachine");
-            yield return new WaitForSeconds(.1f);
-            SlotMachineScript.instance.GetChips();
+            WindowManager.Instance.ChangeWindow();
+            GetChips();
+            EventManager.OnEndOverview();
         }
         public void QuitGambling()
         {
+            WindowManager.Instance.ChangeWindow();
             EventManager.OnDayStart(TimeManager.instance.dayStartTime);
-            LoadScene("AlphaMap");
         }
-        private void LoadScene(string scene)
+
+        // Calculate the amount of chips you get
+        public void GetChips()
         {
-            SceneManager.LoadScene(scene);
-            Instance = this;
+            int amnt = 0;
+            FishType[] fish = Inventory.instance.inventoryList.ToArray();
+            for (int i = 0; i < fish.Length; i++)
+            {
+                amnt += fish[i].chipCount;
+            }
+            GamblingManager.Instance.chips += amnt;
+            Inventory.instance.inventoryList.Clear();
         }
     }
 }

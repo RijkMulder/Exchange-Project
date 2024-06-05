@@ -2,6 +2,7 @@ using UnityEngine;
 using Events;
 using System.Collections;
 using UI;
+using System.Diagnostics.CodeAnalysis;
 
 public class DayEndManager : MonoBehaviour
 {
@@ -12,15 +13,22 @@ public class DayEndManager : MonoBehaviour
     {
         canvasGroup = GetComponent<CanvasGroup>();
         EventManager.DayEnd += Fade;
+        EventManager.EndOverview += TurnOff;
     }
     private void OnDisable()
     {
         EventManager.DayEnd -= Fade;
+        EventManager.EndOverview -= TurnOff;
     }
     private void Fade(int day)
     {
         InventoryUI.instance.Initialize();
         StartCoroutine(StartFade());
+    }
+    private void TurnOff()
+    {
+        canvasGroup.interactable = false;
+        canvasGroup.alpha = 0;
     }
     private IEnumerator StartFade()
     {
