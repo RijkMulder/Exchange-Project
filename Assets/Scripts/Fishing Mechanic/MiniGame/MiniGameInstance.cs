@@ -147,6 +147,7 @@ namespace Fishing.Minigame
             {
                 Initialize(currentFish);
                 EventManager.OnMiniGameMiss();
+                EventManager.OnScreenShake(0.5f, false);
                 misses++;
                 return;
             }

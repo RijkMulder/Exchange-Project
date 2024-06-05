@@ -41,7 +41,6 @@ public class TimeManager : MonoBehaviour
     private void DayEnd()
     {
         PauseTime(true);
-
     }
     private void PauseTime(bool pause)
     {

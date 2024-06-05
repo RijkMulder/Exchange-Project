@@ -17,6 +17,7 @@ namespace Events
         public static event UnityAction MiniGameMiss;
         public static event UnityAction<bool> PauseTime;
         public static event UnityAction EndOverview;
+        public static event UnityAction<float, bool> ScreenShake;
 
         public static void OnHealthChanged(float value, float max) => PlayerHealthUpdate?.Invoke(value, max);
         public static void OnFishMiniGameStart(FishType value) => FishMiniGameStart?.Invoke(value);
@@ -30,6 +31,7 @@ namespace Events
         public static void OnMiniGameMiss() => MiniGameMiss?.Invoke();
         public static void OnTimePause(bool value) => PauseTime?.Invoke(value);
         public static void OnEndOverview() => EndOverview?.Invoke();
+        public static void OnScreenShake(float value, bool condition) => ScreenShake?.Invoke(value, condition);
     }
 }
 
