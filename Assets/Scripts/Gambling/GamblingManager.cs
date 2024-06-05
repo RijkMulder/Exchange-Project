@@ -1,4 +1,5 @@
 using Events;
+using Player.Inventory;
 using System.Collections;
 using UnityEngine;
 
@@ -18,18 +19,27 @@ namespace Gambling
         }
         public void StartGamblingDay()
         {
-            StartCoroutine(StartGambling());
-        }
-        private IEnumerator StartGambling()
-        {
-            yield return new WaitForSeconds(0.1f);
             WindowManager.Instance.ChangeWindow();
+            GetChips();
             EventManager.OnEndOverview();
         }
         public void QuitGambling()
         {
             WindowManager.Instance.ChangeWindow();
             EventManager.OnDayStart(TimeManager.instance.dayStartTime);
+        }
+
+        // Calculate the amount of chips you get
+        public void GetChips()
+        {
+            int amnt = 0;
+            FishType[] fish = Inventory.instance.inventoryList.ToArray();
+            for (int i = 0; i < fish.Length; i++)
+            {
+                amnt += fish[i].chipCount;
+            }
+            GamblingManager.Instance.chips += amnt;
+            Inventory.instance.inventoryList.Clear();
         }
     }
 }

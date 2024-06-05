@@ -36,12 +36,14 @@ namespace Fishing
         {
             instance = this;
             SetProbabilities();
+            EventManager.DayStart += ToggleActive;
         }
         private void OnEnable()
         {
             EventManager.FishMiniGameStart += OnFishMiniGameStart;
             EventManager.ContinueFishing += OnContinueFishing;
             EventManager.FishCaught += OnFishCaught;
+            EventManager.DayEnd += ToggleActive;
             Load();
         }
 
@@ -50,6 +52,7 @@ namespace Fishing
             EventManager.FishMiniGameStart -= OnFishMiniGameStart;
             EventManager.ContinueFishing -= OnContinueFishing;
             EventManager.FishCaught -= OnFishCaught;
+            EventManager.DayEnd += ToggleActive;
             Save();
         }
 
@@ -155,6 +158,10 @@ namespace Fishing
         {
             if (state == FishingState.Caught && fish != null) currentFish = fish;
             state = newState;
+        }
+        private void ToggleActive(int day)
+        {
+            enabled = !enabled;
         }
         private string path = "FishingRod";
         public void Load()
