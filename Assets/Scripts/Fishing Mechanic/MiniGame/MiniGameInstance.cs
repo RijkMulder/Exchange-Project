@@ -13,6 +13,7 @@ namespace Fishing.Minigame
         [Header("Refrences")]
         [SerializeField] private Radial mainRadial;
         [SerializeField] private Radial smallRadial;
+        [SerializeField] private HitPetal[] petals;
         [SerializeField] private Image spriteHolder;
         [SerializeField] private GameObject spinnerTransform;
         [SerializeField] private MiniGameSpinner spinner;
@@ -25,7 +26,8 @@ namespace Fishing.Minigame
         [SerializeField] private float revealTime;
         [SerializeField] private float holdTime;
         [SerializeField] private KeyCode hitKey;
-        
+        [SerializeField] private float missScreenShakeStrength;
+
         // private
         private FishType currentFish;
         private int hitAmntRemain;
@@ -46,7 +48,6 @@ namespace Fishing.Minigame
         }
         public void Initialize(FishType fish)
         {
-            EventManager.OnInitializeMinigame(fish.hitAmnt);
             currentFish = fish;
             hitAmntRemain = fish.hitAmnt;
 
@@ -58,8 +59,8 @@ namespace Fishing.Minigame
             SetSprite(fish);
 
             // setup
-            misses = 0;
             SetupAreas(fish);
+            SetupPetals(fish);
         }
         private void SetupAreas(FishType fish)
         {
@@ -73,7 +74,13 @@ namespace Fishing.Minigame
             // random direction and speed for spinner
             int dir = Random.value < 0.5 ? -1 : 1;
             speed = spinnerSpeed * Random.Range(1, maxSpeedMultiplier) * dir;
-
+        }
+        private void SetupPetals(FishType fish)
+        {
+            for (int i = 0; i < fish.hitAmnt; i++)
+            {
+                petals[i].SetState(petals[i].white);
+            }
         }
         private void SetSprite(FishType fish)
         {
@@ -105,14 +112,26 @@ namespace Fishing.Minigame
         }
         private void Hit(ESkillCheckType type)
         {
+            petals[currentFish.hitAmnt - hitAmntRemain].SetState(petals[0].green);
             hitAmntRemain--;
             EventManager.OnSpinnerHit(hitAmntRemain);
 
-            if (hitAmntRemain == 0 || type == ESkillCheckType.HitSmall) 
+            if (hitAmntRemain == 0 || type == ESkillCheckType.HitSmall)
             {
                 StartCoroutine(EndCoroutine());
             }
-            else SetupAreas(currentFish);
+            else
+            {
+                SetupAreas(currentFish);
+            }
+        }
+        private void Miss()
+        {
+            StartCoroutine(MissCoroutine());
+        }
+        private void FixedUpdate()
+        {
+            spinnerTransform.transform.Rotate(-Vector3.forward * speed * Time.deltaTime);
         }
         private IEnumerator EndCoroutine()
         {
@@ -141,21 +160,27 @@ namespace Fishing.Minigame
             yield return new WaitForSeconds(holdTime);
             FishingMiniGameManager.instance.ContinueFishing(true);
         }
-        private void Miss()
+        private IEnumerator MissCoroutine()
         {
+            EventManager.OnScreenShake(missScreenShakeStrength, false);
+
+
+            petals[currentFish.hitAmnt - hitAmntRemain].SetState(petals[0].red);
+            yield return new WaitForSeconds(holdTime);
+            for (int i = currentFish.hitAmnt - 1; i > -1; i--)
+            {
+                petals[i].SetState(petals[i].gray);
+                yield return new WaitForSeconds(holdTime);
+            }
+            yield return new WaitForSeconds(holdTime);
+
             if (misses == 0)
             {
-                Initialize(currentFish);
-                EventManager.OnMiniGameMiss();
-                EventManager.OnScreenShake(0.5f, false);
                 misses++;
-                return;
+                Initialize(currentFish);
+                yield break;
             }
             FishingMiniGameManager.instance.ContinueFishing(false);
-        }
-        private void FixedUpdate()
-        {
-           spinnerTransform.transform.Rotate(-Vector3.forward * speed * Time.deltaTime);
         }
     }
 }

@@ -55,7 +55,7 @@ namespace FishingLine
 
             // move to position
             Vector3 targetPos = hit.point;
-            Vector3 direction = targetPos - transform.position;
+            Vector3 direction = targetPos - FishingRod.instance.transform.position;
             float distance = direction.magnitude;
 
             if (distance > maxHookDistance)
