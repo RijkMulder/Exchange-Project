@@ -61,7 +61,7 @@ namespace FishingLine
             if (distance > maxHookDistance)
             {
                 direction.Normalize();
-                targetPos = transform.position + direction * maxHookDistance;
+                targetPos = FishingRod.instance.transform.position + direction * maxHookDistance;
             }
             if (moveCoroutine != null) StopCoroutine(moveCoroutine);
             moveCoroutine = StartCoroutine(MoveLineAsync(targetPos));

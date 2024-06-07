@@ -21,7 +21,6 @@ namespace Fishing.Minigame
         [Header("Settings")]
         [Range(1, 50)]
         [SerializeField] private float smallRadialPrc;
-        [SerializeField] private float spinnerSpeed;
         [SerializeField] private float maxSpeedMultiplier;
         [SerializeField] private float revealTime;
         [SerializeField] private float holdTime;
@@ -29,10 +28,13 @@ namespace Fishing.Minigame
         [SerializeField] private float missScreenShakeStrength;
 
         // private
+        private Rarity currentRarity;
         private FishType currentFish;
         private int hitAmntRemain;
         private int misses;
         private float speed;
+        public Coroutine missCoroutine;
+        private bool spinning = true;
 
         private void Awake()
         {
@@ -41,43 +43,54 @@ namespace Fishing.Minigame
         private void OnEnable()
         {
             EventManager.FishMiniGameStart += Initialize;
+            EventManager.FishMiniGameEnd += Miss;
         }
         private void OnDisable()
         {
             EventManager.FishMiniGameStart -= Initialize;
+            EventManager.FishMiniGameEnd -= Miss;
         }
         public void Initialize(FishType fish)
         {
+            // get currentfish and rarity
             currentFish = fish;
-            hitAmntRemain = fish.hitAmnt;
+            Rarity? rarity = null;
+            foreach (Rarity item in FishingRod.instance.rarities)
+            {
+                if (item.rarity == fish.type) rarity = item;
+            }
+            currentRarity = rarity.Value;
+
+            // set hitAMnt
+            hitAmntRemain = rarity.Value.hitAmnt;
 
             // radials
-            mainRadial.Initialize(fish.chance);
-            smallRadial.Initialize(fish.chance / 100 * smallRadialPrc);
+            mainRadial.Initialize(rarity.Value.skillCheckHitDegrees);
+            smallRadial.Initialize((float)rarity.Value.skillCheckHitDegrees / 100f * rarity.Value.skillCheckSmallPrc);
 
             // sprite
             SetSprite(fish);
 
             // setup
-            SetupAreas(fish);
-            SetupPetals(fish);
+            SetupAreas(rarity.Value);
+            SetupPetals(rarity.Value);
         }
-        private void SetupAreas(FishType fish)
+        private void SetupAreas(Rarity rarity)
         {
             // random rotation
-            float amnt = Random.Range(90, 360 - fish.chance);
+            float amnt = Random.Range(90, 360 - rarity.skillCheckHitDegrees);
 
             // apply rotation
-            mainRadial.transform.Rotate(transform.forward * amnt);
             smallRadial.transform.Rotate(transform.forward * amnt);
+            mainRadial.transform.rotation = Quaternion.Euler(smallRadial.transform.localEulerAngles + new Vector3(0, 0, (float)rarity.skillCheckHitDegrees / 100f * rarity.skillCheckSmallPrc));
 
             // random direction and speed for spinner
             int dir = Random.value < 0.5 ? -1 : 1;
-            speed = spinnerSpeed * Random.Range(1, maxSpeedMultiplier) * dir;
+            speed = rarity.skillCheckSpeed * Random.Range(1, maxSpeedMultiplier) * dir;
         }
-        private void SetupPetals(FishType fish)
+        private void SetupPetals(Rarity rarity)
         {
-            for (int i = 0; i < fish.hitAmnt; i++)
+            for (int i = 0; i < rarity.hitAmnt; i++)
             {
                 petals[i].SetState(petals[i].white);
             }
@@ -92,7 +105,7 @@ namespace Fishing.Minigame
         private void Update()
         {
             // check hit
-            if (Input.GetKeyDown(hitKey))
+            if (Input.GetKeyDown(hitKey) && missCoroutine == null)
             {
                 ESkillCheckType type = spinner.type;
 
@@ -112,26 +125,28 @@ namespace Fishing.Minigame
         }
         private void Hit(ESkillCheckType type)
         {
-            petals[currentFish.hitAmnt - hitAmntRemain].SetState(petals[0].green);
+            petals[currentRarity.hitAmnt - hitAmntRemain].SetState(petals[0].green);
             hitAmntRemain--;
             EventManager.OnSpinnerHit(hitAmntRemain);
 
             if (hitAmntRemain == 0 || type == ESkillCheckType.HitSmall)
             {
+                spinning = false;
                 StartCoroutine(EndCoroutine());
             }
             else
             {
-                SetupAreas(currentFish);
+                SetupAreas(currentRarity);
             }
         }
-        private void Miss()
+        private void Miss(int amnt = 0)
         {
-            StartCoroutine(MissCoroutine());
+            if (amnt != 0) misses = 1;
+            if (missCoroutine == null)missCoroutine = StartCoroutine(MissCoroutine());
         }
         private void FixedUpdate()
         {
-            spinnerTransform.transform.Rotate(-Vector3.forward * speed * Time.deltaTime);
+            if (spinning) spinnerTransform.transform.Rotate(-Vector3.forward * speed * Time.deltaTime);
         }
         private IEnumerator EndCoroutine()
         {
@@ -164,10 +179,9 @@ namespace Fishing.Minigame
         {
             EventManager.OnScreenShake(missScreenShakeStrength, false);
 
-
-            petals[currentFish.hitAmnt - hitAmntRemain].SetState(petals[0].red);
+            petals[currentRarity.hitAmnt - hitAmntRemain].SetState(petals[0].red);
             yield return new WaitForSeconds(holdTime);
-            for (int i = currentFish.hitAmnt - 1; i > -1; i--)
+            for (int i = currentRarity.hitAmnt - 1; i > -1; i--)
             {
                 petals[i].SetState(petals[i].gray);
                 yield return new WaitForSeconds(holdTime);
@@ -178,9 +192,12 @@ namespace Fishing.Minigame
             {
                 misses++;
                 Initialize(currentFish);
+                missCoroutine = null;
+                EventManager.OnMinigameMiss(1);
                 yield break;
             }
             FishingMiniGameManager.instance.ContinueFishing(false);
+            missCoroutine = null;
         }
     }
 }
