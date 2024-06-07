@@ -4976,7 +4976,7 @@ Tilemap:
       - {fileID: 475806399, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: -581906228, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: 1337139000, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
-      m_AnimationSpeed: 2.5
+      m_AnimationSpeed: 2.5000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 1, y: -4, z: 0}
@@ -5045,7 +5045,7 @@ Tilemap:
       - {fileID: 629949314, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: 319605173, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: -608734368, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
-      m_AnimationSpeed: 2.5
+      m_AnimationSpeed: 2.5000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 7, y: -4, z: 0}
@@ -5827,7 +5827,7 @@ Tilemap:
       - {fileID: 1133128325, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: 1708104942, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: -209832231, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
-      m_AnimationSpeed: 2.5
+      m_AnimationSpeed: 2.5000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 3, y: 5, z: 0}
@@ -6338,18 +6338,38 @@ MonoBehaviour:
   - rarity: 0
     probability: 80
     color: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
+    hitAmnt: 2
+    skillCheckSpeed: 400
+    skillCheckHitDegrees: 90
+    skillCheckSmallPrc: 10
   - rarity: 1
     probability: 15
     color: {r: 0.14978641, g: 0.36124817, b: 0.9622642, a: 1}
+    hitAmnt: 2
+    skillCheckSpeed: 450
+    skillCheckHitDegrees: 60
+    skillCheckSmallPrc: 12
   - rarity: 2
     probability: 10
     color: {r: 0.2915952, g: 0.6132076, b: 0, a: 1}
+    hitAmnt: 3
+    skillCheckSpeed: 500
+    skillCheckHitDegrees: 40
+    skillCheckSmallPrc: 14
   - rarity: 3
     probability: 5
     color: {r: 1, g: 0.010321554, b: 0, a: 1}
+    hitAmnt: 4
+    skillCheckSpeed: 550
+    skillCheckHitDegrees: 20
+    skillCheckSmallPrc: 16
   - rarity: 4
     probability: 1
     color: {r: 0.9810126, g: 1, b: 0, a: 1}
+    hitAmnt: 5
+    skillCheckSpeed: 600
+    skillCheckHitDegrees: 15
+    skillCheckSmallPrc: 18
   minFishTime: 5
   maxFishTime: 10
   currentFish: {fileID: 11400000, guid: 0d1d8b54dcb2a604282922bd487fdc3a, type: 2}

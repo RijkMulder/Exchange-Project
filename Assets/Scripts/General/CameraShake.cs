@@ -1,4 +1,5 @@
 using Events;
+using Fishing.Minigame;
 using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine;
@@ -8,14 +9,14 @@ public class CameraShake : MonoBehaviour
     [SerializeField] private float duration;
     [SerializeField] private bool start;
     [SerializeField] private AnimationCurve curve;
+    [SerializeField] private float repeatShakeMultiplier;
+    [SerializeField] private float shakeWaitTime;
     private void OnEnable()
     {
-        Debug.Log("enabled");
         EventManager.ScreenShake += Initiate;
     }
     private void Initiate(float s, bool r) 
     {
-        Debug.Log("Initiating");
         StartCoroutine(Shake(s, r));
     }
     private IEnumerator Shake(float strength, bool repeat)
@@ -34,13 +35,17 @@ public class CameraShake : MonoBehaviour
         }
 
         transform.position = startPos;
+
+        yield return new WaitForSeconds(shakeWaitTime);
+        StartCoroutine(RepeatShake(strength));
     }
     private IEnumerator RepeatShake(float strength)
     {
         Vector3 startPos = transform.position;
         while (true)
         {
-            transform.position = startPos + Random.insideUnitSphere * strength;
+            transform.position = startPos + Random.insideUnitSphere * (strength / repeatShakeMultiplier);
+            if (FishingMiniGameManager.instance.transform.childCount == 0) yield break;
             yield return null;
         }
     }

@@ -11,5 +11,12 @@ namespace Fishing
         public EFishType rarity;
         public int probability;
         public Color color;
+
+        [Space]
+        [Header("Minigame")]
+        public int hitAmnt;
+        public int skillCheckSpeed;
+        public int skillCheckHitDegrees;
+        public int skillCheckSmallPrc;
     }
 }

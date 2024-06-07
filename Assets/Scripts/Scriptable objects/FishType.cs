@@ -12,10 +12,6 @@ public class FishType : ScriptableObject
     [Tooltip("How rare is this fish?")]public EFishType type;
     public int chipCount;
 
-    [Header("Difficulty")]
-    [Tooltip("How big is the area you can land in?")][Range(0, 360)] public float chance;
-    [Tooltip("How many spins to catch?")][Range(1, 5)]public int hitAmnt;
-
     [Header("Visual")]
     public Sprite fishSprite;
     public Sprite fishUnknownSprite;
