@@ -5,11 +5,8 @@ using System;
 
 public class Clock : MonoBehaviour
 {
-    private TMP_Text text;
-    private void Start()
-    {
-        text = GetComponent<TMP_Text>();
-    }
+    [SerializeField] private Transform hourHand;
+    [SerializeField] private Transform minuteHand;
     private void OnEnable()
     {
         EventManager.TimeChanged += UpdateTime;
@@ -20,6 +17,7 @@ public class Clock : MonoBehaviour
     }
     private void UpdateTime(TimeSpan span)
     {
-        text.text = $"Day {span.Days} - {span.Hours}:{span.Minutes}";
+        minuteHand.localEulerAngles = new Vector3(0, 0, -Mathf.Lerp(0, 360, (float)span.Minutes / 60f));
+        hourHand.localEulerAngles = new Vector3(0, 0, -((float)span.Hours) / 12f * 360f);
     }
 }
