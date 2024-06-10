@@ -19,13 +19,13 @@ namespace Gambling
         }
         public void StartGamblingDay()
         {
-            WindowManager.Instance.ChangeWindow();
+            WindowManager.Instance.ChangeWindow(false);
             GetChips();
             EventManager.OnEndOverview();
         }
         public void QuitGambling()
         {
-            WindowManager.Instance.ChangeWindow();
+            WindowManager.Instance.ChangeWindow(false);
             EventManager.OnDayStart(TimeManager.instance.dayStartTime);
         }
 

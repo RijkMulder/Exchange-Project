@@ -9,6 +9,7 @@ public class WindowManager : MonoBehaviour
     public static WindowManager Instance;
 
     [SerializeField] private Window[] windows;
+    [SerializeField] private WindowTransition windowTransition;
     private Window currentWindow;
     private void Awake()
     {
@@ -18,12 +19,20 @@ public class WindowManager : MonoBehaviour
     {
         if (currentWindow == null) currentWindow = windows[0];
         DeactivateWindows();
+
+        ChangeWindow(true);
     }
-    public void ChangeWindow()
+    public void ChangeWindow(bool doTransition)
     {
-        currentWindow = currentWindow.ChangeWindow();
-        currentWindow.Activate();
-        DeactivateWindows();
+        // no transition
+        if (!doTransition)
+        {
+            LoadWindow();
+            return;
+        }
+
+        // transition
+        Instantiate(windowTransition);
     }
     private void DeactivateWindows()
     {
@@ -31,5 +40,11 @@ public class WindowManager : MonoBehaviour
         {
             if (window != currentWindow) window.DeActivate();
         }
+    }
+    private void LoadWindow()
+    {
+        currentWindow = currentWindow.ChangeWindow();
+        currentWindow.Activate();
+        DeactivateWindows();
     }
 }
