@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class crankScript : MonoBehaviour
 {
-    private void Start()
-    {
-        GameManager.Instance.addChips(1000);
-    }
+    [SerializeField] private Animator animator;
     private void OnMouseDown()
     {
         SlotMachineScript.instance.Spin();
+        animator.SetTrigger("pull");
     }
 }
