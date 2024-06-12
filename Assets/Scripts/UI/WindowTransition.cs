@@ -15,14 +15,13 @@ public class WindowTransition : MonoBehaviour
     [SerializeField] private AnimationCurve waterCurve;
 
     private GameObject waterInstance;
-    private void Start()
+    public void StartTransition()
     {
         Vector3 camPos = Camera.main.transform.position;
-        Instantiate(bubbles, new Vector3(camPos.x , camPos.y + bubbleOffset.y, camPos.z + bubbleOffset.x), Quaternion.Euler(-90, 0, 0), transform);
+        Instantiate(bubbles, new Vector3(camPos.x, camPos.y + bubbleOffset.y, camPos.z + bubbleOffset.x), Quaternion.Euler(-90, 0, 0), transform);
         waterInstance = Instantiate(water, new Vector3(camPos.x + waterOffset.x, camPos.y + waterOffset.y, camPos.z + waterOffset.z), Quaternion.identity, transform);
         StartCoroutine(DoTransition());
     }
-
     public IEnumerator DoTransition()
     {
         float t = 0;
@@ -36,7 +35,7 @@ public class WindowTransition : MonoBehaviour
             float prc = t / transitionDuration;
             if (prc > 0.7 && !half)
             {
-                WindowManager.Instance.ChangeWindow(false);
+                WindowManager.Instance.ChangeWindow(false, WindowManager.Instance.windows[2]);
                 half = true;
             }
             waterInstance.transform.position = Vector3.Lerp(startPos, endPos, waterCurve.Evaluate(prc));

@@ -26,9 +26,7 @@ namespace Fishing.Minigame
         private void Awake()
         {
             instance = this;
-        }
-        private void Start()
-        {
+
             allFish = Resources.LoadAll<FishType>("Data/Fish");
             // dynamically make a list for every rarity type
             foreach (KeyValuePair<EFishType, int> fish in FishingRod.instance.fishProbabilities)
@@ -52,6 +50,7 @@ namespace Fishing.Minigame
             minigame = Instantiate(miniGameInstanceObj, transform);
 
             // invoke mini game
+            WindowManager.Instance.ChangeWindow(true);
             EventManager.OnFishMiniGameStart(newFish);
         }
         public void ContinueFishing(bool succes)

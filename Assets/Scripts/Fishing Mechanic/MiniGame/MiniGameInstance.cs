@@ -14,7 +14,7 @@ namespace Fishing.Minigame
         [SerializeField] private Radial mainRadial;
         [SerializeField] private Radial smallRadial;
         [SerializeField] private HitPetal[] petals;
-        [SerializeField] private Image spriteHolder;
+        [SerializeField] private SpriteRenderer spriteHolder;
         [SerializeField] private GameObject spinnerTransform;
         [SerializeField] private MiniGameSpinner spinner;
 
