@@ -2,10 +2,12 @@ using Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Window : MonoBehaviour
 {
     [SerializeField] private Window nextWidow;
+    public CanvasGroup windowUI;
 
     GameObject windowBase;
     private void Awake() { windowBase = transform.GetChild(0).gameObject; }

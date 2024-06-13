@@ -11,6 +11,11 @@ public class CameraShake : MonoBehaviour
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private float repeatShakeMultiplier;
     [SerializeField] private float shakeWaitTime;
+    Vector3 startPos;
+    private void Start()
+    {
+        startPos = transform.position;
+    }
     private void OnEnable()
     {
         EventManager.ScreenShake += Initiate;
@@ -21,9 +26,7 @@ public class CameraShake : MonoBehaviour
     }
     private IEnumerator Shake(float strength, bool repeat)
     {
-        Vector3 startPos = transform.position;
         float elapsedTime = 0;
-
         if (repeat) yield return StartCoroutine(RepeatShake(strength));
 
         while (elapsedTime < duration)
@@ -45,7 +48,11 @@ public class CameraShake : MonoBehaviour
         while (true)
         {
             transform.position = startPos + Random.insideUnitSphere * (strength / repeatShakeMultiplier);
-            if (FishingMiniGameManager.instance.transform.childCount == 0) yield break;
+            if (FishingMiniGameManager.instance.transform.childCount == 0)
+            {
+                transform.position = startPos;
+                yield break;
+            }
             yield return null;
         }
     }

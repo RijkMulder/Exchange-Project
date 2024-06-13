@@ -9,8 +9,10 @@ public class WindowManager : MonoBehaviour
     public static WindowManager Instance;
 
     public Window[] windows;
+    public Window currentWindow;
+    public WindowTransition transition;
+
     [SerializeField] private WindowTransition windowTransition;
-    private Window currentWindow;
     private void Awake()
     {
         Instance = this;
@@ -20,6 +22,11 @@ public class WindowManager : MonoBehaviour
         if (currentWindow == null) currentWindow = windows[0];
         DeactivateWindows();
     }
+    /// <summary>
+    /// Change windows with or without transition, choose which window or default next window of current window
+    /// </summary>
+    /// <param name="doTransition"></param>
+    /// <param name="window"></param>
     public void ChangeWindow(bool doTransition, Window window = null)
     {
         // no transition
@@ -30,8 +37,8 @@ public class WindowManager : MonoBehaviour
         }
 
         // transition
-        WindowTransition transition = Instantiate(windowTransition);
-        transition.StartTransition();
+        transition = Instantiate(windowTransition);
+        transition.StartTransition(window);
     }
     private void DeactivateWindows()
     {

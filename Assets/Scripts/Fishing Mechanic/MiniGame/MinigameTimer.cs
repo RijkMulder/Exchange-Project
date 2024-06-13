@@ -9,7 +9,7 @@ namespace Fishing.Minigame
         public int maxTime;
         private float timer;
         private TMP_Text text;
-
+        bool done;
         private void Start()
         {
             text = GetComponent<TMP_Text>();
@@ -17,11 +17,13 @@ namespace Fishing.Minigame
         }
         private void Update()
         {
-            if (MiniGameInstance.instance.missCoroutine == null)timer -= Time.deltaTime;
+            if (MiniGameInstance.instance.missCoroutine == null && WindowManager.Instance.transition == null )timer -= Time.deltaTime;  
             text.text = timer.ToString("f0");
-            if (timer <= 0.5f)
+            if (timer <= 0.5f && !done)
             { 
-                EventManager.OnFishMiniGameEnd(1); 
+                done = true;
+                EventManager.OnFishMiniGameEnd(1);
+                WindowManager.Instance.ChangeWindow(true, WindowManager.Instance.windows[0]);
             }
         }
         private void OnEnable()

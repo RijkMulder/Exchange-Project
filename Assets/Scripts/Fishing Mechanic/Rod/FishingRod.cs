@@ -44,16 +44,6 @@ namespace Fishing
             EventManager.ContinueFishing += OnContinueFishing;
             EventManager.FishCaught += OnFishCaught;
             EventManager.DayEnd += ToggleActive;
-            Load();
-        }
-
-        private void OnDisable()
-        {
-            EventManager.FishMiniGameStart -= OnFishMiniGameStart;
-            EventManager.ContinueFishing -= OnContinueFishing;
-            EventManager.FishCaught -= OnFishCaught;
-            EventManager.DayEnd += ToggleActive;
-            Save();
         }
 
         private void OnFishMiniGameStart(FishType fish)
@@ -162,33 +152,6 @@ namespace Fishing
         private void ToggleActive(int day)
         {
             enabled = !enabled;
-        }
-        private string path = "FishingRod";
-        public void Load()
-        {
-            // try to find file
-            string filePath = "Assets/Resources" + "/" + path + "/" + this.GetType().Name + ".json";
-            if (File.Exists(filePath))
-            {
-                string json = File.ReadAllText(filePath);
-                JsonUtility.FromJsonOverwrite(json, this);
-            }
-
-            // Save instead if no files are found
-            Save();
-        }
-
-        public void Save()
-        {
-            state = FishingState.Idle;
-            // delete old file and make new
-            string json = JsonUtility.ToJson(this, true);
-            string filePath = "Assets/Resources" + "/" + path + "/" + this.GetType().Name + ".json";
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
-            File.WriteAllText(filePath, json);
         }
     }
 }

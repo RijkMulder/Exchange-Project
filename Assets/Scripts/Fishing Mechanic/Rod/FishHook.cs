@@ -24,6 +24,10 @@ namespace FishingLine
             instance = this;
             startPos = transform.position;
         }
+        private void OnEnable()
+        {
+            ResetPos();
+        }
         private void OnValidate()
         {
             line = GetComponent<LineRenderer>();
@@ -40,8 +44,8 @@ namespace FishingLine
         public void ResetPos()
         {
             if (moveCoroutine != null) StopCoroutine(moveCoroutine);
-            moveCoroutine = StartCoroutine(MoveLineAsync(startPos));
-            FishingRod.instance.ChangeState(FishingState.Idle);
+            if (gameObject.activeInHierarchy)moveCoroutine = StartCoroutine(MoveLineAsync(startPos));
+            if (FishingRod.instance)FishingRod.instance.ChangeState(FishingState.Idle);
         }
         public void CastLine()
         {

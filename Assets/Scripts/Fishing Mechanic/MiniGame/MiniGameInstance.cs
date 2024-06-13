@@ -14,7 +14,7 @@ namespace Fishing.Minigame
         [SerializeField] private Radial mainRadial;
         [SerializeField] private Radial smallRadial;
         [SerializeField] private HitPetal[] petals;
-        [SerializeField] private SpriteRenderer spriteHolder;
+        [SerializeField] private Image spriteHolder;
         [SerializeField] private GameObject spinnerTransform;
         [SerializeField] private MiniGameSpinner spinner;
 
@@ -26,6 +26,7 @@ namespace Fishing.Minigame
         [SerializeField] private float holdTime;
         [SerializeField] private KeyCode hitKey;
         [SerializeField] private float missScreenShakeStrength;
+        public CanvasGroup canvas;
 
         // private
         private Rarity currentRarity;
@@ -39,15 +40,14 @@ namespace Fishing.Minigame
         private void Awake()
         {
             instance = this;
+            Initialize(FishingMiniGameManager.instance.newFish);
         }
         private void OnEnable()
         {
-            EventManager.FishMiniGameStart += Initialize;
             EventManager.FishMiniGameEnd += Miss;
         }
-        private void OnDisable()
+        private void OnDestroy()
         {
-            EventManager.FishMiniGameStart -= Initialize;
             EventManager.FishMiniGameEnd -= Miss;
         }
         public void Initialize(FishType fish)
@@ -174,6 +174,7 @@ namespace Fishing.Minigame
             // hold
             yield return new WaitForSeconds(holdTime);
             FishingMiniGameManager.instance.ContinueFishing(true);
+            WindowManager.Instance.ChangeWindow(true, WindowManager.Instance.windows[0]);
         }
         private IEnumerator MissCoroutine()
         {
@@ -198,6 +199,9 @@ namespace Fishing.Minigame
             }
             FishingMiniGameManager.instance.ContinueFishing(false);
             missCoroutine = null;
+
+            if (WindowManager.Instance.transition != null) yield break;
+            WindowManager.Instance.ChangeWindow(true, WindowManager.Instance.windows[0]);
         }
     }
 }

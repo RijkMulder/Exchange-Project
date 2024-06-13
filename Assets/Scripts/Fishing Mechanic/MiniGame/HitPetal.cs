@@ -11,14 +11,9 @@ namespace Fishing.Minigame
         public Sprite green;
         public Sprite red;
 
-        private Image img;
-        private void Awake()
-        {
-            img = GetComponent<Image>();
-        }
-
         public void SetState(Sprite sprite)
         {
+            Image img = GetComponent<Image>();
             img.sprite = sprite;
             if (sprite == gray) img.color = new Color(255, 255, 255, 0.6f);
             else img.color = Color.white;
