@@ -1,7 +1,7 @@
 {
     "state": 0,
     "fishSpotParticle": {
-        "instanceID": 29604
+        "instanceID": 0
     },
     "rarities": [
         {
@@ -12,11 +12,7 @@
                 "g": 0.6226415038108826,
                 "b": 0.6226415038108826,
                 "a": 1.0
-            },
-            "hitAmnt": 2,
-            "skillCheckSpeed": 400,
-            "skillCheckHitDegrees": 90,
-            "skillCheckSmallPrc": 10
+            }
         },
         {
             "rarity": 1,
@@ -26,11 +22,7 @@
                 "g": 0.3612481653690338,
                 "b": 0.9622641801834106,
                 "a": 1.0
-            },
-            "hitAmnt": 2,
-            "skillCheckSpeed": 450,
-            "skillCheckHitDegrees": 60,
-            "skillCheckSmallPrc": 12
+            }
         },
         {
             "rarity": 2,
@@ -40,11 +32,7 @@
                 "g": 0.6132075786590576,
                 "b": 0.0,
                 "a": 1.0
-            },
-            "hitAmnt": 3,
-            "skillCheckSpeed": 500,
-            "skillCheckHitDegrees": 40,
-            "skillCheckSmallPrc": 14
+            }
         },
         {
             "rarity": 3,
@@ -54,11 +42,7 @@
                 "g": 0.01032155379652977,
                 "b": 0.0,
                 "a": 1.0
-            },
-            "hitAmnt": 4,
-            "skillCheckSpeed": 550,
-            "skillCheckHitDegrees": 20,
-            "skillCheckSmallPrc": 16
+            }
         },
         {
             "rarity": 4,
@@ -68,17 +52,13 @@
                 "g": 1.0,
                 "b": 0.0,
                 "a": 1.0
-            },
-            "hitAmnt": 5,
-            "skillCheckSpeed": 600,
-            "skillCheckHitDegrees": 15,
-            "skillCheckSmallPrc": 18
+            }
         }
     ],
     "minFishTime": 5.0,
     "maxFishTime": 10.0,
     "currentFish": {
-        "instanceID": 28404
+        "instanceID": 0
     },
     "caught": false
 }
