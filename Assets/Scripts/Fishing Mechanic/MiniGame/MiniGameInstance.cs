@@ -17,6 +17,7 @@ namespace Fishing.Minigame
         [SerializeField] private Image spriteHolder;
         [SerializeField] private GameObject spinnerTransform;
         [SerializeField] private MiniGameSpinner spinner;
+        [SerializeField] private FishStatsWindow statsWindow;
 
         [Header("Settings")]
         [Range(1, 50)]
@@ -102,6 +103,7 @@ namespace Fishing.Minigame
 
             spriteHolder.color = includes ? Color.white : Color.black;
         }
+
         private void Update()
         {
             // check hit
@@ -132,7 +134,7 @@ namespace Fishing.Minigame
             if (hitAmntRemain == 0 || type == ESkillCheckType.HitSmall)
             {
                 spinning = false;
-                StartCoroutine(EndCoroutine());
+                EndMinigame();
             }
             else
             {
@@ -148,33 +150,14 @@ namespace Fishing.Minigame
         {
             if (spinning) spinnerTransform.transform.Rotate(-Vector3.forward * speed * Time.deltaTime);
         }
-        private IEnumerator EndCoroutine()
+        private void EndMinigame()
         {
-            // disable everyting but sprite
-            spriteHolder.transform.position = transform.position;
-            for (int i = 0; i < transform.childCount; i++)
+            int index = canvas.transform.childCount - 1;
+            for (int i = 0; i < index; i++)
             {
-                transform.GetChild(i).gameObject.SetActive(false);
+                if (!canvas.transform.GetChild(i).GetComponent<FishStatsWindow>()) Destroy(canvas.transform.GetChild(i).gameObject);
             }
-
-            // color
-            if (spriteHolder.color == Color.black)
-            {
-                float t = 0f;
-                while (t < revealTime)
-                {
-                    t += Time.deltaTime;
-                    float prc = t / revealTime;
-                    float amnt = Mathf.Lerp(0, 255, prc);
-                    spriteHolder.color = new Color(amnt, amnt, amnt, amnt / 255);
-                    yield return null;
-                }
-            }
-
-            // hold
-            yield return new WaitForSeconds(holdTime);
-            FishingMiniGameManager.instance.ContinueFishing(true);
-            WindowManager.Instance.ChangeWindow(true, WindowManager.Instance.windows[0]);
+            statsWindow.Setup(currentFish);
         }
         private IEnumerator MissCoroutine()
         {

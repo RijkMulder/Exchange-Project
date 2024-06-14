@@ -15,4 +15,7 @@ public class FishType : ScriptableObject
     [Header("Visual")]
     public Sprite fishSprite;
     public Sprite fishUnknownSprite;
+
+    [Header("Story")]
+    public string description;
 }
