@@ -1,6 +1,9 @@
 using Events;
+using Fishing;
+using Fishing.Stats;
 using Player.Inventory;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gambling
@@ -19,13 +22,13 @@ namespace Gambling
         }
         public void StartGamblingDay()
         {
-            WindowManager.Instance.ChangeWindow();
+            WindowManager.Instance.ChangeWindow(false);
             GetChips();
             EventManager.OnEndOverview();
         }
         public void QuitGambling()
         {
-            WindowManager.Instance.ChangeWindow();
+            WindowManager.Instance.ChangeWindow(false);
             EventManager.OnDayStart(TimeManager.instance.dayStartTime);
         }
 
@@ -33,13 +36,17 @@ namespace Gambling
         public void GetChips()
         {
             int amnt = 0;
-            FishType[] fish = Inventory.instance.inventoryList.ToArray();
-            for (int i = 0; i < fish.Length; i++)
+            List<FishType> fish = new List<FishType>();
+            foreach (KeyValuePair<FishType, FishStats> f in Inventory.instance.inventoryDictionary)
+            {
+                fish.Add(f.Key);
+            }
+            for (int i = 0; i < fish.Count; i++)
             {
                 amnt += fish[i].chipCount;
             }
             GamblingManager.Instance.chips += amnt;
-            Inventory.instance.inventoryList.Clear();
+            Inventory.instance.inventoryDictionary.Clear();
         }
     }
 }

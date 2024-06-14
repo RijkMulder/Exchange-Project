@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
   m_Name: DrillShark
   m_EditorClassIdentifier: 
-  fishName: DrillShark
+  fishName: Drill shark
   type: 2
   chipCount: 50
-  chance: 60
-  hitAmnt: 2
   fishSprite: {fileID: 21300000, guid: b69d317742b689e4a855169ca3abe362, type: 3}
   fishUnknownSprite: {fileID: 0}
+  description: 

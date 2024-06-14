@@ -16,19 +16,18 @@ namespace Fishing.Minigame
         // objs
         [SerializeField] private GameObject miniGameInstanceObj;
         [SerializeField] private FishReelVisual reelVisual;
+        [SerializeField] private Window parentWindow;
 
         // fish
         private List<List<FishType>> fishLists = new List<List<FishType>>();
-        private FishType newFish;
+        public FishType newFish;
         private FishType[] allFish;
 
         private GameObject minigame;
         private void Awake()
         {
             instance = this;
-        }
-        private void Start()
-        {
+
             allFish = Resources.LoadAll<FishType>("Data/Fish");
             // dynamically make a list for every rarity type
             foreach (KeyValuePair<EFishType, int> fish in FishingRod.instance.fishProbabilities)
@@ -50,8 +49,10 @@ namespace Fishing.Minigame
 
             // turn mini game window on
             minigame = Instantiate(miniGameInstanceObj, transform);
+            parentWindow.windowUI = minigame.transform.GetChild(0).gameObject.GetComponent<MiniGameInstance>().canvas;
 
             // invoke mini game
+            WindowManager.Instance.ChangeWindow(true, WindowManager.Instance.windows[2]);
             EventManager.OnFishMiniGameStart(newFish);
         }
         public void ContinueFishing(bool succes)
@@ -59,7 +60,8 @@ namespace Fishing.Minigame
             if (!succes) EventManager.OnContinueFishing(newFish);
             if (succes)
             {
-                Instantiate(reelVisual, FishHook.instance.transform);
+                FishReelVisual visual = Instantiate(reelVisual, FishHook.instance.transform);
+                visual.Initialize(newFish);
                 EventManager.OnFishCaught(newFish);
             }
             Destroy(minigame);

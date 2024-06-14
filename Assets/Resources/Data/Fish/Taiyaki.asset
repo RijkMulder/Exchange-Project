@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
   m_Name: Taiyaki
   m_EditorClassIdentifier: 
-  fishName: Taiyaki
+  fishName: Taiyaki fish
   type: 4
   chipCount: 150
-  chance: 30
-  hitAmnt: 5
   fishSprite: {fileID: 21300000, guid: b95156b30d31a2547809b7657ed90c4a, type: 3}
   fishUnknownSprite: {fileID: 0}
+  description: 

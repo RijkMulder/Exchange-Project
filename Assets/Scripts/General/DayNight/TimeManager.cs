@@ -9,8 +9,11 @@ public class TimeManager : MonoBehaviour
 {
     public static TimeManager instance;
 
+    [Header("Settings")]
     [SerializeField] private float minutesPerDay;
+    [SerializeField] private int minutesPerUpdate;
 
+    [Space]
     public int dayEndTime;
     public int dayStartTime;
     public TimeSpan span;
@@ -41,7 +44,6 @@ public class TimeManager : MonoBehaviour
     private void DayEnd()
     {
         PauseTime(true);
-
     }
     private void PauseTime(bool pause)
     {
@@ -52,7 +54,7 @@ public class TimeManager : MonoBehaviour
         if (!doTime) return; 
         currentTime += Time.deltaTime * (60 / minutesPerDay * (dayEndTime - dayStartTime));
         span = baseSpan + TimeSpan.FromSeconds(currentTime);
-        if (span.Minutes % 5 == 0) EventManager.OnTimeChanged(span);
+        if (span.Minutes % minutesPerUpdate == 0) EventManager.OnTimeChanged(span);
         if (span.Hours == dayEndTime)
         {
             EventManager.OnDayEnd(span.Days);

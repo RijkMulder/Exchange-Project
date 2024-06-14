@@ -47,3 +47,5 @@ MonoBehaviour:
   windows:
   - {fileID: 0}
   - {fileID: 0}
+  windowTransition: {fileID: 2884134215836685609, guid: 02f5cd0e52bda5644870e22be71c9e4d,
+    type: 3}
