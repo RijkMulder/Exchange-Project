@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
   m_Name: ClownFish
   m_EditorClassIdentifier: 
-  fishName: ClownFish
+  fishName: Clown fish
   type: 1
   chipCount: 20
-  chance: 75
-  hitAmnt: 2
   fishSprite: {fileID: 21300000, guid: 851765703ca5517428047fd110af2cbd, type: 3}
   fishUnknownSprite: {fileID: 0}
+  description: 

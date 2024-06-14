@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
   m_Name: StroopwafelFish
   m_EditorClassIdentifier: 
-  fishName: StroopWafelFish
+  fishName: Stroopwafel Fish
   type: 3
   chipCount: 100
-  chance: 45
-  hitAmnt: 2
   fishSprite: {fileID: 21300000, guid: b5baa0628a2d54c429a9aff496d57553, type: 3}
   fishUnknownSprite: {fileID: 0}
+  description: 

@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
   m_Name: FinnishFish
   m_EditorClassIdentifier: 
-  fishName: FinnishFish
+  fishName: Finnish fish
   type: 3
   chipCount: 50
-  chance: 57
-  hitAmnt: 3
   fishSprite: {fileID: 21300000, guid: 8cc1d6379addc41e68cb7cb308cf5360, type: 3}
   fishUnknownSprite: {fileID: 0}
+  description: 

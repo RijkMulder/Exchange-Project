@@ -8,28 +8,17 @@ public class FishReelVisual : MonoBehaviour
 {
     public SpriteRenderer img;
     private FishHook hook;
-    private void Awake()
-    {
-        hook = FishHook.instance;
-    }
     private void Update()
     {
+        transform.position = hook.transform.position;
         if (hook.transform.position == hook.startPos || FishingRod.instance.state == FishingState.Fishing)
         {
             Destroy(gameObject);
         }
     }
-    private void OnEnable()
+    public void Initialize(FishType fish)
     {
-        EventManager.FishCaught += Initialize;
-    }
-
-    private void OnDisable()
-    {
-        EventManager.FishCaught -= Initialize;
-    }
-    private void Initialize(FishType fish)
-    {
+        hook = FishHook.instance;
         transform.position = hook.transform.position;
         img.sprite = fish.fishSprite;
     }

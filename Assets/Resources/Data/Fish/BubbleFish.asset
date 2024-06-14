@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
   m_Name: BubbleFish
   m_EditorClassIdentifier: 
-  fishName: BubbleFish
+  fishName: Bubble fish
   type: 0
   chipCount: 10
-  chance: 90
-  hitAmnt: 2
   fishSprite: {fileID: 21300000, guid: 933c4f7b56d54db43a3e79bebcea344f, type: 3}
   fishUnknownSprite: {fileID: 0}
+  description: 

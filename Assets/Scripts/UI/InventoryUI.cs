@@ -1,4 +1,5 @@
 using Fishing;
+using Fishing.Stats;
 using Player.Inventory;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,12 @@ namespace UI
         }
         public void Initialize()
         {
-            FishType[] inv = Inventory.instance.inventoryList.ToArray();
+            List<FishType> inv = new List<FishType>();
+            foreach (KeyValuePair<FishType, FishStats> f in Inventory.instance.inventoryDictionary)
+            {
+                inv.Add(f.Key);
+            }
+
             Rarity[] rarities = FishingRod.instance.rarities;
             EFishType[] types = rarities.Select(r => r.rarity).ToArray();
 

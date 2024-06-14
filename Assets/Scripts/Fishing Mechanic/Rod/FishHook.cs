@@ -24,6 +24,10 @@ namespace FishingLine
             instance = this;
             startPos = transform.position;
         }
+        private void OnEnable()
+        {
+            ResetPos();
+        }
         private void OnValidate()
         {
             line = GetComponent<LineRenderer>();
@@ -40,8 +44,8 @@ namespace FishingLine
         public void ResetPos()
         {
             if (moveCoroutine != null) StopCoroutine(moveCoroutine);
-            moveCoroutine = StartCoroutine(MoveLineAsync(startPos));
-            FishingRod.instance.ChangeState(FishingState.Idle);
+            if (gameObject.activeInHierarchy)moveCoroutine = StartCoroutine(MoveLineAsync(startPos));
+            if (FishingRod.instance)FishingRod.instance.ChangeState(FishingState.Idle);
         }
         public void CastLine()
         {
@@ -55,13 +59,13 @@ namespace FishingLine
 
             // move to position
             Vector3 targetPos = hit.point;
-            Vector3 direction = targetPos - transform.position;
+            Vector3 direction = targetPos - FishingRod.instance.transform.position;
             float distance = direction.magnitude;
 
             if (distance > maxHookDistance)
             {
                 direction.Normalize();
-                targetPos = transform.position + direction * maxHookDistance;
+                targetPos = FishingRod.instance.transform.position + direction * maxHookDistance;
             }
             if (moveCoroutine != null) StopCoroutine(moveCoroutine);
             moveCoroutine = StartCoroutine(MoveLineAsync(targetPos));
