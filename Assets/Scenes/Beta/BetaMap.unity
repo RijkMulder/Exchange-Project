@@ -652,7 +652,7 @@ MonoBehaviour:
   m_text: New Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0119d13bee4f25468feae7acbe68342, type: 2}
-  m_sharedMaterial: {fileID: 6049654187738554025, guid: c0119d13bee4f25468feae7acbe68342,
+  m_sharedMaterial: {fileID: 4736595264228297021, guid: c0119d13bee4f25468feae7acbe68342,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2005,7 +2005,7 @@ MonoBehaviour:
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0119d13bee4f25468feae7acbe68342, type: 2}
-  m_sharedMaterial: {fileID: 6049654187738554025, guid: c0119d13bee4f25468feae7acbe68342,
+  m_sharedMaterial: {fileID: 4736595264228297021, guid: c0119d13bee4f25468feae7acbe68342,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2233,7 +2233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd60a74fab2e0547b4d23aeec740fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryList: []
 --- !u!224 &2072943663 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7334923448287493658, guid: e460bd24d86acaa42853509e7498a954,
@@ -2562,7 +2561,7 @@ PrefabInstance:
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
       propertyPath: m_AnimatedTiles.Array.data[16].second.m_AnimationSpeed
-      value: 2.5000002
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
@@ -2611,6 +2610,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
+      propertyPath: m_AnimatedTiles.Array.data[27].second.m_AnimationSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
+        type: 3}
       propertyPath: m_AnimatedTiles.Array.data[28].second.m_AnimationSpeed
       value: 2.5
       objectReference: {fileID: 0}
@@ -2622,7 +2626,7 @@ PrefabInstance:
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
       propertyPath: m_AnimatedTiles.Array.data[30].second.m_AnimationSpeed
-      value: 2.5000002
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
@@ -2647,7 +2651,7 @@ PrefabInstance:
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
       propertyPath: m_AnimatedTiles.Array.data[35].second.m_AnimationSpeed
-      value: 2.5
+      value: 2.5000002
       objectReference: {fileID: 0}
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
@@ -2707,6 +2711,11 @@ PrefabInstance:
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
       propertyPath: m_AnimatedTiles.Array.data[47].second.m_AnimationSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
+        type: 3}
+      propertyPath: m_AnimatedTiles.Array.data[48].second.m_AnimationSpeed
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,

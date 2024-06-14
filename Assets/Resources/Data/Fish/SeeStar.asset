@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
   m_Name: SeeStar
   m_EditorClassIdentifier: 
-  fishName: 
+  fishName: See-star fish
   type: 4
   chipCount: 200
-  chance: 25
-  hitAmnt: 5
   fishSprite: {fileID: 21300000, guid: 29567a1c5c56b49d98ed1a02d93ea5b3, type: 3}
   fishUnknownSprite: {fileID: 0}
+  description: 

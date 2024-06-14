@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Events;
 using Player.Inventory;
+using Fishing.Stats;
 
 namespace Fishing.Minigame
 {
@@ -99,9 +100,6 @@ namespace Fishing.Minigame
         private void SetSprite(FishType fish)
         {
             spriteHolder.sprite = fish.fishSprite;
-            bool includes = Inventory.instance.inventoryList.Contains(fish);
-
-            spriteHolder.color = includes ? Color.white : Color.black;
         }
 
         private void Update()

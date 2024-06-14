@@ -12,12 +12,13 @@ public class CameraShake : MonoBehaviour
     [SerializeField] private float repeatShakeMultiplier;
     [SerializeField] private float shakeWaitTime;
     Vector3 startPos;
-    private void Start()
+    private void Awake()
     {
         startPos = transform.position;
     }
     private void OnEnable()
     {
+        transform.position = startPos;
         EventManager.ScreenShake += Initiate;
     }
     private void Initiate(float s, bool r) 

@@ -117,7 +117,7 @@ namespace Fishing
         private void OnTriedCatch(bool succes, FishType type)
         {
             if (!succes) ChangeState(FishingState.Fishing);
-            else { FishHook.instance.ResetPos(); Inventory.instance.Add(type); }
+            else { FishHook.instance.ResetPos(); }
             EventManager.OnTimePause(false);
         }
         private bool Clicked()
