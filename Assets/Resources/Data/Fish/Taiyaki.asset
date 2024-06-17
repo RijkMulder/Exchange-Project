@@ -16,5 +16,6 @@ MonoBehaviour:
   type: 4
   chipCount: 150
   fishSprite: {fileID: 21300000, guid: b95156b30d31a2547809b7657ed90c4a, type: 3}
-  fishUnknownSprite: {fileID: 0}
-  description: 
+  fishUnknownSprite: {fileID: 21300000, guid: bc295c0d696665444b408e8f34af6717, type: 3}
+  description: They say it is the most ordinary of fishes, but sometimes the most
+    ordinary seeming people are the most valuable.

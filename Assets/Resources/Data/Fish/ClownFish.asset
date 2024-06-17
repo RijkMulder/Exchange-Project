@@ -16,5 +16,5 @@ MonoBehaviour:
   type: 1
   chipCount: 20
   fishSprite: {fileID: 21300000, guid: 851765703ca5517428047fd110af2cbd, type: 3}
-  fishUnknownSprite: {fileID: 0}
-  description: 
+  fishUnknownSprite: {fileID: 21300000, guid: f6d41691be0760440b2cd168006dc1c7, type: 3}
+  description: Don't fool around with this one!

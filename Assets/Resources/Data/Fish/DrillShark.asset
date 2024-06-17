@@ -16,5 +16,5 @@ MonoBehaviour:
   type: 2
   chipCount: 50
   fishSprite: {fileID: 21300000, guid: b69d317742b689e4a855169ca3abe362, type: 3}
-  fishUnknownSprite: {fileID: 0}
-  description: 
+  fishUnknownSprite: {fileID: 21300000, guid: b28b12f3cacb936479fd3d4773c63bf6, type: 3}
+  description: Legend says he still couldnt come out of his shell.. such an introvert.

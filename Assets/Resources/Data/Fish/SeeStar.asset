@@ -16,5 +16,5 @@ MonoBehaviour:
   type: 4
   chipCount: 200
   fishSprite: {fileID: 21300000, guid: 29567a1c5c56b49d98ed1a02d93ea5b3, type: 3}
-  fishUnknownSprite: {fileID: 0}
-  description: 
+  fishUnknownSprite: {fileID: 21300000, guid: 49694eb2ccf810240ab9b904e7fd7218, type: 3}
+  description: It sees all, into all 5 dimensions, past future and parallel universes.
