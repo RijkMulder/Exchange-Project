@@ -23,8 +23,11 @@ namespace Logbook
             {
                 NewItem(fish[i]);
             }
-            LogBookPageManager.instance.MakePages();
             EventManager.DayEnd += CheckInventory;
+        }
+        private void Start()
+        {
+            LogBookPageManager.instance.MakePages();
         }
         public void CheckInventory(int d)
         {
