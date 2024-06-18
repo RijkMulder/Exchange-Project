@@ -8,6 +8,7 @@ using UnityEngine.Rendering.Universal;
 public class DayNightPostproccesing : MonoBehaviour
 {
     Volume volume;
+    ColorAdjustments startAdjustments;
     [SerializeField] private Vector2 exposure;
     [SerializeField] private AnimationCurve xposureCurve;
     [SerializeField] private AnimationCurve colorCurve;
@@ -18,6 +19,8 @@ public class DayNightPostproccesing : MonoBehaviour
     private void Start()
     {
         volume = GetComponent<Volume>();
+        volume.profile.TryGet(out ColorAdjustments color);
+        startAdjustments = color;
         if(volume.profile.TryGet(out ColorAdjustments col))
         {
             startColor = col.colorFilter.value;
@@ -25,11 +28,16 @@ public class DayNightPostproccesing : MonoBehaviour
     }
     private void Update()
     {
+        if (TimeManager.instance.span.Hours >= TimeManager.instance.dayEndTime)
+        {
+            ResetVolume();
+            return;
+        }
         UpdateVolume();
     }
     public void UpdateVolume()
     {
-       if (volume.profile.TryGet(out ColorAdjustments color))
+        if (volume.profile.TryGet(out ColorAdjustments color))
         {
             TimeManager time = TimeManager.instance;
             float totalMins = (time.span.Hours * 60f + time.span.Minutes) - time.dayStartTime * 60f;
@@ -37,5 +45,12 @@ public class DayNightPostproccesing : MonoBehaviour
             color.postExposure.value = Mathf.Lerp(exposure.x, exposure.y, xposureCurve.Evaluate(prc));
             color.colorFilter.value = Color.Lerp(startColor, colour, colorCurve.Evaluate(prc));
         }
+    }
+    public void ResetVolume()
+    {
+        volume.profile.TryGet(out ColorAdjustments color);
+
+        color.postExposure.value = 0;
+        color.colorFilter.value = startColor;
     }
 }

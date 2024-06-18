@@ -16,5 +16,6 @@ MonoBehaviour:
   type: 0
   chipCount: 10
   fishSprite: {fileID: 21300000, guid: 933c4f7b56d54db43a3e79bebcea344f, type: 3}
-  fishUnknownSprite: {fileID: 0}
-  description: 
+  fishUnknownSprite: {fileID: 21300000, guid: e13caddf78c1d1a469452b677b8ece4f, type: 3}
+  description: The bubble fish was first discovered by sir Bubbels Fisceous, it's
+    name has nothing to do with it being a bubble.

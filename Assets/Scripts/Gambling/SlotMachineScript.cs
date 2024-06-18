@@ -22,7 +22,6 @@ namespace Gambling
 
         [Header("Setup")]
         [SerializeField] GameObject[] fishPrefabs;
-        [SerializeField] TextMeshProUGUI spinCountText;
         [SerializeField] TextMeshProUGUI output;
         [SerializeField] TextMeshProUGUI betText;
         [SerializeField] GameObject winParticle;
@@ -33,6 +32,7 @@ namespace Gambling
         [SerializeField] GameObject lineStraight3;
         [SerializeField] private Transform fishHolder;
         [SerializeField] Animator anim;
+        [SerializeField] Transform particlePos;
 
         List<GameObject> fishList = new List<GameObject>();
         int inputAmount;
@@ -41,10 +41,10 @@ namespace Gambling
         List<GameObject> row1 = new List<GameObject>();
         List<GameObject> row2 = new List<GameObject>();
         List<List<GameObject>> rowsList = new List<List<GameObject>>();
-        int spinCount = 0;
         int outputAmount;
         int currentBet = 0;
         bool canSpin;
+        List<GameObject> newLine = new List<GameObject>();
 
         private void Awake()
         {
@@ -119,7 +119,7 @@ namespace Gambling
         // Instantiate a particle effect on win
         private void winEffect(int amount)
         {
-            GameObject particle = Instantiate(winParticle, new Vector3(5.5f, -1f, 0), Quaternion.identity);
+            GameObject particle = Instantiate(winParticle, particlePos);
             particle.GetComponent<ParticleSystem>().maxParticles = amount / 100 + 5;
             Destroy(particle, 5f);
         }
@@ -127,8 +127,7 @@ namespace Gambling
         // Instantiate a line on top of the winning line
         private void showWin(GameObject line)
         {
-            GameObject newLine = Instantiate(line);
-            Destroy(newLine, 2f);
+            newLine.Add(Instantiate(line, new Vector3(80, 0, 0), Quaternion.identity));
         }
 
         // Change the bet amount fractually
@@ -148,8 +147,11 @@ namespace Gambling
             {
                 if (GamblingManager.Instance.chips >= inputAmount)
                 {
-                    spinCount++;
-                    spinCountText.text = "SPINS: " + spinCount.ToString();
+                    for (int i = 0; i < newLine.Count; i++)
+                    {
+                        Destroy(newLine[i]);
+                    }
+                    newLine.Clear();
                     output.text = "";
                     GamblingManager.Instance.chips -= inputAmount;
                     for (int i = 0; i < fishList.Count; i++)
@@ -169,11 +171,11 @@ namespace Gambling
                     anim.gameObject.SetActive(false);
                     for (int i = 0; i < columns; i++)
                     {
-                        float posY = (i * 4 / 2) + transform.position.y;
+                        float posY = (i * 4 / 3) + transform.position.y;
                         for (int j = 0; j < rows; j++)
                         {
                             int randomFishIndex = Random.Range(0, fishPrefabs.Length);
-                            GameObject newFish = Instantiate(fishPrefabs[randomFishIndex], new Vector2(transform.position.x + (j * 4 / 2) - 2, posY - 1), Quaternion.identity, fishHolder);
+                            GameObject newFish = Instantiate(fishPrefabs[randomFishIndex], new Vector2(transform.position.x + (j * 4 / 1.9f) - 2.1f, posY - 1), Quaternion.identity, fishHolder);
                             //newFish.GetComponent<RectTransform>().localScale = Vector3.one;
                             fishList.Add(newFish);
                             if (i == 0) row0.Add(newFish);

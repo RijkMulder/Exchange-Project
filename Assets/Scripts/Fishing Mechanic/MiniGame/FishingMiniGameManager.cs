@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Events;
 using FishingLine;
+using System.Collections;
 
 namespace Fishing.Minigame
 {
@@ -27,22 +28,12 @@ namespace Fishing.Minigame
         private void Awake()
         {
             instance = this;
-
-            allFish = Resources.LoadAll<FishType>("Data/Fish");
-            // dynamically make a list for every rarity type
-            foreach (KeyValuePair<EFishType, int> fish in FishingRod.instance.fishProbabilities)
-            {
-                EFishType rarity = fish.Key;
-                List<FishType> currentFishRarity = new List<FishType>();
-                for (int i = 0; i < allFish.Length; i++)
-                {
-                    if (allFish[i].type == rarity) currentFishRarity.Add(allFish[i]);
-                }
-                fishLists.Add(currentFishRarity);
-            }
         }
         public void FishCaught()
         {
+            // populate fishLists
+            if (fishLists.Count == 0) MakeFishLists();
+
             // get fish
             int random = GetFishType();
             newFish = fishLists[random][Random.Range(0, fishLists[random].Count)];
@@ -90,6 +81,22 @@ namespace Fishing.Minigame
                 if (crawlingValue >= randomValue) return i;
             }
             return -1;
+        }
+        private void MakeFishLists()
+        {
+            allFish = Resources.LoadAll<FishType>("Data/Fish");
+            fishLists.Clear();
+            // dynamically make a list for every rarity type
+            foreach (KeyValuePair<EFishType, int> fish in FishingRod.instance.fishProbabilities)
+            {
+                EFishType rarity = fish.Key;
+                List<FishType> currentFishRarity = new List<FishType>();
+                for (int i = 0; i < allFish.Length; i++)
+                {
+                    if (allFish[i].type == rarity) currentFishRarity.Add(allFish[i]);
+                }
+                fishLists.Add(currentFishRarity);
+            }
         }
     }
 }

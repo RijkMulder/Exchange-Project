@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: "Reik\xE4leip\xE4"
   m_EditorClassIdentifier: 
   fishName: "Reik\xE4leip\xE4 fish"
-  type: 0
-  chipCount: 0
+  type: 3
+  chipCount: 50
   fishSprite: {fileID: 21300000, guid: 90ad7277d9139d9439caa7324e763ada, type: 3}
-  fishUnknownSprite: {fileID: 0}
-  description: 
+  fishUnknownSprite: {fileID: 21300000, guid: 6a7c35e6587202d48a7a7da9ae3c0c69, type: 3}
+  description: The deep sea treat to snack on while drowning.
