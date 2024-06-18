@@ -8,10 +8,17 @@ namespace UpgradeShop
 {
     public class UpgradeShopScript : MonoBehaviour
     {
-        public UpgradeShopScript Instance;
+        public static UpgradeShopScript Instance;
 
         public List<RodType> speedUpgrades = new List<RodType>();
         public List<RodType> luckUpgrades = new List<RodType>();
+
+        public TextMeshProUGUI speedPriceText;
+        public TextMeshProUGUI luckPriceText;
+
+        public Animator animator;
+
+        public GameObject shop;
 
         public int currentSpeedUpgrade = 0;
         public int currentLuckUpgrade = 0;
@@ -21,25 +28,58 @@ namespace UpgradeShop
             Instance = this;
         }
 
+        private void Start()
+        {
+            speedPriceText.text = "Upgrade Speed: " + speedUpgrades[currentSpeedUpgrade].coins.ToString();
+            luckPriceText.text = "Upgrade Luck: " + luckUpgrades[currentLuckUpgrade].coins.ToString();
+        }
+
+        public void SetActive()
+        {
+            AnimateIn();
+        }
+
+        public void SetInactive()
+        {
+            StartCoroutine(AnimateOut());
+        }
+
+        void AnimateIn()
+        {
+            animator.SetTrigger("FallIn");
+            shop.SetActive(true);
+        }
+
+        IEnumerator AnimateOut()
+        {
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+            {
+                animator.SetTrigger("FallOut");
+                yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+                animator.SetTrigger("End");
+                shop.SetActive(false);
+            }
+        }
+
         public void upgradeSpeed()
         {
             int cost = speedUpgrades[currentSpeedUpgrade].coins;
-            int coins = GamblingManager.Instance.coins;
-            if (cost <= coins)
+            if (cost <= GamblingManager.Instance.coins)
             {
                 currentSpeedUpgrade++;
-                coins -= cost;
+                GamblingManager.Instance.coins -= cost;
+                speedPriceText.text = "Upgrade Speed: " + speedUpgrades[currentSpeedUpgrade].coins.ToString();
             }
         }
 
         public void upgradeluck()
         {
             int cost = luckUpgrades[currentLuckUpgrade].coins;
-            int coins = GamblingManager.Instance.coins;
-            if (cost <= coins)
+            if (cost <= GamblingManager.Instance.coins)
             {
                 currentLuckUpgrade++;
-                coins -= cost;
+                GamblingManager.Instance.coins -= cost;
+                luckPriceText.text = "Upgrade Luck: " + luckUpgrades[currentLuckUpgrade].coins.ToString();
             }
         }
     }
