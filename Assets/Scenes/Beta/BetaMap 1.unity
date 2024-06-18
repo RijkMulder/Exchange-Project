@@ -1208,12 +1208,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175698433}
   m_CullTransparentMesh: 1
---- !u!224 &176777071 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6627133191001448227, guid: e460bd24d86acaa42853509e7498a954,
-    type: 3}
-  m_PrefabInstance: {fileID: 5400906572718909376}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &187485969
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,7 +2617,7 @@ MonoBehaviour:
   m_text: New Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0119d13bee4f25468feae7acbe68342, type: 2}
-  m_sharedMaterial: {fileID: 6049654187738554025, guid: c0119d13bee4f25468feae7acbe68342,
+  m_sharedMaterial: {fileID: 4736595264228297021, guid: c0119d13bee4f25468feae7acbe68342,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3658,6 +3652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minutesPerDay: 0.5
+  minutesPerUpdate: 0
   dayEndTime: 20
   dayStartTime: 8
 --- !u!1 &362227708
@@ -4446,7 +4441,7 @@ MonoBehaviour:
   m_text: If this text shows up in game this is broken lol
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0119d13bee4f25468feae7acbe68342, type: 2}
-  m_sharedMaterial: {fileID: 6049654187738554025, guid: c0119d13bee4f25468feae7acbe68342,
+  m_sharedMaterial: {fileID: 4736595264228297021, guid: c0119d13bee4f25468feae7acbe68342,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -9938,6 +9933,8 @@ MonoBehaviour:
     type: 3}
   reelVisual: {fileID: 6406756036990630104, guid: f055f7d2c3f23b642b3024c1cdc5bf4d,
     type: 3}
+  parentWindow: {fileID: 0}
+  newFish: {fileID: 0}
 --- !u!114 &807108614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21433,7 +21430,7 @@ Transform:
   m_GameObject: {fileID: 1772070150}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 80, y: 0, z: -10}
+  m_LocalPosition: {x: 40, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22600,7 +22597,7 @@ MonoBehaviour:
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0119d13bee4f25468feae7acbe68342, type: 2}
-  m_sharedMaterial: {fileID: 6049654187738554025, guid: c0119d13bee4f25468feae7acbe68342,
+  m_sharedMaterial: {fileID: 4736595264228297021, guid: c0119d13bee4f25468feae7acbe68342,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -25321,13 +25318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd60a74fab2e0547b4d23aeec740fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryList: []
---- !u!224 &2072943663 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7334923448287493658, guid: e460bd24d86acaa42853509e7498a954,
-    type: 3}
-  m_PrefabInstance: {fileID: 5400906572718909376}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2093024159
 GameObject:
   m_ObjectHideFlags: 0
@@ -26365,6 +26355,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2240239773861500766, guid: e460bd24d86acaa42853509e7498a954,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240239773861500766, guid: e460bd24d86acaa42853509e7498a954,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240239773861500766, guid: e460bd24d86acaa42853509e7498a954,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240239773861500766, guid: e460bd24d86acaa42853509e7498a954,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2348937616945232118, guid: e460bd24d86acaa42853509e7498a954,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -26429,12 +26439,12 @@ PrefabInstance:
         type: 3}
       propertyPath: canvas
       value: 
-      objectReference: {fileID: 176777071}
+      objectReference: {fileID: 0}
     - target: {fileID: 2791743414762270356, guid: e460bd24d86acaa42853509e7498a954,
         type: 3}
       propertyPath: fishHolder
       value: 
-      objectReference: {fileID: 2072943663}
+      objectReference: {fileID: 0}
     - target: {fileID: 3092996741739241064, guid: e460bd24d86acaa42853509e7498a954,
         type: 3}
       propertyPath: m_Name
@@ -26856,6 +26866,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6739795876196775598, guid: e460bd24d86acaa42853509e7498a954,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967902394597229416, guid: e460bd24d86acaa42853509e7498a954,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967902394597229416, guid: e460bd24d86acaa42853509e7498a954,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967902394597229416, guid: e460bd24d86acaa42853509e7498a954,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967902394597229416, guid: e460bd24d86acaa42853509e7498a954,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0

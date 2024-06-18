@@ -23,7 +23,6 @@ namespace Logbook
         }
         public void MakePages()
         {
-            Debug.Log("making opages");
             foreach (var item in LogBook.instance.fishDictionary)
             {
                 Transform pageAlign = pages.Count % 2 == 0 ? left : right;

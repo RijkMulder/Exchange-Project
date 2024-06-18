@@ -37,7 +37,6 @@ public class DayNightPostproccesing : MonoBehaviour
     }
     public void UpdateVolume()
     {
-        Debug.Log("updating");
         if (volume.profile.TryGet(out ColorAdjustments color))
         {
             TimeManager time = TimeManager.instance;
@@ -50,7 +49,6 @@ public class DayNightPostproccesing : MonoBehaviour
     public void ResetVolume()
     {
         volume.profile.TryGet(out ColorAdjustments color);
-        Debug.Log("Resettting");
 
         color.postExposure.value = 0;
         color.colorFilter.value = startColor;

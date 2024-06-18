@@ -14,7 +14,6 @@ namespace Logbook
         public Dictionary<FishType, (FishStats, int)> fishDictionary = new Dictionary<FishType, (FishStats, int)>();
         private void Awake()
         {
-            Debug.Log("HUH" + gameObject.name);
             instance = this;
 
             // create items
