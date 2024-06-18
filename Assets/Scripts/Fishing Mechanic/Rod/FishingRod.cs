@@ -29,7 +29,6 @@ namespace Fishing
 
         private Coroutine fishingCoroutine;
 
-        //hide
         [HideInInspector]public bool caught = false;
 
         private void Awake()

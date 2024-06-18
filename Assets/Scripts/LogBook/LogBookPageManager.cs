@@ -23,14 +23,13 @@ namespace Logbook
         }
         public void MakePages()
         {
-            int index = 0;
+            Debug.Log("making opages");
             foreach (var item in LogBook.instance.fishDictionary)
             {
-                index++;
                 Transform pageAlign = pages.Count % 2 == 0 ? left : right;
                 LogbookPage newPage = Instantiate(prefab, pageAlign.localPosition, Quaternion.identity, pageAlign);
                 newPage.transform.localPosition = new Vector3(50, 50, 0);
-                SetupPage(newPage, item.Key, index);
+                SetupPage(newPage, item.Key);
             }
 
             int indexLoop = pages.Count;
@@ -52,14 +51,14 @@ namespace Logbook
                 if (i % 2 == 1 && i <= pages.Count || i == 0) pages[i].previousPageButton.gameObject.SetActive(false);
             }
         }
-        private void SetupPage(LogbookPage page, FishType type, int index)
+        private void SetupPage(LogbookPage page, FishType type)
         {
             page.img.sprite = type.fishUnknownSprite;
             page.title.text = type.fishName;
             page.description.text = type.description;
             page.count.text = 0.ToString();
-            if (index % 2 == 1) page.previousPageButton.onClick.AddListener(PreviousPage);
-            else page.nextPageButton.onClick.AddListener(NextPage);
+            page.previousPageButton.onClick.AddListener(PreviousPage);
+            page.nextPageButton.onClick.AddListener(NextPage);
             pages.Add(page);
         }
         public void NextPage()

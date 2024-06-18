@@ -1,6 +1,7 @@
 using Events;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,6 +22,10 @@ public class WindowManager : MonoBehaviour
     {
         if (currentWindow == null) currentWindow = windows[0];
         DeactivateWindows();
+    }
+    public void ChangeWindowButton()
+    {
+        ChangeWindow(false);
     }
     /// <summary>
     /// Change windows with or without transition, choose which window or default next window of current window

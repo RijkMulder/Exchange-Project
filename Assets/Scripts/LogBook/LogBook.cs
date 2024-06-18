@@ -14,6 +14,7 @@ namespace Logbook
         public Dictionary<FishType, (FishStats, int)> fishDictionary = new Dictionary<FishType, (FishStats, int)>();
         private void Awake()
         {
+            Debug.Log("HUH" + gameObject.name);
             instance = this;
 
             // create items
@@ -45,11 +46,11 @@ namespace Logbook
             (FishStats, int) currentItem = fishDictionary[key];
             (FishStats, int) newItem = (currentItem.Item1, currentItem.Item2 + 1);
             fishDictionary[key] = newItem;
-            Debug.Log("kankersaus");
 
             // update page
             foreach (LogbookPage page in LogBookPageManager.instance.pages)
             {
+                if (page.title == null) continue;
                 if (page.title.text == key.fishName)
                 {
                     page.UpdatePage(key, newItem.Item2);
