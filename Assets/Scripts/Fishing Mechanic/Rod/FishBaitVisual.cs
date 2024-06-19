@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class FishBaitVisual : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem particle;
     [SerializeField] private Vector2 minOffset;
     [SerializeField] private Vector2 maxOffset;
     [SerializeField] private float moveSpeed;

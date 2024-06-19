@@ -18,9 +18,12 @@ namespace UI
         public void Initialize()
         {
             List<FishType> inv = new List<FishType>();
-            foreach (KeyValuePair<FishType, FishStats> f in Inventory.instance.inventoryDictionary)
+            foreach (KeyValuePair<FishType, List<FishStats>> f in Inventory.instance.inventoryDictionary)
             {
-                inv.Add(f.Key);
+                for (int i = 0; i < f.Value.Count; i++)
+                {
+                    inv.Add(f.Key);
+                }
             }
 
             Rarity[] rarities = FishingRod.instance.rarities;
