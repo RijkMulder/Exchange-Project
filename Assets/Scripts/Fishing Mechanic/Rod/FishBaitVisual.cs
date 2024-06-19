@@ -1,6 +1,7 @@
 using Fishing;
 using FishingLine;
 using System.Collections;
+using System.Net.Http.Headers;
 using UnityEngine;
 
 public class FishBaitVisual : MonoBehaviour
@@ -10,6 +11,7 @@ public class FishBaitVisual : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float hitTime;
     [SerializeField] private float minDistance;
+    [SerializeField] private float rotationOffset;
     [Range(1, 100)]
     [SerializeField] private float fakeChance;
 
@@ -29,6 +31,10 @@ public class FishBaitVisual : MonoBehaviour
         if (target == Vector3.zero) return;
         if (FishingRod.instance.state == FishingState.Idle) Destroy(gameObject);
         transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+
+        Vector2 dir = target - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle - rotationOffset, Vector3.forward);
 
         if (Vector3.Distance(transform.position, target) <= minDistance)
         {
