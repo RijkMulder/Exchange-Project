@@ -28,6 +28,7 @@ namespace Logbook
         private void Start()
         {
             LogBookPageManager.instance.MakePages();
+            transform.parent.gameObject.SetActive(false);
         }
         public void CheckInventory(int d)
         {
