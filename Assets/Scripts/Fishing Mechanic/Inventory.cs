@@ -8,14 +8,19 @@ namespace Player.Inventory
     public class Inventory : MonoBehaviour
     {
         public static Inventory instance;
-        public Dictionary<FishType, FishStats> inventoryDictionary = new Dictionary<FishType, FishStats>();
+        public Dictionary<FishType, List<FishStats>> inventoryDictionary = new Dictionary<FishType, List<FishStats>>();
         private void OnEnable()
         {
             instance = this;
         }
         public void Add(FishType type, FishStats stats)
         {
-            inventoryDictionary.Add(type, stats);
+            if (!inventoryDictionary.ContainsKey(type))
+            {
+                inventoryDictionary[type] = new List<FishStats>();
+            }
+
+            inventoryDictionary[type].Add(stats);
         }
     }
 }
