@@ -23,20 +23,12 @@ namespace Logbook
             {
                 NewItem(fish[i]);
             }
-            EventManager.DayEnd += CheckInventory;
+            EventManager.FishCaught += UpdateItem;
         }
         private void Start()
         {
             LogBookPageManager.instance.MakePages();
             transform.parent.gameObject.SetActive(false);
-        }
-        public void CheckInventory(int d)
-        {
-            foreach (var item in Inventory.instance.inventoryDictionary)
-            {
-                FishType type = item.Key;
-                if (fishDictionary.ContainsKey(type)) UpdateItem(type);
-            }
         }
         private void NewItem(FishType type)
         {
@@ -64,7 +56,7 @@ namespace Logbook
         {
             foreach (LogbookPage page in LogBookPageManager.instance.pages)
             {
-                if (page.title.text == fish.fishName) return fishDictionary.ContainsKey(fish) ? fish.fishSprite : fish.fishUnknownSprite;
+                if (page.title.text == fish.fishName) return fishDictionary[fish].Item2 > 0 ? fish.fishSprite : fish.fishUnknownSprite;
             }
             return null; /* should never reach this code */
         }

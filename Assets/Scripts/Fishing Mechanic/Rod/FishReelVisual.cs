@@ -11,7 +11,8 @@ public class FishReelVisual : MonoBehaviour
     private void Update()
     {
         transform.position = hook.transform.position;
-        if (hook.transform.position == hook.startPos || FishingRod.instance.state == FishingState.Fishing)
+        float distance = Vector3.Distance(hook.transform.position, hook.startPos);
+        if (distance < 0.1f || FishingRod.instance.state == FishingState.Fishing)
         {
             Destroy(gameObject);
         }

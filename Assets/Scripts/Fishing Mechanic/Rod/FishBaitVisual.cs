@@ -20,6 +20,7 @@ public class FishBaitVisual : MonoBehaviour
     public void Initialize()
     {
         target = FishHook.instance.transform.position;
+        
         transform.position = target + new Vector3() 
         { x = Random.Range (minOffset.x, maxOffset.x),
           y = Random.Range(minOffset.y, maxOffset.y), 
@@ -31,14 +32,16 @@ public class FishBaitVisual : MonoBehaviour
         if (target == Vector3.zero) return;
         if (FishingRod.instance.state == FishingState.Idle) Destroy(gameObject);
         transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
-
-        Vector2 dir = target - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle - rotationOffset, Vector3.forward);
-
+        
         if (Vector3.Distance(transform.position, target) <= minDistance)
         {
             if (isNearCoroutine == null) isNearCoroutine = StartCoroutine(IsNearHook());
+        }
+        else
+        {
+            Vector2 dir = target - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle - rotationOffset, Vector3.forward);
         }
     }
     private IEnumerator IsNearHook()

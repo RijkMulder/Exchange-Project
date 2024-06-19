@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Events;
 using Player.Inventory;
 using Fishing.Stats;
+using Logbook;
 
 namespace Fishing.Minigame
 {
@@ -71,7 +72,7 @@ namespace Fishing.Minigame
             smallRadial.Initialize((float)rarity.Value.skillCheckHitDegrees / 100f * rarity.Value.skillCheckSmallPrc);
 
             // sprite
-            SetSprite(fish);
+            SetSprite(LogBook.instance.GetFishSprite(fish));
 
             // setup
             SetupAreas(rarity.Value);
@@ -97,9 +98,9 @@ namespace Fishing.Minigame
                 petals[i].SetState(petals[i].white);
             }
         }
-        private void SetSprite(FishType fish)
+        private void SetSprite(Sprite sprite)
         {
-            spriteHolder.sprite = fish.fishSprite;
+            spriteHolder.sprite = sprite;
         }
 
         private void Update()

@@ -23,6 +23,7 @@ namespace FishingLine
         {
             instance = this;
             startPos = transform.position;
+            Debug.Log(startPos);
         }
         private void OnEnable()
         {
@@ -44,32 +45,15 @@ namespace FishingLine
         public void ResetPos()
         {
             if (moveCoroutine != null) StopCoroutine(moveCoroutine);
-            if (gameObject.activeInHierarchy)moveCoroutine = StartCoroutine(MoveLineAsync(startPos));
-            if (FishingRod.instance)FishingRod.instance.ChangeState(FishingState.Idle);
+            if (gameObject.activeInHierarchy) moveCoroutine = StartCoroutine(MoveLineAsync(startPos));
+            if (FishingRod.instance) FishingRod.instance.ChangeState(FishingState.Idle);
+            animator.ResetTrigger("Cast");
             animator.SetTrigger("Catch");
         }
-        public void CastLine()
+        public void CastLineAnim()
         {
-            // check if hitting water
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
-            if ( hit.transform && !hit.transform.GetComponent<WaterTag>()) return;
-
-            // go fishing state
             FishingRod.instance.ChangeState(FishingState.Fishing);
-
-            // move to position
-            Vector3 targetPos = hit.point;
-            Vector3 direction = targetPos - FishingRod.instance.transform.position;
-            float distance = direction.magnitude;
-
-            if (distance > maxHookDistance)
-            {
-                direction.Normalize();
-                targetPos = FishingRod.instance.transform.position + direction * maxHookDistance;
-            }
-            if (moveCoroutine != null) StopCoroutine(moveCoroutine);
-            moveCoroutine = StartCoroutine(MoveLineAsync(targetPos));
+            animator.ResetTrigger("Catch");
             animator.SetTrigger("Cast");
         }
         private IEnumerator MoveLineAsync(Vector3 targetPos)

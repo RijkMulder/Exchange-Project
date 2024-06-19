@@ -94,7 +94,7 @@ namespace Fishing
             }
             if (Clicked())
             {
-                FishHook.instance.CastLine();
+                FishHook.instance.CastLineAnim();
             }
         }
         private void Caught()

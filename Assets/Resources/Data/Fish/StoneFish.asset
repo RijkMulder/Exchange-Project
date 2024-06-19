@@ -15,6 +15,6 @@ MonoBehaviour:
   fishName: Stone Fish
   type: 0
   chipCount: 0
-  fishSprite: {fileID: 0}
-  fishUnknownSprite: {fileID: 0}
+  fishSprite: {fileID: 21300000, guid: 382ee5cadf05dd240979aa13ba45e2d4, type: 3}
+  fishUnknownSprite: {fileID: 21300000, guid: 9ad50e1bce0835343aaadd6eaecae7bf, type: 3}
   description: 
