@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using Fishing;
-using Unity.Burst.CompilerServices;
 namespace FishingLine
 {
     /// <summary>
@@ -16,6 +15,7 @@ namespace FishingLine
         [SerializeField] private float maxHookDistance;
         [SerializeField] private Transform fishingRodTop;
         [SerializeField] private float moveBackTime;
+        [SerializeField] private Animator animator;
 
         public Vector3 startPos;
         private Coroutine moveCoroutine;
@@ -46,6 +46,7 @@ namespace FishingLine
             if (moveCoroutine != null) StopCoroutine(moveCoroutine);
             if (gameObject.activeInHierarchy)moveCoroutine = StartCoroutine(MoveLineAsync(startPos));
             if (FishingRod.instance)FishingRod.instance.ChangeState(FishingState.Idle);
+            animator.SetTrigger("Catch");
         }
         public void CastLine()
         {
@@ -69,6 +70,7 @@ namespace FishingLine
             }
             if (moveCoroutine != null) StopCoroutine(moveCoroutine);
             moveCoroutine = StartCoroutine(MoveLineAsync(targetPos));
+            animator.SetTrigger("Cast");
         }
         private IEnumerator MoveLineAsync(Vector3 targetPos)
         {
