@@ -1,3 +1,4 @@
+using Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,17 @@ public class WindAnimation : MonoBehaviour
     private Animator animator;
     [SerializeField] private float minWaitTime;
     [SerializeField] private float maxWaitTime;
+
+    private Coroutine currentCoroutine;
     private void Start()
     {
         animator = GetComponent<Animator>();
-        StartCoroutine(Animation());
+        currentCoroutine = StartCoroutine(Animation());
+    }
+    private void OnEnable()
+    {
+        StopCoroutine(currentCoroutine);
+        currentCoroutine = StartCoroutine(Animation());
     }
     private IEnumerator Animation()
     {
