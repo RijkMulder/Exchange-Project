@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Gambling;
+using Fishing;
 
 namespace UpgradeShop
 {
@@ -12,6 +13,7 @@ namespace UpgradeShop
 
         public List<RodType> speedUpgrades = new List<RodType>();
         public List<RodType> luckUpgrades = new List<RodType>();
+        public List<Vector2> speeds = new List<Vector2>();
 
         public TextMeshProUGUI speedPriceText;
         public TextMeshProUGUI luckPriceText;
@@ -70,6 +72,8 @@ namespace UpgradeShop
                 currentSpeedUpgrade++;
                 GamblingManager.Instance.coins -= cost;
                 speedPriceText.text = "Upgrade Speed: " + speedUpgrades[currentSpeedUpgrade].coins.ToString();
+                FishingRod.instance.minFishTime = speeds[currentSpeedUpgrade].x;
+                FishingRod.instance.maxFishTime = speeds[currentSpeedUpgrade].y;
             }
         }
 
