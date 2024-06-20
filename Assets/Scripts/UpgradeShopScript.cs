@@ -39,29 +39,12 @@ namespace UpgradeShop
 
         public void SetActive()
         {
-            AnimateIn();
+            shop.SetActive(true);
         }
 
         public void SetInactive()
         {
-            StartCoroutine(AnimateOut());
-        }
-
-        void AnimateIn()
-        {
-            animator.SetTrigger("FallIn");
-            shop.SetActive(true);
-        }
-
-        IEnumerator AnimateOut()
-        {
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-            {
-                animator.SetTrigger("FallOut");
-                yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-                animator.SetTrigger("End");
-                shop.SetActive(false);
-            }
+            shop.SetActive(false);
         }
 
         public void upgradeSpeed()
