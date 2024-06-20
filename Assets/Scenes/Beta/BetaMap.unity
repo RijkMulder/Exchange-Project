@@ -1738,7 +1738,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1731014540
 RectTransform:
@@ -2428,6 +2428,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 240107550}
+        m_TargetAssemblyTypeName: DayNightPostproccesing, Assembly-CSharp
+        m_MethodName: ResetVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2134327055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2635,7 +2647,7 @@ PrefabInstance:
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
       propertyPath: m_AnimatedTiles.Array.data[11].second.m_AnimationSpeed
-      value: 2.5
+      value: 2.5000002
       objectReference: {fileID: 0}
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
@@ -2805,7 +2817,7 @@ PrefabInstance:
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
       propertyPath: m_AnimatedTiles.Array.data[45].second.m_AnimationSpeed
-      value: 2.5000002
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
@@ -2891,7 +2903,7 @@ PrefabInstance:
         type: 3}
       propertyPath: nextWidow
       value: 
-      objectReference: {fileID: 1316200495}
+      objectReference: {fileID: 408579504}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6130378140098487332, guid: 2d25e336960cee74583e90bd2c109c4a, type: 3}
@@ -3616,7 +3628,7 @@ PrefabInstance:
         type: 3}
       propertyPath: nextWidow
       value: 
-      objectReference: {fileID: 408579504}
+      objectReference: {fileID: 1791272846}
     - target: {fileID: 6227596912899722396, guid: e460bd24d86acaa42853509e7498a954,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3850,7 +3862,7 @@ PrefabInstance:
     - target: {fileID: 7937363323519076811, guid: e460bd24d86acaa42853509e7498a954,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7963306064915854612, guid: e460bd24d86acaa42853509e7498a954,
         type: 3}
@@ -4044,7 +4056,7 @@ PrefabInstance:
         type: 3}
       propertyPath: nextWidow
       value: 
-      objectReference: {fileID: 1791272846}
+      objectReference: {fileID: 1316200495}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

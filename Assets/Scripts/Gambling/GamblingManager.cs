@@ -29,7 +29,6 @@ namespace Gambling
         public void QuitGambling()
         {
             WindowManager.Instance.ChangeWindow(false);
-            EventManager.OnDayStart(TimeManager.instance.dayStartTime);
         }
 
         // Calculate the amount of chips you get

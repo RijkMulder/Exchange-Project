@@ -30,7 +30,6 @@ public class DayNightPostproccesing : MonoBehaviour
     {
         if (TimeManager.instance.span.Hours >= TimeManager.instance.dayEndTime)
         {
-            ResetVolume();
             return;
         }
         UpdateVolume();

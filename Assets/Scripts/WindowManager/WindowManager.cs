@@ -26,6 +26,7 @@ public class WindowManager : MonoBehaviour
     public void ChangeWindowButton()
     {
         ChangeWindow(false);
+        EventManager.OnDayStart(TimeManager.instance.dayStartTime);
     }
     /// <summary>
     /// Change windows with or without transition, choose which window or default next window of current window

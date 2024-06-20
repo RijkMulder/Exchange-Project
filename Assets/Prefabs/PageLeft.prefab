@@ -1029,6 +1029,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatsSlider (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5526441915696894563, guid: a89b426fb31df6443bd74fea87c8567e,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6328765053043358770, guid: a89b426fb31df6443bd74fea87c8567e,
         type: 3}
       propertyPath: m_text
@@ -1244,6 +1249,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StatsSlider (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526441915696894563, guid: a89b426fb31df6443bd74fea87c8567e,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6328765053043358770, guid: a89b426fb31df6443bd74fea87c8567e,
         type: 3}
@@ -1461,6 +1471,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatsSlider (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5526441915696894563, guid: a89b426fb31df6443bd74fea87c8567e,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6328765053043358770, guid: a89b426fb31df6443bd74fea87c8567e,
         type: 3}
       propertyPath: m_text
@@ -1676,6 +1691,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StatsSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526441915696894563, guid: a89b426fb31df6443bd74fea87c8567e,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6328765053043358770, guid: a89b426fb31df6443bd74fea87c8567e,
         type: 3}
