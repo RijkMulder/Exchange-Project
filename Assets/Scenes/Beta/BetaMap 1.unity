@@ -4457,10 +4457,115 @@ MonoBehaviour:
   musicGroup: {fileID: -5937929146425013244, guid: 5e616cc5cbf21544eabafa6944717218,
     type: 2}
   soundsList:
-  - name: Theme
-    audioClip: {fileID: 8300000, guid: 1964440282903db42b1020f8253ac1f3, type: 3}
+  - name: AchievementSound
+    audioClip: {fileID: 8300000, guid: 30c01805f0d36e841bdca42bca6bc901, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: AmbientBirdSound
+    audioClip: {fileID: 8300000, guid: e5a7af91f1d7c6f4f9d875a358d538ac, type: 3}
+    channel: 1
+    loop: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: AmbientForestSound
+    audioClip: {fileID: 8300000, guid: 52a041c941770314e900407c74c58cf2, type: 3}
+    channel: 1
+    loop: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: BackgroundMusic
+    audioClip: {fileID: 8300000, guid: e86db575c250be44cab1d0a0acc57cd3, type: 3}
     channel: 0
     loop: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: BarMusic
+    audioClip: {fileID: 8300000, guid: 239e6d1264585a04ca4536ab61d98a4d, type: 3}
+    channel: 0
+    loop: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: BubbleSound
+    audioClip: {fileID: 8300000, guid: ed9e86d37510541439cb928f3dc32468, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: ClickSound
+    audioClip: {fileID: 8300000, guid: 53262adc27363f2429c9dd071f1ed0b0, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: FishBubblesSound
+    audioClip: {fileID: 8300000, guid: 6da1419ece0967649a5d978c1f71fa14, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: FishingrodFastReelSound
+    audioClip: {fileID: 8300000, guid: 4c21b284f732ea640b81cdfa12ee9c91, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: FishingrodSlowReelSound
+    audioClip: {fileID: 8300000, guid: e8197e7ae84f04f4e99b66a4555d13e6, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: PageTurnSound
+    audioClip: {fileID: 8300000, guid: bf501bd0a69135d48a47a931a65f030b, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SlotmachineCrankSound
+    audioClip: {fileID: 8300000, guid: 797c0a26eb2aec04eac34f177553ce1f, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SlotmachineRollSound
+    audioClip: {fileID: 8300000, guid: 6a2b2ea56555da24683f5e71679ea6fd, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SlotmachineWinSound
+    audioClip: {fileID: 8300000, guid: 4a53c51b9ce607141a66dd7ecf086413, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: UpgradeSound
+    audioClip: {fileID: 8300000, guid: d9bac45b07565654b9becaf5fe44db37, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: WaterWaveSound
+    audioClip: {fileID: 8300000, guid: 6ca37de47e97fa849972372d422562f0, type: 3}
+    channel: 1
+    loop: 0
     volume: 1
     pitch: 1
     source: {fileID: 0}
