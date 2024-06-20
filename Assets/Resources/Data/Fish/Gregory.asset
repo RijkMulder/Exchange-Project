@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac9d525136324c4091ea643f70a7645, type: 3}
   m_Name: Gregory
   m_EditorClassIdentifier: 
-  fishName: 
-  type: 0
-  chipCount: 0
-  fishSprite: {fileID: 0}
-  fishUnknownSprite: {fileID: 0}
-  description: 
+  fishName: Gregory
+  type: 4
+  chipCount: 333
+  fishSprite: {fileID: 21300000, guid: c89d7b6f1945cca4694ab3af8816e6c6, type: 3}
+  fishUnknownSprite: {fileID: 21300000, guid: 21657d5955abdca4b813792772a8c8ea, type: 3}
+  description: Gender fluid, pansexual and a big heart!
