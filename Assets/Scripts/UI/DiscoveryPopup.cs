@@ -1,4 +1,6 @@
+using Events;
 using Fishing;
+using Logbook;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,37 +12,29 @@ public class DiscoveryPopup : MonoBehaviour
     [SerializeField] private Image img;
     [SerializeField] private float fadeTime;
     [SerializeField] private float holdTime;
+    private Animator animator;
+
+    bool doPopup;
 
     private void Start()
     {
         group = GetComponent<CanvasGroup>();
-        Initialize(FishingRod.instance.currentFish);
-        StartCoroutine(Fade());
+        animator = GetComponent<Animator>();
+        EventManager.FishCaught += Initialize;
+    }
+    private void OnEnable()
+    {
+        if (doPopup)
+        {
+            animator.SetTrigger("Popup");
+            doPopup = false;
+        }
     }
     private void Initialize(FishType type)
     {
+        if (LogBook.instance.fishDictionary[type].Item2 > 1) return;
+            animator.ResetTrigger("Popup");
         img.sprite = type.fishSprite;
-    }
-    private IEnumerator Fade()
-    {
-        float t = 0f;
-        while (t < fadeTime)
-        {
-            t += Time.deltaTime;
-            float prc = t / fadeTime;
-            group.alpha = Mathf.Lerp(0, 1, prc);
-            yield return null;
-        }
-        yield return new WaitForSeconds(holdTime);
-
-        t = 0f;
-        while (t < fadeTime)
-        {
-            t += Time.deltaTime;
-            float prc = t / fadeTime;
-            group.alpha = Mathf.Lerp(1, 0, prc);
-            yield return null;
-        }
-        Destroy(gameObject);
+        doPopup = true;
     }
 }

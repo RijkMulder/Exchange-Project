@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Events;
 using FishingLine;
-using System.Collections;
+using Fishing.Stats;
+using System;
+using System.Linq;
 
 namespace Fishing.Minigame
 {
@@ -36,7 +38,7 @@ namespace Fishing.Minigame
 
             // get fish
             int random = GetFishType();
-            newFish = fishLists[random][Random.Range(0, fishLists[random].Count)];
+            newFish = fishLists[random][UnityEngine.Random.Range(0, fishLists[random].Count)];
 
             // turn mini game window on
             minigame = Instantiate(miniGameInstanceObj, transform);
@@ -53,6 +55,11 @@ namespace Fishing.Minigame
             {
                 FishReelVisual visual = Instantiate(reelVisual, FishHook.instance.transform);
                 visual.Initialize(newFish);
+                FishStats stats = new()
+                {
+                    size = (FishSize)UnityEngine.Random.Range(0, (int)Enum.GetValues(typeof(FishSize)).Cast<FishSize>().Max()),
+                    tastiness = UnityEngine.Random.Range(0, 100)
+                };
                 EventManager.OnFishCaught(newFish);
             }
             Destroy(minigame);
@@ -71,7 +78,7 @@ namespace Fishing.Minigame
             foreach (float f in probabilities) totalProbability += f;
 
             // random
-            float randomValue = Random.value * totalProbability;
+            float randomValue = UnityEngine.Random.value * totalProbability;
 
             // find value
             float crawlingValue = 0f;

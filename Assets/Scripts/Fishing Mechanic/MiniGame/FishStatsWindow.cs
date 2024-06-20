@@ -1,4 +1,5 @@
 using Fishing.Minigame;
+using Logbook;
 using Player.Inventory;
 using System;
 using System.Collections.Generic;

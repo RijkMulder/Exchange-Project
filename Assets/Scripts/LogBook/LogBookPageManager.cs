@@ -10,7 +10,8 @@ namespace Logbook
     {
         public static LogBookPageManager instance;
 
-        [SerializeField] private LogbookPage prefab;
+        [SerializeField] private LogbookPage pageLeft;
+        [SerializeField] private LogbookPage pageRight;
         [SerializeField] private LogbookPage emptyPage;
         [SerializeField] private Transform left;
         [SerializeField] private Transform right;
@@ -26,7 +27,8 @@ namespace Logbook
             foreach (var item in LogBook.instance.fishDictionary)
             {
                 Transform pageAlign = pages.Count % 2 == 0 ? left : right;
-                LogbookPage newPage = Instantiate(prefab, pageAlign.localPosition, Quaternion.identity, pageAlign);
+                LogbookPage page = pages.Count % 2 == 0 ? pageLeft : pageRight;
+                LogbookPage newPage = Instantiate(page, pageAlign.localPosition, Quaternion.identity, pageAlign);
                 newPage.transform.localPosition = new Vector3(50, 50, 0);
                 SetupPage(newPage, item.Key);
             }

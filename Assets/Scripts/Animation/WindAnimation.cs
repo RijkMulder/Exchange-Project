@@ -17,7 +17,7 @@ public class WindAnimation : MonoBehaviour
     }
     private void OnEnable()
     {
-        StopCoroutine(currentCoroutine);
+        if (currentCoroutine != null)StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(Animation());
     }
     private IEnumerator Animation()

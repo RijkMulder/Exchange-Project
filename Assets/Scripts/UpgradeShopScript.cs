@@ -26,6 +26,7 @@ namespace UpgradeShop
         private void Awake()
         {
             Instance = this;
+            SetInactive();
         }
 
         private void Start()
