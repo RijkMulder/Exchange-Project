@@ -23,15 +23,9 @@ public class PopupVisual : MonoBehaviour
         animator = GetComponent<Animator>();
         EventManager.FishCaught += Discover;
         EventManager.DoTutorial += Popup;
+        EventManager.FishCaught += DoPopup;
     }
-    private void OnEnable()
-    {
-        if (doPopup)
-        {
-            DoPopup();
-        }
-    }
-    private void DoPopup()
+    private void DoPopup(FishType type)
     {
         animator.SetTrigger("Popup");
         doPopup = false;

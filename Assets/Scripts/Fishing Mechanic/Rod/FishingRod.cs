@@ -79,7 +79,8 @@ namespace Fishing
         }
         private void Fishing()
         {
-            if (Clicked() && !caught)
+            TimeManager time = TimeManager.instance;
+            if (Clicked() && !caught && time.span.Hours < time.dayEndTime)
             {
                 FishHook.instance.ResetPos();
             }
