@@ -27,6 +27,7 @@ namespace Fishing.Minigame
         private FishType[] allFish;
 
         private GameObject minigame;
+        private int timesPlayed;
         private void Awake()
         {
             instance = this;
@@ -53,11 +54,6 @@ namespace Fishing.Minigame
             if (!succes) { EventManager.OnContinueFishing(newFish); return; }
             FishReelVisual visual = Instantiate(reelVisual, FishHook.instance.transform);
             visual.Initialize(newFish);
-            FishStats stats = new()
-            {
-                size = (FishSize)UnityEngine.Random.Range(0, (int)Enum.GetValues(typeof(FishSize)).Cast<FishSize>().Max()),
-                tastiness = UnityEngine.Random.Range(0, 100)
-            };
             EventManager.OnFishCaught(newFish);
             Destroy(minigame);
         }

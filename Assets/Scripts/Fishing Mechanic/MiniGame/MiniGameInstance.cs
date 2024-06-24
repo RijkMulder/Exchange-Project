@@ -20,12 +20,12 @@ namespace Fishing.Minigame
         [SerializeField] private GameObject spinnerTransform;
         [SerializeField] private MiniGameSpinner spinner;
         [SerializeField] private FishStatsWindow statsWindow;
+        [SerializeField] private Popup minigameTutorial;
 
         [Header("Settings")]
         [Range(1, 50)]
         [SerializeField] private float smallRadialPrc;
         [SerializeField] private float maxSpeedMultiplier;
-        [SerializeField] private float revealTime;
         [SerializeField] private float holdTime;
         [SerializeField] private KeyCode hitKey;
         [SerializeField] private float missScreenShakeStrength;
@@ -39,6 +39,7 @@ namespace Fishing.Minigame
         private float speed;
         public Coroutine missCoroutine;
         private bool spinning = true;
+        int timesPlayed;
 
         private void Awake()
         {
@@ -90,6 +91,13 @@ namespace Fishing.Minigame
             // random direction and speed for spinner
             int dir = Random.value < 0.5 ? -1 : 1;
             speed = rarity.skillCheckSpeed * Random.Range(1, maxSpeedMultiplier) * dir;
+
+            // tutorial
+            if (timesPlayed == 0)
+            {
+                EventManager.OnDoTutorial(minigameTutorial);
+            }
+            timesPlayed++;
         }
         private void SetupPetals(Rarity rarity)
         {
@@ -106,7 +114,7 @@ namespace Fishing.Minigame
         private void Update()
         {
             // check hit
-            if (Input.GetKeyDown(hitKey) && missCoroutine == null)
+            if (Input.GetKeyDown(hitKey) && missCoroutine == null && hitAmntRemain > 0)
             {
                 ESkillCheckType type = spinner.type;
 

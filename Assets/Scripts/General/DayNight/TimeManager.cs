@@ -12,6 +12,7 @@ public class TimeManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float minutesPerDay;
     [SerializeField] private int minutesPerUpdate;
+    [SerializeField] private Popup tutorialPopup;
 
     [Space]
     public int dayEndTime;
@@ -29,6 +30,7 @@ public class TimeManager : MonoBehaviour
     private void Start()
     {
         baseSpan = new TimeSpan(1, dayStartTime, 0, 0);
+        EventManager.OnDoTutorial(tutorialPopup);
     }
     private void OnEnable()
     {

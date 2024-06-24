@@ -107,7 +107,8 @@ namespace Fishing
         }
         private void Try()
         {
-            if (Clicked() && caught)
+            TimeManager time = TimeManager.instance;
+            if (Clicked() && caught && !(time.span.Hours == time.dayEndTime && time.span.Minutes > 55))
             { 
                 FishingMiniGameManager.instance.FishCaught(); caught = false;
                 EventManager.OnTimePause(true);
