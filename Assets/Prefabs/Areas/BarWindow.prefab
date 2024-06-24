@@ -1627,18 +1627,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 666fc072f375848c7a678937fdc09761, type: 2}
   - {fileID: 11400000, guid: c0325a07408cc41d8933168e6a1cd5e4, type: 2}
   luckUpgrades:
-  - {fileID: 11400000, guid: 853113d69bd3a40ce83c09a171e9136d, type: 2}
-  - {fileID: 11400000, guid: 01eca5a20e5c1411283fa4d254251c25, type: 2}
-  - {fileID: 11400000, guid: b2641ba95b5ea4b479cd6c31d2e55862, type: 2}
-  - {fileID: 11400000, guid: 06f1ba52b650a4e87bb9193582589cc9, type: 2}
-  - {fileID: 11400000, guid: 1b2eb910fb3054292bd7f0499783e79c, type: 2}
-  - {fileID: 11400000, guid: bbae37b1b489c4feba6fbe1c269bdc7d, type: 2}
-  - {fileID: 11400000, guid: 42a30fa458e774c879ee0b2e9ed1f8d3, type: 2}
-  - {fileID: 11400000, guid: 6c0a46cbc499f465789a8c25ed1e7964, type: 2}
-  - {fileID: 11400000, guid: 4c495710f240c4a3ca91df68d8b195e2, type: 2}
-  - {fileID: 11400000, guid: 7a6a373bbf4e946849c7accdcc7f14b6, type: 2}
-  - {fileID: 11400000, guid: a52e4f9bcab084a5abb0994f0ff3bb26, type: 2}
-  - {fileID: 11400000, guid: 5331f405acd994d77be911c56d891da0, type: 2}
+  - {fileID: 11400000, guid: 3ece6413459e7f54ea661ad8b708e7b9, type: 2}
+  - {fileID: 11400000, guid: 7d3adf219207cfa4e9c6dd9940997836, type: 2}
+  - {fileID: 11400000, guid: 591766772c5eaf34ba61e3eb18b95f61, type: 2}
+  - {fileID: 11400000, guid: bce131e8df29b974aa3922ebfa33fe1d, type: 2}
+  - {fileID: 11400000, guid: 8984589d8d6e1f6459c547b62b594919, type: 2}
+  - {fileID: 11400000, guid: fb67a7e5bf364194c9de02468226bd32, type: 2}
+  - {fileID: 11400000, guid: 6b5d250f54d8b3f4a967d1f47edfe311, type: 2}
+  - {fileID: 11400000, guid: eacc25a20a370bb498b55b679ed68e44, type: 2}
+  - {fileID: 11400000, guid: 7462d312836ccae41af3177c5999732f, type: 2}
+  - {fileID: 11400000, guid: dd2f9fb6f4e222f43bdbfbe422498441, type: 2}
+  - {fileID: 11400000, guid: 17196c2a745e9bd46ac34e44c8188ac9, type: 2}
+  - {fileID: 11400000, guid: d80260138fd1e2d49bb8997bf77095ef, type: 2}
   speeds:
   - {x: 4, y: 9}
   - {x: 4, y: 8}

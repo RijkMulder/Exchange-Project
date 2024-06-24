@@ -343,7 +343,7 @@ MonoBehaviour:
   minigameTutorial: {fileID: 11400000, guid: c82aa68d49524664c9d0c00d01567820, type: 2}
   smallRadialPrc: 5
   maxSpeedMultiplier: 1.3
-  holdTime: 0.1
+  holdTime: 0.25
   hitKey: 323
   missScreenShakeStrength: 1
   canvas: {fileID: 3896380447447973342}

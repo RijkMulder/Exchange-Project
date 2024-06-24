@@ -12,7 +12,7 @@ namespace UpgradeShop
         public static UpgradeShopScript Instance;
 
         public List<RodType> speedUpgrades = new List<RodType>();
-        public List<RodType> luckUpgrades = new List<RodType>();
+        public List<LuckUpgrade> luckUpgrades = new List<LuckUpgrade>();
         public List<Vector2> speeds = new List<Vector2>();
 
         public TextMeshProUGUI speedPriceText;
@@ -55,8 +55,10 @@ namespace UpgradeShop
                 currentSpeedUpgrade++;
                 GamblingManager.Instance.coins -= cost;
                 speedPriceText.text = "Upgrade Speed: " + speedUpgrades[currentSpeedUpgrade].coins.ToString();
-                FishingRod.instance.minFishTime = speeds[currentSpeedUpgrade].x;
-                FishingRod.instance.maxFishTime = speeds[currentSpeedUpgrade].y;
+
+                // apply values
+                FishingRod.instance.minFishTime = speeds[currentSpeedUpgrade - 1].x;
+                FishingRod.instance.maxFishTime = speeds[currentSpeedUpgrade - 1].y;
             }
         }
 
@@ -68,6 +70,10 @@ namespace UpgradeShop
                 currentLuckUpgrade++;
                 GamblingManager.Instance.coins -= cost;
                 luckPriceText.text = "Upgrade Luck: " + luckUpgrades[currentLuckUpgrade].coins.ToString();
+
+                // apply values
+                Rarity[] rarity = luckUpgrades[currentLuckUpgrade - 1].rarities;
+                FishingRod.instance.rarities = rarity;
             }
         }
     }

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a34f34fd90339e40900cfcc1c341719, type: 3}
+  m_Name: LuckUpgrade 9
+  m_EditorClassIdentifier: 
+  coins: 1000
+  rarities:
+  - rarity: 0
+    probability: 80
+    color: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
+    hitAmnt: 2
+    skillCheckSpeed: 400
+    skillCheckHitDegrees: 90
+    skillCheckSmallPrc: 10
+  - rarity: 1
+    probability: 15
+    color: {r: 0.14978641, g: 0.36124817, b: 0.9622642, a: 1}
+    hitAmnt: 2
+    skillCheckSpeed: 450
+    skillCheckHitDegrees: 60
+    skillCheckSmallPrc: 12
+  - rarity: 2
+    probability: 10
+    color: {r: 0.2915952, g: 0.6132076, b: 0, a: 1}
+    hitAmnt: 3
+    skillCheckSpeed: 500
+    skillCheckHitDegrees: 40
+    skillCheckSmallPrc: 14
+  - rarity: 3
+    probability: 5
+    color: {r: 1, g: 0.010321554, b: 0, a: 1}
+    hitAmnt: 4
+    skillCheckSpeed: 550
+    skillCheckHitDegrees: 20
+    skillCheckSmallPrc: 16
+  - rarity: 4
+    probability: 1
+    color: {r: 1, g: 0, b: 0.5351043, a: 1}
+    hitAmnt: 5
+    skillCheckSpeed: 600
+    skillCheckHitDegrees: 15
+    skillCheckSmallPrc: 18
+  - rarity: 5
+    probability: 1
+    color: {r: 0.9810126, g: 1, b: 0, a: 1}
+    hitAmnt: 5
+    skillCheckSpeed: 600
+    skillCheckHitDegrees: 40
+    skillCheckSmallPrc: 20

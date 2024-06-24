@@ -4,5 +4,6 @@
     Uncommon,
     Fintastic,
     Salmonific,
-    Marlinificent
+    Marlinificent,
+    Gregory
 }
