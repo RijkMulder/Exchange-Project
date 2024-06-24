@@ -50,18 +50,15 @@ namespace Fishing.Minigame
         }
         public void ContinueFishing(bool succes)
         {
-            if (!succes) EventManager.OnContinueFishing(newFish);
-            if (succes)
+            if (!succes) { EventManager.OnContinueFishing(newFish); return; }
+            FishReelVisual visual = Instantiate(reelVisual, FishHook.instance.transform);
+            visual.Initialize(newFish);
+            FishStats stats = new()
             {
-                FishReelVisual visual = Instantiate(reelVisual, FishHook.instance.transform);
-                visual.Initialize(newFish);
-                FishStats stats = new()
-                {
-                    size = (FishSize)UnityEngine.Random.Range(0, (int)Enum.GetValues(typeof(FishSize)).Cast<FishSize>().Max()),
-                    tastiness = UnityEngine.Random.Range(0, 100)
-                };
-                EventManager.OnFishCaught(newFish);
-            }
+                size = (FishSize)UnityEngine.Random.Range(0, (int)Enum.GetValues(typeof(FishSize)).Cast<FishSize>().Max()),
+                tastiness = UnityEngine.Random.Range(0, 100)
+            };
+            EventManager.OnFishCaught(newFish);
             Destroy(minigame);
         }
         private int GetFishType()
