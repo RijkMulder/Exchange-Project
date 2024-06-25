@@ -1111,6 +1111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4923244340071835162}
   - component: {fileID: 6056999306909695267}
+  - component: {fileID: 693374516247379890}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -1127,8 +1128,8 @@ Transform:
   m_GameObject: {fileID: 2931158401387518926}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalPosition: {x: 0, y: -0.000000025551, z: 0}
+  m_LocalScale: {x: 1.8775566, y: 1.8775566, z: 0.31292608}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1291698288942861641}
@@ -1174,7 +1175,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: 21300000, guid: 83464683237ac0349b513ea32b269adb, type: 3}
+  m_Sprite: {fileID: -538489034, guid: 77c25272329f6fd46be0475c72522ee9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1185,6 +1186,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &693374516247379890
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2931158401387518926}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fcff29bdfbef263438e02e7159afd1bc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3072914113309382265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,7 +1676,7 @@ MonoBehaviour:
   - {x: 3, y: 3.1}
   speedPriceText: {fileID: 3883558352662594027}
   luckPriceText: {fileID: 6027109327662428836}
-  animator: {fileID: 4852548723541013754}
+  animator: {fileID: 693374516247379890}
   shop: {fileID: 30610255281958131}
   currentSpeedUpgrade: 0
   currentLuckUpgrade: 0
@@ -2147,7 +2169,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 7
   m_TargetDisplay: 0
 --- !u!114 &222020360895212178
 MonoBehaviour:
@@ -2585,15 +2607,15 @@ RectTransform:
   m_GameObject: {fileID: 7929008006172769667}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8770556, y: 5.427218, z: 5.427218}
+  m_LocalScale: {x: 4.7230263, y: 2.0909276, z: 4.4677944}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3803318674506466244}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -2.5999756, y: -2.7999878}
+  m_SizeDelta: {x: 24, y: 54}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &9042185370587196006
 CanvasRenderer:

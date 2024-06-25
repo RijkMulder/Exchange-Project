@@ -28,6 +28,7 @@ namespace Fishing
         public FishType currentFish;
 
         private Coroutine fishingCoroutine;
+        private bool inAnim;
 
         [HideInInspector]public bool caught = false;
 
@@ -43,6 +44,13 @@ namespace Fishing
             EventManager.ContinueFishing += OnContinueFishing;
             EventManager.FishCaught += OnFishCaught;
             EventManager.DayEnd += ToggleActive;
+
+            StartCoroutine(StartSound());
+        }
+        private void OnDisable()
+        {
+            AudioManager.Instance.Stop("Bird");
+            AudioManager.Instance.Stop("Forest");
         }
 
         private void OnFishMiniGameStart(FishType fish)
@@ -80,7 +88,7 @@ namespace Fishing
         private void Fishing()
         {
             TimeManager time = TimeManager.instance;
-            if (Clicked() && !caught && time.span.Hours < time.dayEndTime)
+            if (Clicked() && !caught && time.span.Hours < time.dayEndTime && !inAnim)
             {
                 FishHook.instance.ResetPos();
             }
@@ -93,9 +101,10 @@ namespace Fishing
                 StopCoroutine(fishingCoroutine);
                 fishingCoroutine = null;
             }
-            if (Clicked())
+            if (Clicked() && !inAnim)
             {
                 FishHook.instance.CastLineAnim();
+                AudioManager.Instance.Play("Cast");
             }
         }
         private void Caught()
@@ -153,6 +162,20 @@ namespace Fishing
         private void ToggleActive(int day)
         {
             enabled = !enabled;
+        }
+        private void StartAnim()
+        {
+            inAnim = true;
+        }
+        private void EndAnim()
+        {
+            inAnim = false;
+        }
+        private IEnumerator StartSound()
+        {
+            yield return new WaitForEndOfFrame();
+            AudioManager.Instance.Play("Bird");
+            AudioManager.Instance.Play("Forest");
         }
     }
 }

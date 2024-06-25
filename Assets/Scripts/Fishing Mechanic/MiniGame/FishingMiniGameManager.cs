@@ -27,7 +27,7 @@ namespace Fishing.Minigame
         private FishType[] allFish;
 
         private GameObject minigame;
-        private int timesPlayed;
+        public int timesPlayed;
         private void Awake()
         {
             instance = this;
@@ -48,6 +48,10 @@ namespace Fishing.Minigame
             // invoke mini game
             WindowManager.Instance.ChangeWindow(true, WindowManager.Instance.windows[2]);
             EventManager.OnFishMiniGameStart(newFish);
+
+            // audio
+            AudioManager.Instance.Play("Bubble1");
+            AudioManager.Instance.Play("MinigameReeler");
         }
         public void ContinueFishing(bool succes)
         {
@@ -56,6 +60,10 @@ namespace Fishing.Minigame
             visual.Initialize(newFish);
             EventManager.OnFishCaught(newFish);
             Destroy(minigame);
+
+            // audio
+            AudioManager.Instance.Stop("Bubble1");
+            AudioManager.Instance.Stop("MinigameReeler");
         }
         private int GetFishType()
         {

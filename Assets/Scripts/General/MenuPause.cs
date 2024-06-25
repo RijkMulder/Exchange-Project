@@ -6,6 +6,7 @@ public class MenuPause : MonoBehaviour
 {
     [SerializeField] GameObject menu;
     [SerializeField] GameObject settings;
+    [SerializeField] private CanvasGroup group;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) Pause();
@@ -15,9 +16,12 @@ public class MenuPause : MonoBehaviour
         Time.timeScale = Time.timeScale == 1 ? 0 : 1;
         menu.SetActive(!menu.activeInHierarchy);
         settings.SetActive(false);
+
+        group.blocksRaycasts = menu.activeInHierarchy ? true : false;
     }
     public void Continue()
     {
+
         Pause();
     }
     public void Settings()

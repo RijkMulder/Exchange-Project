@@ -10,7 +10,6 @@ namespace UpgradeShop
     public class UpgradeShopScript : MonoBehaviour
     {
         public static UpgradeShopScript Instance;
-
         public List<RodType> speedUpgrades = new List<RodType>();
         public List<LuckUpgrade> luckUpgrades = new List<LuckUpgrade>();
         public List<Vector2> speeds = new List<Vector2>();
@@ -59,6 +58,7 @@ namespace UpgradeShop
                 // apply values
                 FishingRod.instance.minFishTime = speeds[currentSpeedUpgrade - 1].x;
                 FishingRod.instance.maxFishTime = speeds[currentSpeedUpgrade - 1].y;
+                animator.SetTrigger("Upgrade");
             }
         }
 
@@ -74,7 +74,13 @@ namespace UpgradeShop
                 // apply values
                 Rarity[] rarity = luckUpgrades[currentLuckUpgrade - 1].rarities;
                 FishingRod.instance.rarities = rarity;
+                animator.SetTrigger("Upgrade");
             }
+        }
+        private IEnumerator SetTrigger()
+        {
+            yield return new WaitForEndOfFrame();
+            animator.ResetTrigger("Upgrade");
         }
     }
 }

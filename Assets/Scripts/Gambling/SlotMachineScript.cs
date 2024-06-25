@@ -60,7 +60,11 @@ namespace Gambling
         // Spin function
         public void Spin()
         {
-            if (canSpin) StartCoroutine(startSpin());
+            if (canSpin) 
+            {
+                StartCoroutine(startSpin());
+                AudioManager.Instance.Play("Crank");
+            }
             else return;
         }
 
@@ -122,6 +126,7 @@ namespace Gambling
             GameObject particle = Instantiate(winParticle, particlePos);
             particle.GetComponent<ParticleSystem>().maxParticles = amount / 100 + 5;
             Destroy(particle, 5f);
+            AudioManager.Instance.Play("SlotWin");
         }
 
         // Instantiate a line on top of the winning line
@@ -204,7 +209,11 @@ namespace Gambling
 
         private void toggleAnimation()
         {
-            if (!anim.GetBool("spin")) anim.SetBool("spin", true);
+            if (!anim.GetBool("spin")) 
+            {
+                anim.SetBool("spin", true);
+                AudioManager.Instance.Play("SlotRoll");
+            }
             else anim.SetBool("spin", false);
         }
     }

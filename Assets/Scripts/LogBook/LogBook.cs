@@ -23,7 +23,6 @@ namespace Logbook
             {
                 NewItem(fish[i]);
             }
-            EventManager.FishCaught += UpdateItem;
         }
         private void Start()
         {
@@ -35,7 +34,7 @@ namespace Logbook
             FishStats stats = new FishStats();
             fishDictionary.Add(type, (stats, 0));
         }
-        public void UpdateItem(FishType key)
+        public void UpdateItem(FishType key, FishStats stats)
         {
             // update data
             (FishStats, int) currentItem = fishDictionary[key];
@@ -48,7 +47,7 @@ namespace Logbook
                 if (page.title == null) continue;
                 if (page.title.text == key.fishName)
                 {
-                    page.UpdatePage(key, newItem.Item2, newItem.Item1);
+                    page.UpdatePage(key, newItem.Item2, stats);
                 }
             }
         }

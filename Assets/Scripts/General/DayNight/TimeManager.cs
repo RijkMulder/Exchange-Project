@@ -12,7 +12,7 @@ public class TimeManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float minutesPerDay;
     [SerializeField] private int minutesPerUpdate;
-    [SerializeField] private Popup tutorialPopup;
+    [SerializeField] private PopupType tutorialPopup;
 
     [Space]
     public int dayEndTime;
@@ -46,6 +46,7 @@ public class TimeManager : MonoBehaviour
     private void DayEnd()
     {
         PauseTime(true);
+        AudioManager.Instance.Play("Barmusic");
     }
     private void PauseTime(bool pause)
     {

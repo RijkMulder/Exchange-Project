@@ -28,6 +28,10 @@ public class WindowTransition : MonoBehaviour
         // get current window
         Window currentWindow = WindowManager.Instance.currentWindow;
 
+        // audio
+        AudioManager.Instance.Play("Bubble2");
+        AudioManager.Instance.Play("WaterWave");
+
         // turn current window UI off 
         currentWindow.windowUI.alpha = 0f;
 

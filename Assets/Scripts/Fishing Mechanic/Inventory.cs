@@ -1,4 +1,5 @@
 using Fishing.Stats;
+using Logbook;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Player.Inventory
             {
                 inventoryDictionary[type] = new List<FishStats>();
             }
-
+            LogBook.instance.UpdateItem(type, stats);
             inventoryDictionary[type].Add(stats);
         }
     }

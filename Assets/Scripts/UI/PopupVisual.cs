@@ -32,12 +32,13 @@ public class PopupVisual : MonoBehaviour
     }
     private void Discover(FishType type)
     {
+        AudioManager.Instance.Play("Achievement");
         if (LogBook.instance.fishDictionary[type].Item2 > 1) return;
         ResetPopup();
         img.sprite = type.fishSprite;
         doPopup = true;
     }
-    private void Popup(Popup popup)
+    private void Popup(PopupType popup)
     {
         popupText.gameObject.SetActive(true);
         discoveryObject.SetActive(false);
