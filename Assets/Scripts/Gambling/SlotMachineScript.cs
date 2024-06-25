@@ -132,7 +132,7 @@ namespace Gambling
         // Instantiate a line on top of the winning line
         private void showWin(GameObject line)
         {
-            newLine.Add(Instantiate(line, new Vector3(80, 0, 0), Quaternion.identity));
+            newLine.Add(Instantiate(line, new Vector3(0, 0, 0), Quaternion.identity));
         }
 
         // Change the bet amount fractually

@@ -35,7 +35,10 @@ namespace UpgradeShop
             speedPriceText.text = "Upgrade Speed: " + speedUpgrades[currentSpeedUpgrade].coins.ToString();
             luckPriceText.text = "Upgrade Luck: " + luckUpgrades[currentLuckUpgrade].coins.ToString();
         }
-
+        private void OnDisable()
+        {
+            AudioManager.Instance.Stop("Barmusic");
+        }
         public void SetActive()
         {
             shop.SetActive(true);

@@ -7,22 +7,21 @@ public class MenuPause : MonoBehaviour
     [SerializeField] GameObject menu;
     [SerializeField] GameObject settings;
     [SerializeField] private CanvasGroup group;
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)) Pause();
-    }
     public void Pause()
     {
-        Time.timeScale = Time.timeScale == 1 ? 0 : 1;
-        menu.SetActive(!menu.activeInHierarchy);
+        Time.timeScale = 0;
+        menu.SetActive(true);
         settings.SetActive(false);
 
-        group.blocksRaycasts = menu.activeInHierarchy ? true : false;
+        group.blocksRaycasts = true;
     }
     public void Continue()
     {
+        Time.timeScale = 1;
+        menu.SetActive(false);
+        settings.SetActive(false);
 
-        Pause();
+        group.blocksRaycasts = false;
     }
     public void Settings()
     {
