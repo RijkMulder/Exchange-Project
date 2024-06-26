@@ -1428,7 +1428,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1731014540
 RectTransform:
@@ -2170,16 +2170,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 316362984130469211, guid: 2d25e336960cee74583e90bd2c109c4a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -12.5303955
-      objectReference: {fileID: 0}
-    - target: {fileID: 316362984130469211, guid: 2d25e336960cee74583e90bd2c109c4a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -18.57962
-      objectReference: {fileID: 0}
     - target: {fileID: 332704522492532799, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
       propertyPath: m_CullTransparentMesh
@@ -2209,6 +2199,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -109.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6631307574786094995, guid: 2d25e336960cee74583e90bd2c109c4a,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
