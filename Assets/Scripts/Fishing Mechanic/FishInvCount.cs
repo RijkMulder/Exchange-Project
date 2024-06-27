@@ -8,10 +8,15 @@ using UnityEngine;
 public class FishInvCount : MonoBehaviour
 {
     private TMP_Text text;
-    private void Awake()
+    private void Start()
     {
         text = GetComponent<TMP_Text>();
         EventManager.FishCaught += UpdateText;
+        EventManager.DayStart += ResetString;
+    }
+    private void ResetString(int d)
+    {
+        text.text = "X 0";
     }
     private void UpdateText(FishType type)
     {
@@ -19,11 +24,9 @@ public class FishInvCount : MonoBehaviour
 
         foreach (KeyValuePair<FishType, List<FishStats>> fish in Inventory.instance.inventoryDictionary)
         {
-            Debug.Log(fish.Key);
-            Debug.Log(fish.Value.Count);
             for (int i = 0; i < fish.Value.Count; i++)
             {
-                amnt += fish.Value.Count;
+                amnt += 1;
             }
         }
         text.text = $"X {amnt}";

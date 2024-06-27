@@ -55,15 +55,15 @@ namespace Fishing.Minigame
         }
         public void ContinueFishing(bool succes)
         {
+            // audio
+            AudioManager.Instance.Stop("Bubble1");
+            AudioManager.Instance.Stop("MinigameReeler");
+            Destroy(minigame);
+
             if (!succes) { EventManager.OnContinueFishing(newFish); return; }
             FishReelVisual visual = Instantiate(reelVisual, FishHook.instance.transform);
             visual.Initialize(newFish);
             EventManager.OnFishCaught(newFish);
-            Destroy(minigame);
-
-            // audio
-            AudioManager.Instance.Stop("Bubble1");
-            AudioManager.Instance.Stop("MinigameReeler");
         }
         private int GetFishType()
         {

@@ -25,10 +25,10 @@ public class PopupVisual : MonoBehaviour
     private void DoPopup()
     {
         animator.SetTrigger("Popup");
+        AudioManager.Instance.Play("Achievement");
     }
     private void Discover(FishType type)
     {
-        AudioManager.Instance.Play("Achievement");
         if (LogBook.instance.fishDictionary[type].Item2 > 1) return;
         ResetPopup();
         DoPopup();
