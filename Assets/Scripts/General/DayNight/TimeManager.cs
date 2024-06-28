@@ -4,6 +4,7 @@ using UnityEngine;
 using Events;
 using Fishing;
 using System;
+using System.Collections;
 
 public class TimeManager : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class TimeManager : MonoBehaviour
     private void Start()
     {
         baseSpan = new TimeSpan(1, dayStartTime, 0, 0);
-        EventManager.OnDoTutorial(tutorialPopup);
+        StartCoroutine(LateTutorial());
     }
     private void OnEnable()
     {
@@ -51,6 +52,11 @@ public class TimeManager : MonoBehaviour
     private void PauseTime(bool pause)
     {
         doTime = !pause;
+    }
+    private IEnumerator LateTutorial()
+    {
+        yield return new WaitForEndOfFrame();
+        EventManager.OnDoTutorial(tutorialPopup);
     }
     private void Update()
     {
