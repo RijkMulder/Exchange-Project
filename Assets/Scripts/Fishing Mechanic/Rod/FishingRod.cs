@@ -37,14 +37,13 @@ namespace Fishing
             instance = this;
             SetProbabilities();
             EventManager.DayStart += ToggleActive;
-        }
-        private void OnEnable()
-        {
             EventManager.FishMiniGameStart += OnFishMiniGameStart;
             EventManager.ContinueFishing += OnContinueFishing;
             EventManager.FishCaught += OnFishCaught;
             EventManager.DayEnd += ToggleActive;
-
+        }
+        private void OnEnable()
+        {
             StartCoroutine(StartSound());
         }
         private void OnDisable()
