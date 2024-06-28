@@ -44,7 +44,6 @@ namespace Fishing
             EventManager.ContinueFishing += OnContinueFishing;
             EventManager.FishCaught += OnFishCaught;
             EventManager.DayEnd += ToggleActive;
-            EventManager.DayStart += ToggleActive;
 
             StartCoroutine(StartSound());
         }

@@ -79,7 +79,7 @@ namespace Gambling
                     list[1].GetComponent<SlotFishData>().rarity ==
                     list[2].GetComponent<SlotFishData>().rarity)
                 {
-                    givePrize(list[0].GetComponent<SlotFishData>().rarity);
+                    outputAmount += inputAmount * list[0].GetComponent<SlotFishData>().rarity;
                     if (i == 0) showWin(lineStraight3);
                     else if (i == 1) showWin(lineStraight2);
                     else if (i == 2) showWin(lineStraight1);
@@ -96,7 +96,7 @@ namespace Gambling
                 rowsList[1][1].GetComponent<SlotFishData>().rarity ==
                 rowsList[2][2].GetComponent<SlotFishData>().rarity)
             {
-                givePrize(rowsList[0][0].GetComponent<SlotFishData>().rarity);
+                outputAmount += inputAmount * rowsList[0][0].GetComponent<SlotFishData>().rarity;
                 showWin(lineCross2);
             }
             if (rowsList[2][0].GetComponent<SlotFishData>().rarity ==
@@ -104,18 +104,25 @@ namespace Gambling
                 rowsList[1][1].GetComponent<SlotFishData>().rarity ==
                 rowsList[0][2].GetComponent<SlotFishData>().rarity)
             {
-                givePrize(rowsList[2][0].GetComponent<SlotFishData>().rarity);
+                outputAmount += inputAmount * rowsList[2][0].GetComponent<SlotFishData>().rarity;
                 showWin(lineCross1);
             }
         }
 
         // Calculate the win amount
-        void givePrize(int multiplier)
+        void givePrize()
         {
-            outputAmount = inputAmount * (multiplier * 2);
-            GamblingManager.Instance.coins += outputAmount;
-            output.text = "YOU WON " + outputAmount.ToString() + " COINS";
-            winEffect(outputAmount);
+            if (outputAmount == 0)
+            {
+                output.text = string.Empty;
+                return;
+            }
+            else
+            {
+                GamblingManager.Instance.coins += outputAmount;
+                output.text = "YOU WON " + outputAmount.ToString() + " COINS";
+                winEffect(outputAmount);
+            }
         }
 
         
@@ -194,8 +201,10 @@ namespace Gambling
                     rowsList.Add(row1);
                     rowsList.Add(row2);
 
+                    outputAmount = 0;
                     CheckRight();
                     CheckAcross();
+                    givePrize();
                 }
                 else
                 {

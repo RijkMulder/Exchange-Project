@@ -1,3 +1,4 @@
+using Events;
 using Fishing;
 using Fishing.Stats;
 using Player.Inventory;
@@ -11,9 +12,12 @@ namespace UI
     {
         public static InventoryUI instance;
         [SerializeField] private InventoryItem itemPrefab;
+
+        private List<GameObject> currentItems =  new List<GameObject>();
         private void Awake()
         {
             instance = this;
+            EventManager.DayStart += ResetInv;
         }
         public void Initialize()
         {
@@ -47,6 +51,15 @@ namespace UI
         {
             InventoryItem item = Instantiate(itemPrefab, transform.position, Quaternion.identity, transform);
             item.Initialize(fish, count, rarity);
+            currentItems.Add(item.gameObject);
+        }
+        private void ResetInv(int d)
+        {
+            for (int i = 0; i < currentItems.Count; i++)
+            {
+                Destroy(currentItems[i]);
+            }
+            currentItems.Clear();
         }
     }
 }

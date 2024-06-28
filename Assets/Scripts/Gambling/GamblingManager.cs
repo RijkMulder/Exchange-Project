@@ -38,7 +38,10 @@ namespace Gambling
             List<FishType> fish = new List<FishType>();
             foreach (KeyValuePair<FishType, List<FishStats>> f in Inventory.instance.inventoryDictionary)
             {
-                fish.Add(f.Key);
+                for (int i = 0; i < f.Value.Count; i++)
+                {
+                    fish.Add(f.Key);
+                }
             }
             for (int i = 0; i < fish.Count; i++)
             {
