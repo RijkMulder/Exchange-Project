@@ -39,7 +39,7 @@ namespace Fishing.Minigame
 
             // get fish
             int random = GetFishType();
-            newFish = fishLists[random][UnityEngine.Random.Range(0, fishLists[random].Count)];
+            newFish = fishLists[random][UnityEngine.Random.Range(0, fishLists[random].Count - 1)];
 
             // turn mini game window on
             minigame = Instantiate(miniGameInstanceObj, transform);

@@ -23,6 +23,8 @@ namespace Logbook
         {
             img.sprite = fish.fishSprite;
             count.text = amnt.ToString();
+            title.text = fish.fishName;
+            description.text = fish.description;
             valueSlider.Setup(fish.chipCount, 200);
             tastySlider.Setup(stats.tastiness, 100);
             sizeSlider.Setup((int)stats.size, Enum.GetValues(typeof(FishSize)).Length);

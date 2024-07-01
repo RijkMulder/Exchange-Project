@@ -6,16 +6,10 @@ using UnityEngine.UI;
 
 public class WindAnimation : MonoBehaviour
 {
-    private Animator animator;
     [SerializeField] private float minWaitTime;
     [SerializeField] private float maxWaitTime;
-
+    [SerializeField] private GameObject[] wind = new GameObject[2];
     private Coroutine currentCoroutine;
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-        currentCoroutine = StartCoroutine(Animation());
-    }
     private void OnEnable()
     {
         if (currentCoroutine != null)StopCoroutine(currentCoroutine);
@@ -26,11 +20,9 @@ public class WindAnimation : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
-
             int rng = Random.Range(1, 3);
-            animator.SetInteger("WindType", rng);
-            yield return new WaitForSeconds(0.1f);
-            animator.SetInteger("WindType", 0);
+            GameObject go = Instantiate(wind[rng - 1], transform.position, Quaternion.identity, transform);
+            Destroy(go, 3f);
         }
     }
 }

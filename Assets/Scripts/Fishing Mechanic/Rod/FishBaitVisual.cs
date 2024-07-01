@@ -12,11 +12,13 @@ public class FishBaitVisual : MonoBehaviour
     [SerializeField] private float hitTime;
     [SerializeField] private float minDistance;
     [SerializeField] private float rotationOffset;
+    [SerializeField] private GameObject fishSplash;
     [Range(1, 100)]
     [SerializeField] private float fakeChance;
 
     private Vector3 target;
     private Coroutine isNearCoroutine;
+    bool paused;
     public void Initialize()
     {
         target = FishHook.instance.transform.position;
@@ -31,8 +33,8 @@ public class FishBaitVisual : MonoBehaviour
     {
         if (target == Vector3.zero) return;
         if (FishingRod.instance.state == FishingState.Idle) Destroy(gameObject);
+
         transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
-        
         if (Vector3.Distance(transform.position, target) <= minDistance)
         {
             if (isNearCoroutine == null) isNearCoroutine = StartCoroutine(IsNearHook());
@@ -48,7 +50,11 @@ public class FishBaitVisual : MonoBehaviour
     {
         float rng = Random.value;
         if (rng * 100 <= fakeChance) target = new Vector2(0, 10);
-        else FishingRod.instance.caught = true;
+        else
+        {
+            FishingRod.instance.caught = true;
+            Instantiate(fishSplash, FishHook.instance.transform.position, Quaternion.identity);
+        }
 
         yield return new WaitForSeconds(hitTime);
         FishingRod.instance.caught = false;

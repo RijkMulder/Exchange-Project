@@ -55,8 +55,8 @@ namespace Logbook
         private void SetupPage(LogbookPage page, FishType type)
         {
             page.img.sprite = type.fishUnknownSprite;
-            page.title.text = type.fishName;
-            page.description.text = type.description;
+            page.title.text = "???";
+            page.description.text = "???";
             page.count.text = 0.ToString();
             page.previousPageButton.onClick.AddListener(PreviousPage);
             page.nextPageButton.onClick.AddListener(NextPage);

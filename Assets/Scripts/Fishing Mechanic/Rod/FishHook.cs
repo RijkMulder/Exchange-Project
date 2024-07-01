@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using Fishing;
+using System.Collections.Generic;
+
 namespace FishingLine
 {
     /// <summary>

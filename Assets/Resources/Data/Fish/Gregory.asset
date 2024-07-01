@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gregory
   m_EditorClassIdentifier: 
   fishName: Gregory
-  type: 4
+  type: 5
   chipCount: 333
   fishSprite: {fileID: 21300000, guid: c89d7b6f1945cca4694ab3af8816e6c6, type: 3}
   fishUnknownSprite: {fileID: 21300000, guid: 21657d5955abdca4b813792772a8c8ea, type: 3}

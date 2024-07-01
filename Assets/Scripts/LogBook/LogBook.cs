@@ -53,9 +53,9 @@ namespace Logbook
         }
         public Sprite GetFishSprite(FishType fish)
         {
-            foreach (LogbookPage page in LogBookPageManager.instance.pages)
+            foreach (KeyValuePair<FishType, (FishStats, int)> f in fishDictionary)
             {
-                if (page.title.text == fish.fishName) return fishDictionary[fish].Item2 > 0 ? fish.fishSprite : fish.fishUnknownSprite;
+                if (f.Key.fishName == fish.fishName) return fishDictionary[fish].Item2 > 0 ? fish.fishSprite : fish.fishUnknownSprite;
             }
             return null; /* should never reach this code */
         }
