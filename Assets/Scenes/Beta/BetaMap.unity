@@ -1947,6 +1947,20 @@ MonoBehaviour:
     volume: 0.5
     pitch: 1
     source: {fileID: 0}
+  - name: MinigameMiss
+    audioClip: {fileID: 8300000, guid: d689d51e9d0eda648b20af67cdfc38dc, type: 3}
+    channel: 1
+    loop: 0
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: MinigameHit
+    audioClip: {fileID: 8300000, guid: 8084167d83d793b4ba66bc6f71903c27, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1 &2060334883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,6 +2462,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -109.9
       objectReference: {fileID: 0}
+    - target: {fileID: 6442952486884334737, guid: 2d25e336960cee74583e90bd2c109c4a,
+        type: 3}
+      propertyPath: rarities.Array.data[5].skillCheckHitDegrees
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6777273530717514032, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2496,7 +2515,7 @@ PrefabInstance:
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
       propertyPath: m_AnimatedTiles.Array.data[1].second.m_AnimationSpeed
-      value: 2.5000002
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7925503103497219491, guid: 2d25e336960cee74583e90bd2c109c4a,
         type: 3}
@@ -4053,7 +4072,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 139053891}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6984381259292924137, guid: e460bd24d86acaa42853509e7498a954, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e460bd24d86acaa42853509e7498a954, type: 3}

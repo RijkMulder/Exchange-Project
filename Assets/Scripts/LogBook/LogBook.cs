@@ -44,8 +44,8 @@ namespace Logbook
             // update page
             foreach (LogbookPage page in LogBookPageManager.instance.pages)
             {
-                if (page.title == null) continue;
-                if (page.title.text == key.fishName)
+                if (page.type == null) continue;
+                if (page.type == key)
                 {
                     page.UpdatePage(key, newItem.Item2, stats);
                 }

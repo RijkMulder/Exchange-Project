@@ -133,6 +133,8 @@ namespace Fishing.Minigame
         }
         private void Hit(ESkillCheckType type)
         {
+            AudioManager.Instance.Play("MinigameHit");
+
             petals[currentRarity.hitAmnt - hitAmntRemain].SetState(petals[0].green);
             hitAmntRemain--;
             EventManager.OnSpinnerHit(hitAmntRemain);
@@ -150,6 +152,7 @@ namespace Fishing.Minigame
         }
         private void Miss(int amnt = 0)
         {
+            AudioManager.Instance.Play("MinigameMiss");
             if (amnt != 0) misses = 1;
             if (missCoroutine == null)missCoroutine = StartCoroutine(MissCoroutine());
         }

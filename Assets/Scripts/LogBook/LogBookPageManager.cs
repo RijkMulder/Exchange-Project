@@ -60,6 +60,7 @@ namespace Logbook
             page.count.text = 0.ToString();
             page.previousPageButton.onClick.AddListener(PreviousPage);
             page.nextPageButton.onClick.AddListener(NextPage);
+            page.type = type;
             pages.Add(page);
         }
         public void NextPage()

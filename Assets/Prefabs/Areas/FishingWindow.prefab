@@ -263,7 +263,6 @@ GameObject:
   - component: {fileID: 5966282646989076350}
   - component: {fileID: 413719770278746901}
   - component: {fileID: 4863541217122670915}
-  - component: {fileID: 3345253236640360964}
   m_Layer: 0
   m_Name: Wind
   m_TagString: Untagged
@@ -360,20 +359,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3345253236640360964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539638466602673423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed58aaa5ecb79994196a5087469bf07d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minWaitTime: 5
-  maxWaitTime: 10
 --- !u!1 &827437321835319200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,7 +2513,6 @@ GameObject:
   - component: {fileID: 6619038373363413111}
   - component: {fileID: 2022826543159420361}
   - component: {fileID: 865027399973038825}
-  - component: {fileID: 6410298278429201256}
   m_Layer: 0
   m_Name: Wind (1)
   m_TagString: Untagged
@@ -2625,20 +2609,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6410298278429201256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2539217261280404055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed58aaa5ecb79994196a5087469bf07d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minWaitTime: 5
-  maxWaitTime: 10
 --- !u!1 &3042399595594192372
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,7 +4695,6 @@ GameObject:
   - component: {fileID: 1706459099453137480}
   - component: {fileID: 1772801395050072674}
   - component: {fileID: 177781509973952563}
-  - component: {fileID: 3421148537285023264}
   m_Layer: 0
   m_Name: Wind (3)
   m_TagString: Untagged
@@ -4822,20 +4791,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3421148537285023264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5675946573759812917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed58aaa5ecb79994196a5087469bf07d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minWaitTime: 5
-  maxWaitTime: 10
 --- !u!1 &5868638679766630458
 GameObject:
   m_ObjectHideFlags: 0
@@ -4883,7 +4838,6 @@ GameObject:
   - component: {fileID: 2074605957420988070}
   - component: {fileID: 5272731260124798712}
   - component: {fileID: 6091811024418287720}
-  - component: {fileID: 8703811341250516595}
   m_Layer: 0
   m_Name: Wind (2)
   m_TagString: Untagged
@@ -4980,20 +4934,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8703811341250516595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5895095750590340694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed58aaa5ecb79994196a5087469bf07d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minWaitTime: 5
-  maxWaitTime: 10
 --- !u!1 &6045643797551868491
 GameObject:
   m_ObjectHideFlags: 0
@@ -6198,7 +6138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 32.5, y: 0}
+  m_AnchoredPosition: {x: 42.9, y: -1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1072730845995926265
@@ -6311,6 +6251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba017b9ac0a3c24c8f6d304cfd58fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barrelSprites: []
+  fishUpdateAmnt: 0
+  barrelImg: {fileID: 0}
 --- !u!1 &8302518239032945180
 GameObject:
   m_ObjectHideFlags: 0
@@ -8046,7 +7989,7 @@ Tilemap:
       - {fileID: 475806399, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: -581906228, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: 1337139000, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
-      m_AnimationSpeed: 2.5
+      m_AnimationSpeed: 2.5000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 6, y: -5, z: 0}
@@ -8345,7 +8288,7 @@ Tilemap:
       - {fileID: -754010298, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: -879509458, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: 485149445, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
-      m_AnimationSpeed: 2.5000002
+      m_AnimationSpeed: 2.5
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -4, y: -2, z: 0}
@@ -8552,7 +8495,7 @@ Tilemap:
       - {fileID: 629949314, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: 319605173, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
       - {fileID: -608734368, guid: fb5a82b1f233b44ab934cb17882550c8, type: 3}
-      m_AnimationSpeed: 2.5
+      m_AnimationSpeed: 2.5000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 9, y: 0, z: 0}

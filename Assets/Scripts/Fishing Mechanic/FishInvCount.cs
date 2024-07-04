@@ -10,6 +10,7 @@ public class FishInvCount : MonoBehaviour
 {
     private TMP_Text text;
     [SerializeField] private Sprite[] barrelSprites;
+    private Sprite normalSprite;
     [SerializeField] private int fishUpdateAmnt;
     [SerializeField] private Image barrelImg;
     private void Start()
@@ -17,10 +18,12 @@ public class FishInvCount : MonoBehaviour
         text = GetComponent<TMP_Text>();
         EventManager.FishCaught += UpdateText;
         EventManager.DayStart += ResetString;
+        normalSprite = barrelImg.sprite;
     }
     private void ResetString(int d)
     {
         text.text = "X 0";
+        barrelImg.sprite = normalSprite;
     }
     private void UpdateText(FishType type)
     {
@@ -41,6 +44,7 @@ public class FishInvCount : MonoBehaviour
 
             // set sprite
             barrelImg.sprite = barrelSprites[index];
+            barrelImg.SetNativeSize();
         }
         text.text = $"X {amnt}";
     }

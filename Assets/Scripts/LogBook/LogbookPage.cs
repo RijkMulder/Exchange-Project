@@ -18,6 +18,7 @@ namespace Logbook
         public StatsSlider tastySlider;
         public StatsSlider sizeSlider;
         public StatsSlider fishabilitySlider;
+        public FishType type;
 
         public void UpdatePage(FishType fish, int amnt, FishStats stats)
         {

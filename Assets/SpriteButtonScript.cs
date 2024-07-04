@@ -1,6 +1,8 @@
+using Logbook;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UpgradeShop;
 
 public class SpriteButtonScript : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class SpriteButtonScript : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (UpgradeShopScript.Instance.shop.activeInHierarchy) return;
         if (setActive)
         {
             toSetActive.SetActive(true);
@@ -21,7 +24,8 @@ public class SpriteButtonScript : MonoBehaviour
         }
         if (openUpgradeShop)
         {
-            UpgradeShop.UpgradeShopScript.Instance.SetActive();
+            if (LogBook.instance.gameObject.activeInHierarchy) return;
+            UpgradeShopScript.Instance.SetActive();
         }
     }
 }
