@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a980c5530bbd5c49b7a90ce8d81c12e, type: 3}
   m_Name: Reeler upgrade 4
   m_EditorClassIdentifier: 
-  coins: 4000
+  coins: 3000
   hitDegrees: 5a0000003c0000003c000000370000002d0000002d000000
